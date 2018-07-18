@@ -46,7 +46,12 @@ function flat(array) {
     return result;
 }
 
-const array3 = [[[1], 2],[1, 8], 3];
+const array3 = [
+    [
+        [1], 2
+    ],
+    [1, 8], 3
+];
 const flatArray = flat(array3);
 console.log('flatArray', flatArray);
 
@@ -67,7 +72,7 @@ function sum(array) {
     let result = 0;
 
     for (let i = 0; i < array.length; i++) {
-        result = array[i] + result; 
+        result = array[i] + result;
     }
 
     return result;
@@ -89,7 +94,7 @@ console.log('total2', total2);
 const total3 = array5.reduce((acc, n) => acc * n, 1);
 console.log('total3', total3);
 
-Array.prototype.reduce2 = function(cb, initial) {
+Array.prototype.reduce2 = function (cb, initial) {
     let acc = initial;
     for (let i = 0; i < this.length; i++) {
         acc = cb(acc, this[i]);
@@ -100,3 +105,9 @@ Array.prototype.reduce2 = function(cb, initial) {
 const a = [3, 8, 5];
 console.log('a sum', a.reduce2((acc, n) => acc + n, 0));
 
+function minReduce(array) {
+    return array.reduce((acc, n) => acc === undefined ? n : acc > n ? n : acc, undefined);
+}
+
+const b = [4, 8, 3];
+console.log('b min', minReduce(b));
