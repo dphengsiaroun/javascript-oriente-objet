@@ -108,19 +108,11 @@ console.log('a sum', a.reduce2((acc, n) => acc + n, 0));
 
 const b = [4, 8, 3];
 console.log('b min', b.min());
-console.log('b max', b.reduce((acc, n) => acc === undefined ? n : acc < n ? n : acc, undefined));
-
-
+console.log('b max', b.max());
 console.log('b mean', b.mean());
 
-function weightedArithmeticMean(array) {
-    const weightedArray = array.map(n => n[0] * n[1]);
-    const sum = weightedArray.reduce((acc, n) => acc + n, 0);
-    const coefs = array.map(n => n[0]); 
-    const sumCoef = coefs.reduce((acc, n) => acc + n, 0);
-    return sum / sumCoef;
-}
+
 
 const c = [[1, 11], [1, 8], [2, 13]];
-console.log('c weighted arithmetic mean', weightedArithmeticMean(c));
+console.log('c weighted arithmetic mean', c.weightedArithmeticMean());
 
