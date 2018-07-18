@@ -104,14 +104,19 @@ try {
     console.log('test ok');
 } 
 
-
-const b = [4, 8, 3];
+const b = [3, 5];
 console.log('b min', b.min());
 console.log('b max', b.max());
 console.log('b mean', b.mean());
-
+console.log('b geometric mean', b.geometricMean());
 
 
 const c = [[1, 11], [1, 8], [2, 13]];
 console.log('c weighted arithmetic mean', c.weightedArithmeticMean());
 
+function isEven(n) {
+    return n % 2 === 0;
+}
+
+console.log('3 isEven', isEven(3));
+console.log('4 isEven', isEven(4));

@@ -33,3 +33,7 @@ Array.prototype.max = function () {
 Array.prototype.weightedArithmeticMean = function () {
     return this.map(n => n[0] * n[1]).sum() / this.map(n => n[0]).sum();
 }
+
+Array.prototype.geometricMean = function () {
+    return Math.pow(this.reduce((acc, n) => acc * n , 1), 1 / this.length) ;
+}
