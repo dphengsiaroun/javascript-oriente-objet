@@ -1,3 +1,19 @@
+Array.prototype.reduce2 = function (cb, initial) {
+    if (arguments.length === 1 && this.length === 0) {
+        throw new Error('Reduce2 needs initial value on empty array');
+    }
+    let start = 0;
+    let acc = initial;
+    if (arguments.length === 1) {
+        start = 1;
+        acc = this[0];
+    }
+    for (let i = start; i < this.length; i++) {
+        acc = cb(acc, this[i]);
+    }
+    return acc;
+}
+
 Array.prototype.sum = function() {
     return this.reduce((acc, n) => acc + n, 0);
 }
