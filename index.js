@@ -117,5 +117,5 @@ Array.prototype.mean = function () {
     return this.reduce((acc, n) => acc + n, 0) / this.length;
 }
 
-console.log('b average', b.mean());
+console.log('b mean', b.mean());
  
