@@ -110,6 +110,7 @@ console.log('b max', b.max());
 console.log('b mean', b.mean());
 console.log('b geometric mean', b.geometricMean());
 
+console.log([[1, 11], [1, 8], [2, 13]].min((n) => (n[0]**2 + n[1]**2)**0.5));
 
 const c = [[1, 11], [1, 8], [2, 13]];
 console.log('c weighted arithmetic mean', c.weightedArithmeticMean());
@@ -120,3 +121,4 @@ function isEven(n) {
 
 console.log('3 isEven', isEven(3));
 console.log('4 isEven', isEven(4));
+

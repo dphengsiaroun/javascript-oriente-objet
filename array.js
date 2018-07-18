@@ -22,8 +22,8 @@ Array.prototype.mean = function () {
     return this.reduce((acc, n) => acc + n, 0) / this.length;
 }
 
-Array.prototype.min = function () {
-    return this.reduce((acc, n) => acc === undefined ? n : acc > n ? n : acc, undefined);
+Array.prototype.min = function (cb = n => n) {
+    return this[this.map(cb).reduce((acc, n, i) => acc.min === undefined || acc.min > n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
 }
 
 Array.prototype.max = function () {
