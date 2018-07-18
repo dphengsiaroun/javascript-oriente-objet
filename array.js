@@ -1,3 +1,17 @@
+function compare(a, b) {
+    if (a > b) {
+        return 1;
+    } else if (a < b) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
+module.exports = {
+    compare,
+};
+
 Array.prototype.reduce2 = function (cb, initial) {
     if (arguments.length === 1 && this.length === 0) {
         throw new Error('Reduce2 needs initial value on empty array');
@@ -47,6 +61,18 @@ Array.prototype.min = function (cb = n => n) {
         acc.min === undefined || acc.min > n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
 }
 
+Array.prototype.min2 = function (cb = compare) {
+    return this.reduce((acc, n) => {
+        if (acc === undefined) {
+            return this[0];
+        }
+        if (cb(acc, n) === 1) {
+            return n;
+        }
+        return acc;
+    }, undefined);
+}
+
 Array.prototype.max = function (cb = n => n) {
     return this[this.map(cb).reduce((acc, n, i) => 
         acc.min === undefined || acc.min < n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
@@ -77,7 +103,7 @@ Array.prototype.sort2 = function (cb) {
     let a = this;
 
     while (a.length > 0) {
-        const min = a.min(cb);
+        const min = a.min2(cb);
         console.log('min', min);
         result.push(min);
         a = a.filter(n => n !== min);

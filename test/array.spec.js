@@ -1,11 +1,15 @@
 const assert = require('assert');
-const { compare } = require('../function');
-require('../array');
+const { compare } = require('../array');
 
 describe('Array should', () => {
     it('min', () => {
         const b = [3, 5];
         assert.equal(b.min(), 3);
+    });
+
+    it('min2', () => {
+        const b = [3, 5, 2, 8];
+        assert.equal(b.min2(), 2);
     });
 
     it('max', () => {
@@ -31,6 +35,11 @@ describe('Array should', () => {
     it('min with callback', () => {
         const b = [[1, 11], [1, 8], [2, 13]];
         assert.deepStrictEqual(b.min(n => (n[0]**2 + n[1]**2)**0.5), [1, 8]);
+    });
+
+    it('min2 with callback', () => {
+        const b = [[1, 11], [1, 8], [2, 13]];
+        assert.deepStrictEqual(b.min2((a, b) => compare(a[1], b[1])), [1, 8]);
     });
 
     it('max with callback', () => {
@@ -93,7 +102,7 @@ describe('Array should', () => {
             [3, 'Jean-Louis', 35],
             [4, 'Yannis', 25],
         ];
-        assert.deepStrictEqual(b.sort2(r => r[1]), [
+        assert.deepStrictEqual(b.sort2((a, b) => compare(a[1], b[1])), [
             [1, 'Dany', 12],
             [3, 'Jean-Louis', 35],
             [2, 'Nadia', 15],

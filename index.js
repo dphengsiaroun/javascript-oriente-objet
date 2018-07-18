@@ -1,8 +1,7 @@
 const getMinArray = require('./getMinArray');
 const getSortedArray = require('./getSortedArray');
-require('./array');
 
-const { compare } = require('./function');
+const { compare } = require('./array');
 
 const array = [6, 3, 18, 10, 48, 2];
 
