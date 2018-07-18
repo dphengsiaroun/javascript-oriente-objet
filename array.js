@@ -64,7 +64,7 @@ Array.prototype.flat = function () {
     let result = [];
     for (let i = 0; i < this.length; i++) {
         if (this[i] instanceof Array) {
-            result = result.concat(flat(this[i]));
+            result = result.concat(this[i].flat());
         } else {
             result.push(this[i]);
         }
@@ -72,15 +72,15 @@ Array.prototype.flat = function () {
     return result;
 }
 
-
-function flat(array) {
+Array.prototype.sort2 = function () {
     let result = [];
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] instanceof Array) {
-            result = result.concat(flat(array[i]));
-        } else {
-            result.push(array[i]);
-        }
+    let a = this;
+
+    while (a.length > 0) {
+        const min = a.min();
+        result.push(min);
+        a = a.filter(n => n !== min);
     }
+    
     return result;
 }
