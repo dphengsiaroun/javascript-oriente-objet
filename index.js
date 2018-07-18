@@ -1,5 +1,6 @@
 const getMinArray = require('./getMinArray');
 const getSortedArray = require('./getSortedArray');
+require('./array');
 
 function getReversedSortedArray(array) {
     let sortedArray = getSortedArray(array);
@@ -105,17 +106,21 @@ Array.prototype.reduce2 = function (cb, initial) {
 const a = [3, 8, 5];
 console.log('a sum', a.reduce2((acc, n) => acc + n, 0));
 
-function minReduce(array) {
-    return array.reduce((acc, n) => acc === undefined ? n : acc > n ? n : acc, undefined);
-}
-
 const b = [4, 8, 3];
-console.log('b min', minReduce(b));
+console.log('b min', b.min());
 console.log('b max', b.reduce((acc, n) => acc === undefined ? n : acc < n ? n : acc, undefined));
 
-Array.prototype.mean = function () {
-    return this.reduce((acc, n) => acc + n, 0) / this.length;
-}
 
 console.log('b mean', b.mean());
- 
+
+function weightedArithmeticMean(array) {
+    const weightedArray = array.map(n => n[0] * n[1]);
+    const sum = weightedArray.reduce((acc, n) => acc + n, 0);
+    const coefs = array.map(n => n[0]); 
+    const sumCoef = coefs.reduce((acc, n) => acc + n, 0);
+    return sum / sumCoef;
+}
+
+const c = [[1, 11], [1, 8], [2, 13]];
+console.log('c weighted arithmetic mean', weightedArithmeticMean(c));
+
