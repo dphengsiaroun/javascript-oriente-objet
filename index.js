@@ -2,6 +2,8 @@ const getMinArray = require('./getMinArray');
 const getSortedArray = require('./getSortedArray');
 require('./array');
 
+const { compare } = require('./function');
+
 const array = [6, 3, 18, 10, 48, 2];
 
 const minimum = getMinArray(array);
@@ -56,3 +58,37 @@ function isEven(n) {
 
 console.log('3 isEven', isEven(3));
 console.log('4 isEven', isEven(4));
+
+const table = [
+    [1, 'Dany', 12],
+    [2, 'Nadia', 15],
+    [3, 'Jean-Louis', 35],
+    [4, 'Yannis', 25],
+];
+
+// get the sum of point for point > 20
+const result = table.map(r => r[2]).filter(p => p > 20).sum();
+console.log('result', result);
+
+// get all the name with more 5 characters
+const result2 = table.map(r => r[1]).filter(n => n.length > 5);
+console.log('result2', result2);
+
+const result3 = table.map(r => r[1]).filter(n => n.length < 5);
+console.log('result3', result3);
+
+// get the sum of point of people with D in there firstname
+const result4 = table.filter(r => r[1].match(/d/i)).map(r => r[2]).sum();
+console.log('result4', result4);
+
+const result5 = table.filter(r => r[1].match(/s/i)).map(r => r[2]).max();
+console.log('result5', result5);
+
+const result6 = table.map(r => r[1]).sort();
+console.log('result6', result6);
+
+const result7 = table.sort((a, b) => compare(a[1], b[1]));
+console.log('result7', result7);
+
+
+

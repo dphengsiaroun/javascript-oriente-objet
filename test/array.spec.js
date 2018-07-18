@@ -80,5 +80,5 @@ describe('Array should', () => {
         const b = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
         assert.deepStrictEqual(b.filter2(n => n.length > 6), ['exuberant', 'destruction', 'present']);
     });
-    
+
 });
