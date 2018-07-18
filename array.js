@@ -22,6 +22,14 @@ Array.prototype.map2 = function (cb) {
     return result;
 }
 
+Array.prototype.reverse2 = function () {
+    return this.reduce((acc, n) => acc.unshift(n) && acc, []);
+}
+
+Array.prototype.filter2 = function (cb) {
+    return this.reduce((acc, n) => cb(n) ? acc.push(n) && acc : acc, []);
+}
+
 Array.prototype.sum = function() {
     return this.reduce((acc, n) => acc + n, 0);
 }

@@ -53,6 +53,11 @@ describe('Array should', () => {
         assert.deepStrictEqual(b.map2(n => n * 2), [6, 16, 10]);
     });
 
+    it('reverse2', () => {
+        const b = [3, 8, 5];
+        assert.deepStrictEqual(b.reverse2(), [5, 8, 3]);
+    });
+
     it('flat', () => {
         const b = [[[1], 2],[1, 8], 3];
         assert.deepStrictEqual(b.flat(), [1, 2, 1, 8, 3]);
@@ -64,6 +69,11 @@ describe('Array should', () => {
         } catch (e) {
             assert.equal(e.message, 'Reduce2 needs initial value on empty array');
         }
+    });
+
+    it('filter2', () => {
+        const b = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+        assert.deepStrictEqual(b.filter2(n => n.length > 6), ['exuberant', 'destruction', 'present']);
     });
     
 });

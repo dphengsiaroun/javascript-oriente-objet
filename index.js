@@ -1,9 +1,6 @@
 const getMinArray = require('./getMinArray');
 const getSortedArray = require('./getSortedArray');
 require('./array');
-const {
-    getReversedSortedArray,
-} = require('./function');
 
 const array = [6, 3, 18, 10, 48, 2];
 
@@ -12,9 +9,6 @@ console.log('minimum', minimum);
 
 const sortedArray = getSortedArray(array);
 console.log('sortedArray', sortedArray);
-
-const reversedSortedArray = getReversedSortedArray(array);
-console.log('reversedSortedArray', reversedSortedArray);
 
 function reverse(array) {
     const result = [];
