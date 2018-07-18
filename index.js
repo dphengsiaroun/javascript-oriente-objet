@@ -73,13 +73,30 @@ function sum(array) {
     return result;
 }
 
+function sumReduce(array) {
+    return array.reduce((acc, n) => acc + n, 0);
+}
+
 const array5 = [3, 6, 10];
 const total = sum(array5);
 console.log('total', total);
+const totalReducer = sumReduce(array5);
+console.log('totalReducer', totalReducer);
 
 const total2 = array5.reduce((acc, n) => acc + n, 0);
 console.log('total2', total2);
 
 const total3 = array5.reduce((acc, n) => acc * n, 1);
 console.log('total3', total3);
+
+Array.prototype.reduce2 = function(cb, initial) {
+    let acc = initial;
+    for (let i = 0; i < this.length; i++) {
+        acc = cb(acc, this[i]);
+    }
+    return acc;
+}
+
+const a = [3, 8, 5];
+console.log('a sum', a.reduce2((acc, n) => acc + n, 0));
 
