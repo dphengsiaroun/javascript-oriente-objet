@@ -23,11 +23,13 @@ Array.prototype.mean = function () {
 }
 
 Array.prototype.min = function (cb = n => n) {
-    return this[this.map(cb).reduce((acc, n, i) => acc.min === undefined || acc.min > n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
+    return this[this.map(cb).reduce((acc, n, i) => 
+        acc.min === undefined || acc.min > n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
 }
 
-Array.prototype.max = function () {
-    return this.reduce((acc, n) => acc === undefined ? n : acc < n ? n : acc, undefined);
+Array.prototype.max = function (cb = n => n) {
+    return this[this.map(cb).reduce((acc, n, i) => 
+        acc.min === undefined || acc.min < n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
 }
 
 Array.prototype.weightedArithmeticMean = function () {
