@@ -87,7 +87,7 @@ console.log('result5', result5);
 const result6 = table.map(r => r[1]).sort();
 console.log('result6', result6);
 
-const result7 = table.sort((a, b) => compare(a[1], b[1]));
+const result7 = table.sort2((a, b) => compare(a[1], b[1]));
 console.log('result7', result7);
 
 

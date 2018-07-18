@@ -72,12 +72,13 @@ Array.prototype.flat = function () {
     return result;
 }
 
-Array.prototype.sort2 = function () {
+Array.prototype.sort2 = function (cb) {
     let result = [];
     let a = this;
 
     while (a.length > 0) {
-        const min = a.min();
+        const min = a.min(cb);
+        console.log('min', min);
         result.push(min);
         a = a.filter(n => n !== min);
     }

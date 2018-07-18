@@ -1,5 +1,5 @@
 const assert = require('assert');
-
+const { compare } = require('../function');
 require('../array');
 
 describe('Array should', () => {
@@ -84,6 +84,21 @@ describe('Array should', () => {
     it('sort2', () => {
         const b = [12, 2, 8, 20, 7];
         assert.deepStrictEqual(b.sort2(), [2, 7, 8, 12, 20]);
+    });
+
+    it('sort2 on table', () => {
+        const b = [
+            [1, 'Dany', 12],
+            [2, 'Nadia', 15],
+            [3, 'Jean-Louis', 35],
+            [4, 'Yannis', 25],
+        ];
+        assert.deepStrictEqual(b.sort2(r => r[1]), [
+            [1, 'Dany', 12],
+            [3, 'Jean-Louis', 35],
+            [2, 'Nadia', 15],
+            [4, 'Yannis', 25],
+        ]);
     });
 
 });
