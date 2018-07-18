@@ -10,21 +10,6 @@ function getReversedSortedArray(array) {
     return result;
 }
 
-function flat(array) {
-    let result = [];
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] instanceof Array) {
-            result = result.concat(flat(array[i]));
-        } else {
-            result.push(array[i]);
-        }
-    }
-
-    return result;
-}
-
-
 module.exports = {
     getReversedSortedArray,
-    flat
 };

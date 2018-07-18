@@ -3,7 +3,6 @@ const getSortedArray = require('./getSortedArray');
 require('./array');
 const {
     getReversedSortedArray,
-    flat
 } = require('./function');
 
 const array = [6, 3, 18, 10, 48, 2];
@@ -16,10 +15,6 @@ console.log('sortedArray', sortedArray);
 
 const reversedSortedArray = getReversedSortedArray(array);
 console.log('reversedSortedArray', reversedSortedArray);
-
-const array3 = [[[1], 2],[1, 8], 3];
-const flatArray = flat(array3);
-console.log('flatArray', flatArray);
 
 function reverse(array) {
     const result = [];
@@ -59,12 +54,6 @@ console.log('total2', total2);
 
 const total3 = array5.reduce((acc, n) => acc * n, 1);
 console.log('total3', total3);
-
-try {
-    [].reduce2((acc, n) => acc + n);
-} catch (e) {
-    console.log('test ok');
-}
 
 
 function isEven(n) {

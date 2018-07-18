@@ -47,3 +47,28 @@ Array.prototype.weightedArithmeticMean = function () {
 Array.prototype.geometricMean = function () {
     return Math.pow(this.reduce((acc, n) => acc * n , 1), 1 / this.length) ;
 }
+
+Array.prototype.flat = function () {
+    let result = [];
+    for (let i = 0; i < this.length; i++) {
+        if (this[i] instanceof Array) {
+            result = result.concat(flat(this[i]));
+        } else {
+            result.push(this[i]);
+        }
+    }
+    return result;
+}
+
+
+function flat(array) {
+    let result = [];
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] instanceof Array) {
+            result = result.concat(flat(array[i]));
+        } else {
+            result.push(array[i]);
+        }
+    }
+    return result;
+}
