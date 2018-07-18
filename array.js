@@ -14,6 +14,14 @@ Array.prototype.reduce2 = function (cb, initial) {
     return acc;
 }
 
+Array.prototype.map2 = function (cb) {
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+        result.push(cb(this[i]));
+    }
+    return result;
+}
+
 Array.prototype.sum = function() {
     return this.reduce((acc, n) => acc + n, 0);
 }

@@ -1,5 +1,7 @@
 const assert = require('assert');
-
+const {
+    flat
+} = require('../function');
 require('../array');
 
 describe('Mes tests', () => {
@@ -46,6 +48,16 @@ describe('Mes tests', () => {
     it('should get 16', () => {
         const b = [3, 8, 5];
         assert.equal(b.reduce2((acc, n) => acc + n, 0), 16);
+    });
+
+    it('should get [6, 16, 10]', () => {
+        const b = [3, 8, 5];
+        assert.deepStrictEqual(b.map2(n => n * 2), [6, 16, 10]);
+    });
+
+    it('should get [1, 2, 1, 8, 3]', () => {
+        const b = [[[1], 2],[1, 8], 3];
+        assert.deepStrictEqual(flat(b), [1, 2, 1, 8, 3]);
     });
     
 });

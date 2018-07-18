@@ -1,16 +1,10 @@
 const getMinArray = require('./getMinArray');
 const getSortedArray = require('./getSortedArray');
 require('./array');
-
-function getReversedSortedArray(array) {
-    let sortedArray = getSortedArray(array);
-    const result = [];
-    for (let i = 0; i < sortedArray.length; i++) {
-        result[i] = sortedArray[sortedArray.length - 1 - i];
-    }
-
-    return result;
-}
+const {
+    getReversedSortedArray,
+    flat
+} = require('./function');
 
 const array = [6, 3, 18, 10, 48, 2];
 
@@ -23,36 +17,7 @@ console.log('sortedArray', sortedArray);
 const reversedSortedArray = getReversedSortedArray(array);
 console.log('reversedSortedArray', reversedSortedArray);
 
-function newArray(array, cb) {
-    let result = [];
-    for (let i = 0; i < array.length; i++) {
-        result[i] = cb(array[i]);
-    }
-    return result;
-}
-
-const array2 = newArray(array, n => n * 3);
-console.log('array2', array2);
-
-function flat(array) {
-    let result = [];
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] instanceof Array) {
-            result = result.concat(flat(array[i]));
-        } else {
-            result.push(array[i]);
-        }
-    }
-
-    return result;
-}
-
-const array3 = [
-    [
-        [1], 2
-    ],
-    [1, 8], 3
-];
+const array3 = [[[1], 2],[1, 8], 3];
 const flatArray = flat(array3);
 console.log('flatArray', flatArray);
 
@@ -99,7 +64,7 @@ try {
     [].reduce2((acc, n) => acc + n);
 } catch (e) {
     console.log('test ok');
-} 
+}
 
 
 function isEven(n) {
@@ -108,4 +73,3 @@ function isEven(n) {
 
 console.log('3 isEven', isEven(3));
 console.log('4 isEven', isEven(4));
-
