@@ -110,4 +110,19 @@ describe('Array should', () => {
         ]);
     });
 
+    it('sort3 on table', () => {
+        const b = [
+            [1, 'Dany', 12],
+            [2, 'Nadia', 15],
+            [3, 'Jean-Louis', 35],
+            [4, 'Yannis', 25],
+        ];
+        assert.deepStrictEqual(b.sort3((a, b) => compare(a[1], b[1])), [
+            [1, 'Dany', 12],
+            [3, 'Jean-Louis', 35],
+            [2, 'Nadia', 15],
+            [4, 'Yannis', 25],
+        ]);
+    });
+
 });

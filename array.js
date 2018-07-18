@@ -104,10 +104,19 @@ Array.prototype.sort2 = function (cb) {
 
     while (a.length > 0) {
         const min = a.min2(cb);
-        console.log('min', min);
         result.push(min);
         a = a.filter(n => n !== min);
     }
     
     return result;
+}
+
+Array.prototype.sort3 = function (cb) {
+    if (this.length === 0) {
+        return this;
+    }
+    const min = this.min2(cb);
+    const remaining = this.filter(n => n !== min).sort3(cb);
+    remaining.unshift(min);
+    return remaining;
 }
