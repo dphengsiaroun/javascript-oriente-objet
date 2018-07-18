@@ -95,25 +95,12 @@ console.log('total2', total2);
 const total3 = array5.reduce((acc, n) => acc * n, 1);
 console.log('total3', total3);
 
-const a = [3, 8, 5];
-console.log('a sum', a.reduce2((acc, n) => acc + n, 0));
-
 try {
     [].reduce2((acc, n) => acc + n);
 } catch (e) {
     console.log('test ok');
 } 
 
-const b = [3, 5];
-console.log('b min', b.min());
-console.log('b max', b.max());
-console.log('b mean', b.mean());
-console.log('b geometric mean', b.geometricMean());
-
-
-
-const c = [[1, 11], [1, 8], [2, 13]];
-console.log('c weighted arithmetic mean', c.weightedArithmeticMean());
 
 function isEven(n) {
     return n % 2 === 0;
