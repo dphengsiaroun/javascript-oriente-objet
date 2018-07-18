@@ -111,3 +111,4 @@ function minReduce(array) {
 
 const b = [4, 8, 3];
 console.log('b min', minReduce(b));
+console.log('b max', b.reduce((acc, n) => acc === undefined ? n : acc < n ? n : acc, undefined));
