@@ -53,6 +53,11 @@ describe('Array should', () => {
         assert.deepStrictEqual(b.map2(n => n * 2), [6, 16, 10]);
     });
 
+    it('map3', () => {
+        const b = [3, 8, 5];
+        assert.deepStrictEqual(b.map3(n => n * 2), [6, 16, 10]);
+    });
+
     it('reverse2', () => {
         const b = [3, 8, 5];
         assert.deepStrictEqual(b.reverse2(), [5, 8, 3]);
