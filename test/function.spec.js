@@ -1,7 +1,8 @@
 const assert = require('assert');
 
 const {
-    getReversedSortedArray
+    getReversedSortedArray,
+    isEven,
 } = require('../function');
 
 describe('Function', () => {
@@ -10,9 +11,8 @@ describe('Function', () => {
         assert.deepStrictEqual(getReversedSortedArray(b), [48, 18, 10, 6, 3, 2]);
     });
 
-    // it('isEven', () => {
-    //     const b = [6, 3, 18, 10, 48, 2];
-    //     assert.deepStrictEqual(getReversedSortedArray(b), [48, 18, 10, 6, 3, 2]);
-    // });
+    it('isEven', () => {
+        assert.deepStrictEqual(isEven(3), false);
+    });
 
 });
