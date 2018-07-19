@@ -1,6 +1,7 @@
 const assert = require('assert');
 const {
-    Complex
+    Complex,
+    deg2Rad
 } = require('../complex');
 
 describe.only('Complex', () => {
@@ -10,6 +11,11 @@ describe.only('Complex', () => {
         assert.deepStrictEqual(a.multiply(b), new Complex(-1, 7));
     });
 
+    it('should convert to polar', () => {
+        const a = Complex.newFromPolar(5, deg2Rad(10));
+        const b = Complex.newFromPolar(2, deg2Rad(20));
+        assert.equal(a.multiply(b).equals(Complex.newFromPolar(10, deg2Rad(30))), true);
+    });
 });
 
 
