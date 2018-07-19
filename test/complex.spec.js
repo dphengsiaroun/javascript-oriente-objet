@@ -4,7 +4,7 @@ const {
     deg2Rad
 } = require('../complex');
 
-describe.only('Complex', () => {
+describe('Complex', () => {
     it('should multiply', () => {
         const a = new Complex(3, 4);
         const b = new Complex(1, 1);
