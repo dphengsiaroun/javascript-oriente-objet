@@ -10,6 +10,12 @@ function getReversedSortedArray(array) {
     return result;
 }
 
+function isEven(n) {
+    return n % 2 === 0;
+}
+
+
 module.exports = {
     getReversedSortedArray,
+    isEven
 };

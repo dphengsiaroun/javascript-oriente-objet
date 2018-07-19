@@ -56,12 +56,7 @@ Array.prototype.mean = function () {
     return this.reduce((acc, n) => acc + n, 0) / this.length;
 }
 
-Array.prototype.min = function (cb = n => n) {
-    return this[this.map(cb).reduce((acc, n, i) => 
-        acc.min === undefined || acc.min > n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
-}
-
-Array.prototype.min2 = function (cb = compare) {
+Array.prototype.min = function (cb = compare) {
     return this.reduce((acc, n) => {
         if (acc === undefined) {
             return this[0];
@@ -72,6 +67,12 @@ Array.prototype.min2 = function (cb = compare) {
         return acc;
     }, undefined);
 }
+
+Array.prototype.min2 = function (cb = n => n) {
+    return this[this.map(cb).reduce((acc, n, i) => 
+        acc.min === undefined || acc.min > n ? {min: n, index: i} : acc, { min: undefined, index: -1}).index];
+}
+
 
 Array.prototype.max = function (cb = n => n) {
     return this[this.map(cb).reduce((acc, n, i) => 
@@ -103,7 +104,7 @@ Array.prototype.sort2 = function (cb) {
     let a = this;
 
     while (a.length > 0) {
-        const min = a.min2(cb);
+        const min = a.min(cb);
         result.push(min);
         a = a.filter(n => n !== min);
     }
@@ -115,7 +116,7 @@ Array.prototype.sort3 = function (cb) {
     if (this.length === 0) {
         return this;
     }
-    const min = this.min2(cb);
+    const min = this.min(cb);
     const remaining = this.filter(n => n !== min).sort3(cb);
     remaining.unshift(min);
     return remaining;

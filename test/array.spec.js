@@ -34,12 +34,12 @@ describe('Array should', () => {
 
     it('min with callback', () => {
         const b = [[1, 11], [1, 8], [2, 13]];
-        assert.deepStrictEqual(b.min(n => (n[0]**2 + n[1]**2)**0.5), [1, 8]);
+        assert.deepStrictEqual(b.min((a, b) => compare(a[1], b[1])), [1, 8]);
     });
 
     it('min2 with callback', () => {
         const b = [[1, 11], [1, 8], [2, 13]];
-        assert.deepStrictEqual(b.min2((a, b) => compare(a[1], b[1])), [1, 8]);
+        assert.deepStrictEqual(b.min2(n => (n[0]**2 + n[1]**2)**0.5), [1, 8]);
     });
 
     it('max with callback', () => {
