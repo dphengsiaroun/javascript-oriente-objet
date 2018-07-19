@@ -104,6 +104,16 @@ Array.prototype.flat = function () {
     return result;
 }
 
+Array.prototype.normalize = function (m, e2) {
+    if (e2 === undefined) {
+        const mean = this.mean();
+        return this.map(n => n + m - mean);
+    }
+    const e1 = this.stdDeviation();
+    const a = this.map(n => n * (e2 / e1));
+    return a.normalize(m);
+}
+
 Array.prototype.sort2 = function (cb) {
     let result = [];
     let a = this;
