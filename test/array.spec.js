@@ -27,6 +27,16 @@ describe('Array should', () => {
         assert.equal(b.mean(), 4);
     });
 
+    it('stdDeviation', () => {
+        const b = [3, 5];
+        assert.equal(b.stdDeviation(), 1);
+    });
+
+    it('stdDeviation with 3 elements', () => {
+        const b = [3, 5, 7];
+        assert.equal(b.stdDeviation(), 1.632993161855452);
+    });
+
     it('geometricMean', () => {
         const b = [3, 5];
         assert.equal(b.geometricMean(), 3.872983346207417);
@@ -124,5 +134,26 @@ describe('Array should', () => {
             [4, 'Yannis', 25],
         ]);
     });
+
+    it('sort4', () => {
+        const b = [20, 9, 8, 5, 2];
+        assert.deepStrictEqual(b.sort4(), [2, 5, 8, 9, 20]);
+    });
+
+    it('sort4 with cb', () => {
+        const b = [[8, 5], [3, 4], [6, 2]];
+        const dist = p => (p[0]**2 + p[1]**2)**0.5;
+        assert.deepStrictEqual(b.sort4((a, b) => compare(dist(a), dist(b))), [[3, 4], [6, 2], [8, 5]]);
+    });
+
+    it('sort5', (done) => {
+        const b = [20, 9, 8, 5, 2];
+        const sort5 = b.sort5();
+        setTimeout(() => {
+            assert.deepStrictEqual(sort5, [2, 5, 8, 9, 20]);
+            done();
+        }, 100); 
+    });
+    
 
 });

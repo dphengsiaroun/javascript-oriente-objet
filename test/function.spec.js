@@ -14,5 +14,4 @@ describe('Function', () => {
     it('isEven', () => {
         assert.deepStrictEqual(isEven(3), false);
     });
-
 });

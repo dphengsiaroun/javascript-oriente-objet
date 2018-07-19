@@ -50,14 +50,6 @@ console.log('total2', total2);
 const total3 = array5.reduce((acc, n) => acc * n, 1);
 console.log('total3', total3);
 
-
-function isEven(n) {
-    return n % 2 === 0;
-}
-
-console.log('3 isEven', isEven(3));
-console.log('4 isEven', isEven(4));
-
 const table = [
     [1, 'Dany', 12],
     [2, 'Nadia', 15],

@@ -56,6 +56,11 @@ Array.prototype.mean = function () {
     return this.reduce((acc, n) => acc + n, 0) / this.length;
 }
 
+Array.prototype.stdDeviation = function () {
+    const mean = this.mean();
+    return (this.map(a => (a - mean)**2).sum() / this.length)**0.5;
+}
+
 Array.prototype.min = function (cb = compare) {
     return this.reduce((acc, n) => {
         if (acc === undefined) {
@@ -112,7 +117,8 @@ Array.prototype.sort2 = function (cb) {
     return result;
 }
 
-Array.prototype.sort3 = function (cb) {
+// Recursive way
+Array.prototype.sort3 = function (cb = compare) {
     if (this.length === 0) {
         return this;
     }
@@ -120,4 +126,30 @@ Array.prototype.sort3 = function (cb) {
     const remaining = this.filter(n => n !== min).sort3(cb);
     remaining.unshift(min);
     return remaining;
+}
+
+Array.prototype.sort4 = function (cb = compare) {
+    myWhile: while(true) {
+        // console.log('this', this);
+        for (let i = 0; i < this.length -1; i++) {
+            if (cb(this[i], this[i + 1]) === 1) {
+                const tmp = this[i];
+                this[i] = this[i + 1];
+                this[i + 1] = tmp;
+                continue myWhile;
+            }
+        }
+        break;
+    }
+    return this;
+}
+
+Array.prototype.sort5 = function (cb = compare) {
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+        setTimeout(() => {
+            result.push(this[i]);
+        }, this[i]);
+    }
+    return result;
 }
