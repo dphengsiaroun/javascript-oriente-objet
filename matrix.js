@@ -29,7 +29,6 @@ class Matrix {
             result.push(r);
         }
 
-        console.log('result', result);
         return result;
     }
 
@@ -43,7 +42,6 @@ class Matrix {
         const result = new Array(sizeA[0]).fill(0)
             .map((r, i) => new Array(sizeB[1]).fill(0)
                 .map((c, j) => new Array(sizeA[1]).fill(1).map((n, k) => a[i][k] * b[k][j]).sum()));
-        console.log(result);
         return result;
     }
 
@@ -59,6 +57,26 @@ class Matrix {
                 throw new Error('Bad matrix')
             }
         });
+    }
+
+    static zero(n) {
+        return new Array(n).fill(new Array(n).fill(0));
+    }
+
+    static diagonal(n) {
+        return Matrix.zero(n).map((r, i) => r.map((c,j) => i === j ? 1 : 0));
+    }
+
+    static opposite(a) {
+        return a.map(r => r.map(c => -c));
+    }
+
+    static minus(a, b) {
+        return Matrix.plus(a, Matrix.opposite(b));
+    }
+
+    static transpose(a) {
+        return a[0].map((c, j) => a.map(r => r[j]));
     }
 }
 
