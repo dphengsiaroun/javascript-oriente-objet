@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../matrix');
 
-describe('Matrix', () => {
+describe.only('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
@@ -209,5 +209,51 @@ describe('Matrix', () => {
 
         assert.deepStrictEqual(Matrix.solve(a, b), [1.1710526315789473, 165.78947368421052]);
     });
+
+    it('should be a diagonal matrix', () => {
+        const a = [
+            [1, 0, 0, 0],
+            [0, 2, 0, 0],
+            [0, 0, 3, 0],
+            [0, 0, 0, 4]
+        ];
+        assert.ok(Matrix.isDiagonal(a), true);
+        const b = [
+            [1, 0, 0, 0],
+            [0, 2, 0, 0],
+            [2, 0, 3, 0],
+            [0, 0, 0, 4]
+        ];
+        assert.ok(Matrix.isDiagonal(a), false);
+    });
+
+    it('should be a is Triangular matrix', () => {
+        const a = [
+            [1, 3, 5, 8],
+            [0, 2, 3, 9],
+            [0, 0, 3, 7],
+            [0, 0, 0, 4]
+        ];
+        assert.ok(Matrix.isTriangular(a), true);
+        const b = [
+            [1, 6, 5, 8],
+            [0, 2, 3, 9],
+            [5, 0, 3, 7],
+            [0, 3, 0, 4]
+        ];
+        assert.ok(Matrix.isTriangular(a), false);
+    });
+
+    it('should not be inversible', () => {
+        const a = [
+            [1, 0, 2],
+            [0, 1, 1],
+            [0, 0, 0]
+        ];
+        assert.throws(() => {
+            Matrix.inverse(a);
+        }, 'Matrix not inversible');
+    });
+    
 
 });

@@ -68,7 +68,7 @@ class Matrix {
     }
 
     static diagonal(n) {
-        return Matrix.zero(n).map((r, i) => r.map((c,j) => i === j ? 1 : 0));
+        return Matrix.zero(n).map((r, i) => r.map((c, j) => i === j ? 1 : 0));
     }
 
     static opposite(a) {
@@ -84,8 +84,8 @@ class Matrix {
     }
 
     static det(a) {
-        const permutations = Permutation.getAll(new Array(a.length).fill(0).map((k, i) => i)); 
-        return permutations.reduce((acc, p) => 
+        const permutations = Permutation.getAll(new Array(a.length).fill(0).map((k, i) => i));
+        return permutations.reduce((acc, p) =>
             acc + Permutation.getSignature(p) * p.reduce((acc, j, i) => acc * a[i][j], 1), 0);
     }
 
@@ -94,7 +94,7 @@ class Matrix {
     }
 
     static cofactor(a, i, j) {
-        return ((-1)**(i + j)) * Matrix.det(Matrix.submatrix(a, i, j));
+        return ((-1) ** (i + j)) * Matrix.det(Matrix.submatrix(a, i, j));
     }
 
     static scalarProduct(n, a) {
@@ -106,7 +106,11 @@ class Matrix {
     }
 
     static inverse(a) {
-        return Matrix.beautiful(Matrix.scalarProduct(1 / Matrix.det(a), Matrix.transpose(Matrix.comatrix(a))));
+        const det = Matrix.det(a);
+        if (det === 0) {
+            throw new Error('Matrix not inversible');
+        }
+        return Matrix.beautiful(Matrix.scalarProduct(1 / det, Matrix.transpose(Matrix.comatrix(a))));
     }
 
     static beautiful(a) {
@@ -133,6 +137,31 @@ class Matrix {
     static solve(a, b) {
         return Matrix.transpose(Matrix.multiply(Matrix.inverse(a), Matrix.transpose([b])))[0];
     }
+
+    static isDiagonal(a) {
+        for (let i = 0; i < a.length; i++) {
+            for (let j = 0; j < a[i].length; j++) {
+                if (i !== j) {
+                    if (a[i][j] !== 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    static isTriangular(a) {
+        for (let i = 0; i < a.length; i++) {
+            for (let j = 0; j < i; j++) {
+                if (a[i][j] !== 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     
 
 }
