@@ -129,4 +129,16 @@ describe.only('Matrix', () => {
         ];
         assert.deepStrictEqual(Matrix.det(a), 6);
     });
+
+    it('should compute the sub-matrix', () => {
+        const a = [
+            [0, 3, 5],
+            [-1, 1, 4],
+            [0, 0, 2],
+        ];
+        assert.deepStrictEqual(Matrix.submatrix(a, 1, 2), [
+            [0, 3],
+            [0, 0]
+        ]);
+    });
 });

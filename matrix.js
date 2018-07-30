@@ -88,6 +88,10 @@ class Matrix {
         return permutations.reduce((acc, p) => 
             acc + Permutation.getSignature(p) * p.reduce((acc, j, i) => acc * a[i][j], 1), 0);
     }
+
+    static submatrix(a, i, j) {
+        return a.filter((r, index) => i !== index).map(r => r.filter((c, index) => j !== index));
+    }
 }
 
 module.exports = {
