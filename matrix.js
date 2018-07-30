@@ -120,6 +120,19 @@ class Matrix {
     static random(n) {
         return new Array(n).fill(0).map(r => new Array(n).fill(0).map(c => Math.random()));
     }
+
+    /**
+     * Solve the equation AX = B
+     *
+     * @static
+     * @param {*} a Matrix A
+     * @param {*} b Vector B
+     * @returns A vector of solution
+     * @memberof Matrix 
+     */
+    static solve(a, b) {
+        return Matrix.transpose(Matrix.multiply(Matrix.inverse(a), Matrix.transpose([b])))[0];
+    }
     
 
 }

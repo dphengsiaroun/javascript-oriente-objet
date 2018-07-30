@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../matrix');
 
-describe.only('Matrix', () => {
+describe('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
@@ -194,11 +194,20 @@ describe.only('Matrix', () => {
         ]);
     });
 
-    // Todo does not work
     it('should retrieve identity', () => {
         const a = Matrix.random(4);
         assert.deepStrictEqual(Matrix.minus(Matrix.multiply(a, Matrix.inverse(a)), Matrix.identity(a.length)), Matrix.zero(a.length));
     }).timeout(1000000);
 
+    it('should solved the equation', () => {
+        const a = [
+            [200, 1],
+            [-180, 1]
+        ];
+
+        const b = [400, -180 * 0.25];
+
+        assert.deepStrictEqual(Matrix.solve(a, b), [1.1710526315789473, 165.78947368421052]);
+    });
 
 });
