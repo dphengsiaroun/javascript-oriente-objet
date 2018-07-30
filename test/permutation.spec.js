@@ -3,11 +3,10 @@ const {
     Permutation
 } = require('../permutation');
 
-describe.only('Permutation', () => {
+describe('Permutation', () => {
 
     it('should give all the permutations', () => {
         const a = Permutation.getAll([1, 2, 3, 4]);
-        console.log('a', a);
         assert.deepStrictEqual(a, [
             [ 1, 2, 3, 4 ],
             [ 1, 2, 4, 3 ],

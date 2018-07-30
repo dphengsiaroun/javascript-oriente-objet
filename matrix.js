@@ -1,4 +1,8 @@
 const assert = require('assert');
+const {
+    Permutation
+} = require('./permutation');
+
 
 class Matrix {
 
@@ -78,10 +82,10 @@ class Matrix {
     static transpose(a) {
         return a[0].map((c, j) => a.map(r => r[j]));
     }
-    
+
     static det(a) {
         const n = a.length;
-        const permutations = Matrix.getPermutations(new Array(n).fill(0).map((k, i) => i + 1)); 
+        const permutations = Permutation.getAll(new Array(n).fill(0).map((k, i) => i + 1)); 
 
         return ;
     }

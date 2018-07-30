@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../matrix');
 
-describe('Matrix', () => {
+describe.only('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
@@ -127,6 +127,6 @@ describe('Matrix', () => {
             [-1, 1, 4],
             [0, 0, 2],
         ];
-        assert.deepStrictEqual(Matrix.transpose(Matrix.det(a)), 6);
+        assert.deepStrictEqual(Matrix.det(a), 6);
     });
 });

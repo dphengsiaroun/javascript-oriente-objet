@@ -23,7 +23,6 @@ class Permutation {
         }, 1);
     }
 
-
 }
 
 module.exports = {
