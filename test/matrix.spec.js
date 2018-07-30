@@ -123,11 +123,10 @@ describe.only('Matrix', () => {
 
     it('should compute the matrix determinant', () => {
         const a = [
-            [0, 3, 5],
-            [-1, 1, 4],
-            [0, 0, 2],
+            [1, 1],
+            [0, 1],
         ];
-        assert.deepStrictEqual(Matrix.det(a), 6);
+        assert.deepStrictEqual(Matrix.det(a), 1);
     });
 
     it('should compute the sub-matrix', () => {
@@ -162,11 +161,44 @@ describe.only('Matrix', () => {
         ]);
     });
 
-    // it('should inverse the matrix', () => {
-    //     const a = [
-    //         [0, 1],
-    //         [1, 0],
-    //     ];
-    //     assert.equal(Matrix.inverse(a), a);
-    // });
+    it('should compute the comatrix', () => {
+        const a = [
+            [1, 1],
+            [0, 1],
+        ];
+        assert.deepStrictEqual(Matrix.comatrix(a), [
+            [1, 0],
+            [-1, 1],
+        ]);
+    });
+
+    it('should inverse the matrix', () => {
+        const a = [
+            [1, 1],
+            [0, 1],
+        ];
+        assert.deepStrictEqual(Matrix.inverse(a), [
+            [1, -1],
+            [0, 1],
+        ]);
+    });
+
+    it('should convert the negative zero', () => {
+        const a = [
+            [-0, 1],
+            [-5.551115123125783e-17, -0]
+        ];
+        assert.deepStrictEqual(Matrix.beautiful(a), [
+            [0, 1],
+            [0, 0]
+        ]);
+    });
+
+    // Todo does not work
+    it('should retrieve identity', () => {
+        const a = Matrix.random(9);
+        assert.deepStrictEqual(Matrix.minus(Matrix.multiply(a, Matrix.inverse(a)), Matrix.identity(a.length)), Matrix.zero(a.length));
+    });
+
+
 });

@@ -15,7 +15,7 @@ class Matrix {
         const result = new Array(sizeA[0]).fill(0)
             .map((r, i) => new Array(sizeA[1]).fill(0).map((c, j) => a[i][j] + b[i][j]));
 
-        return result;
+        return Matrix.beautiful(result);
     }
 
     static plus2(a, b) {
@@ -46,7 +46,7 @@ class Matrix {
         const result = new Array(sizeA[0]).fill(0)
             .map((r, i) => new Array(sizeB[1]).fill(0)
                 .map((c, j) => new Array(sizeA[1]).fill(1).map((n, k) => a[i][k] * b[k][j]).sum()));
-        return result;
+        return Matrix.beautiful(result);
     }
 
     static getSize(arr) {
@@ -90,7 +90,7 @@ class Matrix {
     }
 
     static submatrix(a, i, j) {
-        return a.filter((r, index) => i !== index).map(r => r.filter((c, index) => j !== index));
+        return a.filter((r, index) => i !== index).map(r => r.filter((c, jj) => j !== jj));
     }
 
     static cofactor(a, i, j) {
@@ -101,9 +101,27 @@ class Matrix {
         return a.map(r => r.map(c => c * n));
     }
 
-    static inverse(a) {
-        return Matrix.scalarProduct(1 / Matrix.det(a), Matrix.transpose(Matrix.comatrix(a)));
+    static comatrix(a) {
+        return Matrix.beautiful(new Array(a.length).fill(0).map((r, i) => new Array(a.length).fill(0).map((c, j) => Matrix.cofactor(a, i, j))));
     }
+
+    static inverse(a) {
+        return Matrix.beautiful(Matrix.scalarProduct(1 / Matrix.det(a), Matrix.transpose(Matrix.comatrix(a))));
+    }
+
+    static beautiful(a) {
+        return a.map(r => r.map(c => Object.is(c, -0) ? 0 : Math.abs(c) < 1e-10 ? 0 : c));
+    }
+
+    static identity(n) {
+        return new Array(n).fill(0).map((r, i) => new Array(n).fill(0).map((c, j) => i === j ? 1 : 0));
+    }
+
+    static random(n) {
+        return new Array(n).fill(0).map(r => new Array(n).fill(0).map(c => Math.random()));
+    }
+    
+
 }
 
 module.exports = {
