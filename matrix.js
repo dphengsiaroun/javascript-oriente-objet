@@ -78,24 +78,12 @@ class Matrix {
     static transpose(a) {
         return a[0].map((c, j) => a.map(r => r[j]));
     }
+    
+    static det(a) {
+        const n = a.length;
+        const permutations = Matrix.getPermutations(new Array(n).fill(0).map((k, i) => i + 1)); 
 
-    static getPermutations(set) {
-        console.log('set', set);
-        const result = set.reduce((acc, k) => {
-            console.log('k', k);
-            const remainingArray = set.filter(l => l !== k);
-            console.log('remainingArray', remainingArray);
-            if (remainingArray.length === 0) {
-                acc.push([k]);
-                return acc;
-            }
-            const array = Matrix.getPermutations(remainingArray).map(p => p.unshift(k) && p);
-            console.log('array', array);
-            acc = acc.concat(array);
-            return acc;
-        }, []);
-        console.log('result', result);
-        return result;
+        return ;
     }
 }
 

@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../matrix');
 
-describe.only('Matrix', () => {
+describe('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
@@ -121,16 +121,12 @@ describe.only('Matrix', () => {
         assert.deepStrictEqual(Matrix.transpose(Matrix.transpose(a)), a);
     });
 
-    it('should give all the permutation', () => {
-        const a = Matrix.getPermutations([1, 2]);
-        console.log('a', a);
-        // assert.deepStrictEqual(array, [
-        //     [1, 2, 3],
-        //     [1, 3, 2],
-        //     [2, 1, 3],
-        //     [2, 3, 1],
-        //     [3, 1, 2],
-        //     [3, 2, 1],
-        // ]);
+    it('should compute the matrix determinant', () => {
+        const a = [
+            [0, 3, 5],
+            [-1, 1, 4],
+            [0, 0, 2],
+        ];
+        assert.deepStrictEqual(Matrix.transpose(Matrix.det(a)), 6);
     });
 });
