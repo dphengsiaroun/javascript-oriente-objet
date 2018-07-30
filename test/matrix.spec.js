@@ -198,7 +198,7 @@ describe.only('Matrix', () => {
     it('should retrieve identity', () => {
         const a = Matrix.random(4);
         assert.deepStrictEqual(Matrix.minus(Matrix.multiply(a, Matrix.inverse(a)), Matrix.identity(a.length)), Matrix.zero(a.length));
-    });
+    }).timeout(1000000);
 
 
 });
