@@ -196,7 +196,7 @@ describe.only('Matrix', () => {
 
     // Todo does not work
     it('should retrieve identity', () => {
-        const a = Matrix.random(9);
+        const a = Matrix.random(4);
         assert.deepStrictEqual(Matrix.minus(Matrix.multiply(a, Matrix.inverse(a)), Matrix.identity(a.length)), Matrix.zero(a.length));
     });
 

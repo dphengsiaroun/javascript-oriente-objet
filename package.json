@@ -1,0 +1,25 @@
+{
+  "name": "exo_javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dphengsiaroun/javascript-oriente-objet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dphengsiaroun/javascript-oriente-objet/issues"
+  },
+  "homepage": "https://github.com/dphengsiaroun/javascript-oriente-objet#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
