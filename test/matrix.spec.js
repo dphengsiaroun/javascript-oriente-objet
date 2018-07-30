@@ -141,4 +141,32 @@ describe.only('Matrix', () => {
             [0, 0]
         ]);
     });
+
+    it('should compute the cofactor', () => {
+        const a = [
+            [0, 3, 5],
+            [-1, 1, 4],
+            [0, 0, 2],
+        ];
+        assert.equal(Matrix.cofactor(a, 1, 2), 0);
+    });
+
+    it('should compute the scalarProduct', () => {
+        const a = [
+            [1, 2],
+            [3, 4]
+        ];
+        assert.deepStrictEqual(Matrix.scalarProduct(3, a), [
+            [3, 6],
+            [9, 12]
+        ]);
+    });
+
+    // it('should inverse the matrix', () => {
+    //     const a = [
+    //         [0, 1],
+    //         [1, 0],
+    //     ];
+    //     assert.equal(Matrix.inverse(a), a);
+    // });
 });

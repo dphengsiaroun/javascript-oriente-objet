@@ -92,6 +92,18 @@ class Matrix {
     static submatrix(a, i, j) {
         return a.filter((r, index) => i !== index).map(r => r.filter((c, index) => j !== index));
     }
+
+    static cofactor(a, i, j) {
+        return ((-1)**(i + j)) * Matrix.det(Matrix.submatrix(a, i, j));
+    }
+
+    static scalarProduct(n, a) {
+        return a.map(r => r.map(c => c * n));
+    }
+
+    static inverse(a) {
+        return Matrix.scalarProduct(1 / Matrix.det(a), Matrix.transpose(Matrix.comatrix(a)));
+    }
 }
 
 module.exports = {
