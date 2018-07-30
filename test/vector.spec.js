@@ -33,7 +33,7 @@ describe.only('Vector', () => {
     });
 
     it('should compute the manhattan norm', () => {
-        const a = [3, 1, 6, -2];
+        const a = [-3, 1, 6, -2];
         assert.deepStrictEqual(Vector.manhattanNorm(a), 12);
     });
 

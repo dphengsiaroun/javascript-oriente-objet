@@ -13,7 +13,7 @@ class Vector {
     }
 
     static manhattanNorm(a) {
-        return a.reduce((acc, n) => acc + Math.abs(n));
+        return a.reduce((acc, n) => acc + Math.abs(n), 0);
     }
 
 }
