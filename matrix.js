@@ -84,10 +84,9 @@ class Matrix {
     }
 
     static det(a) {
-        const n = a.length;
-        const permutations = Permutation.getAll(new Array(n).fill(0).map((k, i) => i + 1)); 
-
-        return ;
+        const permutations = Permutation.getAll(new Array(a.length).fill(0).map((k, i) => i)); 
+        return permutations.reduce((acc, p) => 
+            acc + Permutation.getSignature(p) * p.reduce((acc, j, i) => acc * a[i][j], 1), 0);
     }
 }
 
