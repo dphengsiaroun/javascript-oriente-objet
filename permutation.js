@@ -14,8 +14,13 @@ class Permutation {
         return result;
     }
 
-    static getSignature() {
-        
+    static getSignature(p) {
+        return p.reduce((acc, n, i) => {
+            p.slice(i + 1).forEach((m, j) => {
+                acc = acc * Math.sign(m - n);
+            });
+            return acc;
+        }, 1);
     }
 
 

@@ -37,7 +37,7 @@ describe.only('Permutation', () => {
     });
 
     it('should compute the signature of a given permutation', () => {
-        const a = ['a', 'c', 'e'];
-        assert.deepStrictEqual(Permutation.getSignature(a, ['c', 'e', 'a']), 1);
+        const a = [2, 3, 1];
+        assert.deepStrictEqual(Permutation.getSignature(a), 1);
     });
 });
