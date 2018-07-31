@@ -35,6 +35,7 @@ export function drawPath(fn, start, end, incr) {
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.querySelector('svg');
     const wrapper = svg.querySelector('g.wrapper');
+    console.log('wrapper', wrapper);
     const g = document.createElementNS(ns, 'g');
     g.setAttribute('class', 'draw');
     wrapper.appendChild(g);
@@ -44,6 +45,7 @@ export function drawPath(fn, start, end, incr) {
     }
     const path = document.createElementNS(ns, 'path');
     path.setAttribute('d', d);
+    path.setAttribute('stroke-width', '0.4%');
     g.appendChild(path);
 
 }

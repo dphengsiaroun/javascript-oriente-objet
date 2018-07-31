@@ -11,16 +11,13 @@ svg {
 
 svg line {
     stroke: black;
-    stroke-width: 1;
 }
 
 .mark {
     stroke: black;
-    stroke-width: 0.5;
 }
 
 svg path {
     fill: none;
     stroke: #000;
-    stroke-width: 1.5px;
 }

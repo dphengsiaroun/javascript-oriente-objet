@@ -13,10 +13,6 @@ const {
     map
 } = rxjs.operators;
 
-const g = document.querySelector('g');
-const transform = g.getAttribute('transform');
-console.log('transform', transform);
-
 // rxjs.interval(20).pipe(
 //     take(1000),
 // ).subscribe(n => {
@@ -25,15 +21,15 @@ console.log('transform', transform);
 // });
 
 // const fn = x => (1 / 100) * x**2;
-const fn = x => 50 * Math.sin(x / 20);
+const fn = x => Math.sin(x);
 
-const xstart = -100;
-const xend = 200;
+const xstart = -10;
+const xend = 10;
 
-const ystart = -100;
-const yend = 100;
-const incr = 10;
-const step = 10;
+const ystart = -3;
+const yend = 3;
+const incr = 1;
+const step = 0.3;
 
 makeGraph(xstart, xend, ystart, yend, incr);
 
