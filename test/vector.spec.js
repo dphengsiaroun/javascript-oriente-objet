@@ -3,7 +3,7 @@ const {
     Vector
 } = require('../vector');
 
-describe.only('Vector', () => {
+describe('Vector', () => {
 
     it('should euclidean norm', () => {
         const a = [3, 4];
@@ -17,7 +17,7 @@ describe.only('Vector', () => {
         const v = [3, 4];
         assert.ok(Vector.euclideanNorm(Vector.plus(u, v)) <= Vector.euclideanNorm(u) + Vector.euclideanNorm(v));
         const n = 3;
-        assert.ok(n * Vector.euclideanNorm(v) === Vector.euclideanNorm(Vector.scalarProduct(n, v)));
+        assert.ok(n * Vector.euclideanNorm(v) === Vector.euclideanNorm(Vector.multiply(n, v)));
 
     });
 
@@ -28,7 +28,7 @@ describe.only('Vector', () => {
         const v = [3, 4];
         assert.ok(Vector.manhattanNorm(Vector.plus(u, v)) <= Vector.manhattanNorm(u) + Vector.manhattanNorm(v));
         const n = 3;
-        assert.ok(n * Vector.manhattanNorm(v) === Vector.manhattanNorm(Vector.scalarProduct(n, v)));
+        assert.ok(n * Vector.manhattanNorm(v) === Vector.manhattanNorm(Vector.multiply(n, v)));
     });
 
 
@@ -38,9 +38,9 @@ describe.only('Vector', () => {
         assert.deepStrictEqual(Vector.plus(a, b), [4, 6]);
     });
 
-    it('should compute the scalarProduct', () => {
+    it('should compute the multiply', () => {
         const a = [3, 4];
-        assert.deepStrictEqual(Vector.scalarProduct(2, a), [6, 8]);
+        assert.deepStrictEqual(Vector.multiply(2, a), [6, 8]);
     });
 
     it('should compute the manhattan norm', () => {
@@ -65,6 +65,22 @@ describe.only('Vector', () => {
         }, 'Vector must have 3 dimensions');
     });
     
+    it('should be orthogonal', () => {
+        const u = [Math.random(), Math.random()];
+        const c = Math.random();
+        const v = [-c * u[1], c * u[0]];
+        assert.ok(Vector.dotProduct(u, v) === 0);
+    });
+
+    it('the cross product of u and v is orthogonal with u and v', () => {
+        const u = [Math.random(), Math.random(), Math.random()];
+        const v = [Math.random(), -Math.random(), Math.random()];
+        const w = Vector.crossProduct(u, v);
+        const a = Vector.dotProduct(u, w);
+        const b = Vector.dotProduct(v, w);
+        assert.ok(a === 0);
+        assert.ok(b === 0);
+    });
 
 
 });

@@ -1,5 +1,9 @@
-class Vector {
+function beautiful(n) {
+    return n < 1e-15 ? 0 : n;
+}
 
+class Vector {
+    
     static euclideanNorm(a) {
         return a.reduce((acc, n) => acc + n**2, 0)**0.5;
     }
@@ -8,7 +12,7 @@ class Vector {
         return a.map((c, i) => a[i] + b[i]);
     }
 
-    static scalarProduct(n, a) {
+    static multiply(n, a) {
         return a.map(r => r * n);
     }
 
@@ -17,7 +21,7 @@ class Vector {
     }
 
     static dotProduct(u, v) {
-        return u.reduce((acc, n, i) => acc + n * v[i], 0);
+        return beautiful(u.reduce((acc, n, i) => acc + n * v[i], 0));
     }
 
     static crossProduct(u, v) {

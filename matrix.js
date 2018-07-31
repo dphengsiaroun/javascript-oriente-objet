@@ -36,7 +36,7 @@ class Matrix {
         return result;
     }
 
-    static multiply(a, b) {
+    static product(a, b) {
         const sizeA = Matrix.getSize(a);
         const sizeB = Matrix.getSize(b);
 
@@ -135,7 +135,7 @@ class Matrix {
      * @memberof Matrix 
      */
     static solve(a, b) {
-        return Matrix.transpose(Matrix.multiply(Matrix.inverse(a), Matrix.transpose([b])))[0];
+        return Matrix.transpose(Matrix.product(Matrix.inverse(a), Matrix.transpose([b])))[0];
     }
 
     static isDiagonal(a) {
