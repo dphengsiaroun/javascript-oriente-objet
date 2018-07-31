@@ -82,5 +82,13 @@ describe('Vector', () => {
         assert.ok(b === 0);
     });
 
+    it('any combination of u and v is orthogonal with the cross product of u and v', () => {
+        const u = [Math.random(), Math.random(), Math.random()];
+        const v = [Math.random(), -Math.random(), Math.random()];
+        const w = Vector.crossProduct(u, v);
+        const t = Vector.plus(Vector.multiply(Math.random(), u), Vector.multiply(Math.random(), v));
+        assert.ok(Vector.dotProduct(t, w) === 0);
+    });
+
 
 });
