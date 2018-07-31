@@ -53,6 +53,17 @@ describe.only('Vector', () => {
         const v = [5, 7];
         assert.deepStrictEqual(Vector.dotProduct(u, v), 66);
     });
+
+    it('should compute the cross product', () => {
+        const u = [2, 8, 6];
+        const v = [5, 7, 2];
+        assert.deepStrictEqual(Vector.crossProduct(u, v), [-26, 26, -26]);
+        const a = [2, 8];
+        const b = [5, 7, 2];
+        assert.throws(() => {
+            Vector.crossProduct(a, b);
+        }, 'Vector must have 3 dimensions');
+    });
     
 
 

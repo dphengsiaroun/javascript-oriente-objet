@@ -20,6 +20,17 @@ class Vector {
         return u.reduce((acc, n, i) => acc + n * v[i], 0);
     }
 
+    static crossProduct(u, v) {
+        if (u.length !== 3 || v.length !== 3) {
+            throw new Error('Vector must have 3 dimensions');
+        }
+        return [
+            (u[1] * v[2]) - (u[2] * v[1]),
+            (u[2] * v[0]) - (u[0] * v[2]),
+            (u[0] * v[1]) - (u[1] * v[0]),
+        ];
+    }
+
 }
 
 module.exports = {
