@@ -97,7 +97,7 @@ class Matrix {
         return ((-1) ** (i + j)) * Matrix.det(Matrix.submatrix(a, i, j));
     }
 
-    static scalarProduct(n, a) {
+    static multiply(n, a) {
         return a.map(r => r.map(c => c * n));
     }
 
@@ -110,7 +110,7 @@ class Matrix {
         if (det === 0) {
             throw new Error('Matrix not inversible');
         }
-        return Matrix.beautiful(Matrix.scalarProduct(1 / det, Matrix.transpose(Matrix.comatrix(a))));
+        return Matrix.beautiful(Matrix.multiply(1 / det, Matrix.transpose(Matrix.comatrix(a))));
     }
 
     static beautiful(a) {

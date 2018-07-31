@@ -150,12 +150,12 @@ describe('Matrix', () => {
         assert.equal(Matrix.cofactor(a, 1, 2), 0);
     });
 
-    it('should compute the scalarProduct', () => {
+    it('should compute the multiply', () => {
         const a = [
             [1, 2],
             [3, 4]
         ];
-        assert.deepStrictEqual(Matrix.scalarProduct(3, a), [
+        assert.deepStrictEqual(Matrix.multiply(3, a), [
             [3, 6],
             [9, 12]
         ]);
