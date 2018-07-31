@@ -3,7 +3,7 @@ const {
     Vector
 } = require('../vector');
 
-describe('Vector', () => {
+describe.only('Vector', () => {
 
     it('should euclidean norm', () => {
         const a = [3, 4];
@@ -46,6 +46,12 @@ describe('Vector', () => {
     it('should compute the manhattan norm', () => {
         const a = [-3, 1, 6, -2];
         assert.deepStrictEqual(Vector.manhattanNorm(a), 12);
+    });
+
+    it('should compute the dot product', () => {
+        const u = [2, 8];
+        const v = [5, 7];
+        assert.deepStrictEqual(Vector.dotProduct(u, v), 66);
     });
     
 

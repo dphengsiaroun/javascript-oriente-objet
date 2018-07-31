@@ -16,6 +16,10 @@ class Vector {
         return a.reduce((acc, n) => acc + Math.abs(n), 0);
     }
 
+    static dotProduct(u, v) {
+        return u.reduce((acc, n, i) => acc + n * v[i], 0);
+    }
+
 }
 
 module.exports = {
