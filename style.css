@@ -6,5 +6,10 @@ svg {
 
 svg line {
     stroke: black;
-    stroke-width: 1
+    stroke-width: 1;
+}
+
+.mark {
+    stroke: black;
+    stroke-width: 0.5;
 }
