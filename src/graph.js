@@ -1,11 +1,11 @@
-export function makeGraph() {
+export function makeGraph(xstart, xend, ystart, yend, incr) {
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.querySelector('svg');
     const wrapper = svg.querySelector('g.wrapper');
     const g = document.createElementNS(ns, 'g');
     const width = 3;
     wrapper.appendChild(g);
-    for (let x = -190; x < 200; x+=10) {
+    for (let x = xstart + incr; x < xend; x+=incr) {
         const mark = document.createElementNS(ns, 'line');
         mark.setAttribute('class', 'mark');
         mark.setAttribute('x1', x);
@@ -14,7 +14,7 @@ export function makeGraph() {
         mark.setAttribute('y2', width);
         g.appendChild(mark);
     }
-    for (let y = -90; y < 100; y+=10) {
+    for (let y = ystart + incr; y < yend; y+=incr) {
         const mark = document.createElementNS(ns, 'line');
         mark.setAttribute('class', 'mark');
         mark.setAttribute('x1', -width);

@@ -31,16 +31,13 @@ function bezierCurve(x, fn, incr) {
     return `C${cx1},${cy1} ${cx2},${cy2} ${x},${fn(x)} `;
 }
 
-export function drawPath(fn) {
+export function drawPath(fn, start, end, incr) {
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.querySelector('svg');
     const wrapper = svg.querySelector('g.wrapper');
     const g = document.createElementNS(ns, 'g');
     g.setAttribute('class', 'draw');
     wrapper.appendChild(g);
-    const start = -190;
-    const end = 190;
-    const incr = 10;
     let d = `M${start} ${fn(start)} `;
     for (let x = start + incr; x <= end; x += incr) {
         d += bezierCurve(x, fn, incr);
