@@ -32,7 +32,7 @@ printMouseCoord(graph1);
 
 drawPathXY(graph1, Math.cos, Math.sin, 0, 2 * Math.PI, 1e-2, 'black');
 
-initCircle(graph1);
+
 
 
 
@@ -57,3 +57,5 @@ const graph2 = makeGraph(rightElt, xstart, xend, ystart, yend, incr);
 
 drawPath(graph2, sin, xstart + incr, xend - incr, step, 'blue');
 drawPath(graph2, cos, xstart + incr, xend - incr, step, 'red');
+
+initCircle(graph1, graph2);
