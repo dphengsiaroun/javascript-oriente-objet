@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "webpack -w --mode=development"
+    "start01": "cd app && cd 01-graph && webpack -w --mode=development",
+    "start02": "cd app && cd 02-trigo && webpack -w --mode=development"
   },
   "repository": {
     "type": "git",

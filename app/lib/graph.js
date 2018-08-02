@@ -1,10 +1,9 @@
-export function makeGraph(xstart, xend, ystart, yend, incr) {
+export function makeGraph(element, xstart, xend, ystart, yend, incr) {
     const ns = 'http://www.w3.org/2000/svg';
 
-    const graph = document.querySelector('.graph');
     const svg = document.createElementNS(ns, 'svg');
     svg.setAttribute('viewBox', `${xstart} ${ystart} ${xend - xstart} ${yend - ystart}`);
-    graph.appendChild(svg);
+    element.appendChild(svg);
 
     const wrapper = document.createElementNS(ns, 'g');
     wrapper.setAttribute('class', 'wrapper');
@@ -53,5 +52,6 @@ export function makeGraph(xstart, xend, ystart, yend, incr) {
         mark.setAttribute('stroke-width', '0.4%');
         g.appendChild(mark);
     }
+    return svg;
 }
 

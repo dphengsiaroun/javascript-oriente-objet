@@ -2,11 +2,11 @@ import * as rxjs from 'rxjs/bundles/rxjs.umd';
 
 import {
     makeGraph
-} from './graph';
+} from '../../lib/graph';
 import {
     draw,
     drawPath
-} from './draw';
+} from '../../lib/draw';
 
 const {
     take,
@@ -21,7 +21,8 @@ const {
 // });
 
 // const fn = x => (1 / 100) * x**2;
-const fn = x => Math.sin(x);
+const sin = x => Math.sin(x);
+const cos = x => Math.cos(x);
 
 const xstart = -10;
 const xend = 10;
@@ -30,7 +31,9 @@ const ystart = -3;
 const yend = 3;
 const incr = 1;
 const step = 0.3;
+const element = document.querySelector('.graph');
 
-makeGraph(xstart, xend, ystart, yend, incr);
+const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 
-drawPath(fn, xstart + incr, xend - incr, step);
+drawPath(graph, sin, xstart + incr, xend - incr, step, 'blue');
+drawPath(graph, cos, xstart + incr, xend - incr, step, 'red');
