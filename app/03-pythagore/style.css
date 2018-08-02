@@ -13,7 +13,7 @@ section {
 .graph {
     position: relative;
     padding: 1em;
-    margin: 0 auto;
+        margin: 0 auto;
 }
 
 .graph .c-carre,
@@ -56,7 +56,7 @@ svg {
 }
 
 .t0 {
-    animation: t0-anim 40s linear infinite;
+    animation: t0-anim 8s linear infinite;
     transform-origin: 80% 0% 0;
 }
 
@@ -85,7 +85,7 @@ svg {
 }
 
 .t3 {
-    animation: t3-anim 40s linear infinite;
+    animation: t3-anim 8s linear infinite;
     transform-origin: 20% 100% 0;
 }
 
@@ -111,7 +111,7 @@ svg {
 }
 
 .a-carre, .separator {
-    animation: a-anim 40s linear infinite;
+    animation: a-anim 8s linear infinite;
 }
 
 @keyframes a-anim {
@@ -136,7 +136,7 @@ svg {
 }
 
 .b-carre {
-    animation: b-anim 40s linear infinite;
+    animation: b-anim 8s linear infinite;
 }
 
 @keyframes b-anim {
@@ -161,7 +161,7 @@ svg {
 }
 
 .c-carre {
-    animation: c-anim 40s linear infinite;
+    animation: c-anim 8s linear infinite;
 }
 
 @keyframes c-anim {
