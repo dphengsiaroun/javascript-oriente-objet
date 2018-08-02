@@ -16,7 +16,7 @@ import {
 
 const leftElt = document.querySelector('.circle');
 console.log('leftElt', leftElt);
-const graph1 = makeGraph(leftElt, -2, 2, -2, 2, 1);
+const graph1 = makeGraph(leftElt, -1.2, 1.2, -1.2, 1.2, 1);
 
 printMouseCoord(graph1);
 

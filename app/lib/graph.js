@@ -32,7 +32,7 @@ export function makeGraph(element, xstart, xend, ystart, yend, incr) {
 
 
     const width = (xstart - xend) / 100;
-    for (let x = xstart + incr; x < xend; x+=incr) {
+    for (let x = Math.ceil(xstart); x <= Math.floor(xend); x+=incr) {
         const mark = document.createElementNS(ns, 'line');
         mark.setAttribute('class', 'mark');
         mark.setAttribute('x1', x);
@@ -42,7 +42,7 @@ export function makeGraph(element, xstart, xend, ystart, yend, incr) {
         mark.setAttribute('stroke-width', '0.4%');
         g.appendChild(mark);
     }
-    for (let y = ystart + incr; y < yend; y+=incr) {
+    for (let y = Math.ceil(ystart); y <= Math.floor(yend); y+=incr) {
         const mark = document.createElementNS(ns, 'line');
         mark.setAttribute('class', 'mark');
         mark.setAttribute('x1', -width);
