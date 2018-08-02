@@ -9,6 +9,9 @@ import {
 import {
     printMouseCoord
 } from '../../lib/svg';
+import {
+    initCircle
+} from './ex2';
 
 
 const leftElt = document.querySelector('.circle');
@@ -30,54 +33,6 @@ printMouseCoord(graph1);
 drawPathXY(graph1, Math.cos, Math.sin, 0, 2 * Math.PI, 1e-2, 'black');
 
 initCircle(graph1);
-
-function initCircle(svg) {
-    const ns = 'http://www.w3.org/2000/svg';
-    const wrapper = svg.querySelector('g.wrapper');
-    console.log('wrapper', wrapper);
-    const g = document.createElementNS(ns, 'g');
-    g.setAttribute('class', 'button');
-    wrapper.appendChild(g);
-    const circle = document.createElementNS(ns, 'circle');
-    circle.setAttribute('cx', '1');
-    circle.setAttribute('cy', '0');
-    circle.setAttribute('r', '0.15');
-    g.appendChild(circle);
-    const radius = document.createElementNS(ns, 'line');
-    radius.setAttribute('x1', '0');
-    radius.setAttribute('y1', '0');
-    radius.setAttribute('x2', '1');
-    radius.setAttribute('y2', '0');
-    radius.setAttribute('stroke-width', '0.8%');
-    g.appendChild(radius);
-
-    circle.addEventListener('mousedown', function (event) {
-        let startX = 0, startY = 0, x = 0, y = 0;
-        let cx = +circle.getAttribute('cx');
-        let cy = +circle.getAttribute('cy');
-        // Prevent default dragging of selected content
-        event.preventDefault();
-        startX = event.pageX - x;
-        startY = event.pageY - y;
-        document.addEventListener('mousemove', mousemove);
-        document.addEventListener('mouseup', mouseup);
-
-        function mousemove(event) {
-            y = event.pageY - startY;
-            x = event.pageX - startX;
-            circle.setAttribute('cx', cx + x);
-            circle.setAttribute('cy', cy + y);
-        }
-
-        function mouseup() {
-            document.removeEventListener('mousemove', mousemove);
-            document.removeEventListener('mouseup', mouseup);
-        }
-    });
-
-
-
-}
 
 
 
