@@ -20,6 +20,7 @@ export function makeGraph(element, xstart, xend, ystart, yend, incr) {
     xLine.setAttribute('x2', xend);
     xLine.setAttribute('y2', 0);
     xLine.setAttribute('stroke-width', '0.4%');
+    xLine.setAttribute('stroke', 'black');
     g.appendChild(xLine);
 
     const yLine = document.createElementNS(ns, 'line');
@@ -28,6 +29,7 @@ export function makeGraph(element, xstart, xend, ystart, yend, incr) {
     yLine.setAttribute('x2', 0);
     yLine.setAttribute('y2', yend);
     yLine.setAttribute('stroke-width', '0.4%');
+    yLine.setAttribute('stroke', 'black');
     g.appendChild(yLine);
 
 

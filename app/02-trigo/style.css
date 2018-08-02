@@ -5,23 +5,19 @@ h1 {
 
 section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    height: 100vh;
 }
 
 .graph, .circle {
-    width: 50%;
+    /* width: 100%; */
     padding: 1em;
 }
 
 svg {
-    width: 100%;
-    height: 700px;
+    height: 40vh;
     background-color: #eee;
-}
-
-svg line {
-    stroke: black;
 }
 
 .mark {
