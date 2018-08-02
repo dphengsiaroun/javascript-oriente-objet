@@ -17,8 +17,3 @@ describe('Complex', () => {
         assert.equal(a.multiply(b).equals(Complex.newFromPolar(10, deg2Rad(30))), true);
     });
 });
-
-
-// describe.only('Array should', () => {
-    
-// });
