@@ -10,7 +10,8 @@
     "test": "mocha",
     "start01": "cd app && cd 01-graph && webpack -w --mode=development",
     "start02": "cd app && cd 02-trigo && webpack -w --mode=development",
-    "start03": "cd app && cd 03-pythagore && webpack -w --mode=development"
+    "start03": "cd app && cd 03-pythagore && webpack -w --mode=development",
+    "start04": "cd app && cd 04-polynome && webpack -w --mode=development"
   },
   "repository": {
     "type": "git",
