@@ -60,7 +60,6 @@ for (let i = 0; i < 4; i++) {
     const elt = document.querySelector(`#a${i}`);
     elt.value = a[i];
     elt.addEventListener('input', (e) => {
-        console.log('e', e.target.value);
         a[i] = +e.target.value;
         equationElt.innerHTML = formatEquation(a);
         const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];

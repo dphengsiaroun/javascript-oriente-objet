@@ -47,7 +47,6 @@ function bezierCurve(x, fn, incr) {
 export function drawPath(svg, fn, start, end, incr, color) {
     const ns = 'http://www.w3.org/2000/svg';
     const wrapper = svg.querySelector('g.wrapper');
-    console.log('wrapper', wrapper);
     const g = document.createElementNS(ns, 'g');
     g.setAttribute('class', 'draw');
     wrapper.appendChild(g);
