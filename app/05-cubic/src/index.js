@@ -19,19 +19,21 @@ const element = document.querySelector('.graph');
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 
 
-
+const MAX_DEGREE = 3;
 
 const format = (a, n) => {
-    let result = '';
-    a = +a;
     if (a === 0) {
-        return result;
+        return '';
     }
-    if (a >= 0 && n !== 3) {
+    let result = '';
+    if (a >= 0 && n !== MAX_DEGREE) {
         result += '+ ';
     }
-    if (a < 0) {
+    if (a < 0  && n !== MAX_DEGREE) {
         result += '- ';
+    }
+    if (a < 0  && n === MAX_DEGREE) {
+        result += '-';
     }
     if (Math.abs(a) === 1 && n > 0) {
         result += '';

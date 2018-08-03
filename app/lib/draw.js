@@ -55,7 +55,6 @@ export function drawPath(svg, fn, start, end, incr, color) {
     for (let x = start + incr; x < end; x += incr) {
         d += bezierCurve(x, fn, incr);
     }
-    console.log('d', d);
     const path = document.createElementNS(ns, 'path');
     path.setAttribute('d', d);
     path.setAttribute('stroke-width', '0.4%');
