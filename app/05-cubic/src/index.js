@@ -8,8 +8,8 @@ import {
 const xstart = -10;
 const xend = 10;
 
-const ystart = -3;
-const yend = 3;
+const ystart = -10;
+const yend = 10;
 const incr = 1;
 const step = 0.3;
 const element = document.querySelector('.graph');
@@ -44,7 +44,7 @@ const format = (a, n) => {
 };
 const formatEquation = array => array.map((a, i) => format(a, i)).reverse().join(' ');
 
-const a = [1, 2, 3, 4];
+const a = [0, -5, 0, 0.5];
 const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
 let g = drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
 const equationElt = document.querySelector('.equation');
