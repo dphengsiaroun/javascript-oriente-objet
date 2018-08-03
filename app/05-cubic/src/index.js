@@ -33,7 +33,11 @@ const format = (a, n) => {
     if (a < 0) {
         result += '- ';
     }
-    result += `${Math.abs(a)}`;
+    if (Math.abs(a) === 1 && n > 0) {
+        result += '';
+    } else {
+        result += `${Math.abs(a)}`;
+    }
     if (n > 0) {
         result += `x`;
     }
