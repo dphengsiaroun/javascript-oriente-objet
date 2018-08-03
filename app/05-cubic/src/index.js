@@ -5,9 +5,6 @@ import {
     drawPath
 } from '../../lib/draw';
 
-
-const cubic = x => (0.2 * x ** 3) + (-0.02 * x ** 2) + (-2 * x) + 2.5;
-
 const xstart = -10;
 const xend = 10;
 
@@ -17,9 +14,11 @@ const incr = 1;
 const step = 0.3;
 const element = document.querySelector('.graph');
 
+
+
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 
-drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
+
 
 
 const format = (a, n) => {
@@ -45,17 +44,22 @@ const format = (a, n) => {
 };
 const formatEquation = array => array.map((a, i) => format(a, i)).reverse().join(' ');
 
-const array = [1, 2, 3, 4];
+const a = [1, 2, 3, 4];
+const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
+let g = drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
 const equationElt = document.querySelector('.equation');
-equationElt.innerHTML = formatEquation(array);
+equationElt.innerHTML = formatEquation(a);
 
 for (let i = 0; i < 4; i++) {
     const elt = document.querySelector(`#a${i}`);
-    elt.value = array[i];
+    elt.value = a[i];
     elt.addEventListener('input', (e) => {
         console.log('e', e.target.value);
-        array[i] = e.target.value;
-        equationElt.innerHTML = formatEquation(array);
+        a[i] = +e.target.value;
+        equationElt.innerHTML = formatEquation(a);
+        const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
+        g.remove();
+        g = drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
     });
 }
 

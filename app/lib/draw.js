@@ -49,7 +49,7 @@ export function drawPath(svg, fn, start, end, incr, color) {
     path.setAttribute('stroke-width', '0.4%');
     path.setAttribute('stroke', color);
     g.appendChild(path);
-
+    return g;
 }
 
 function bezierCurveXY(t, fnx, fny, incr) {
@@ -86,5 +86,5 @@ export function drawPathXY(svg, fnx, fny, start, end, incr, color) {
     path.setAttribute('stroke-width', '0.4%');
     path.setAttribute('stroke', color);
     g.appendChild(path);
-
+    return g;
 }
