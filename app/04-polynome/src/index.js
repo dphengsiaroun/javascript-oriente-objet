@@ -20,7 +20,10 @@ const {
 //     g.setAttribute('transform', `scale(1, ${-1 + n / 100})`)
 // });
 
-const fn = x => 2.5 + (-2 * x) + (-0.02 * x**2) + (0.2 * x**3);
+const constant = x => 1;
+const droite = x => (1 * x) - 1;
+const parabol = x => (x**2) + (2 * x) - 3;
+const cubic = x => (0.2 * x**3) + (-0.02 * x**2)  + (-2 * x) + 2.5;
 
 const xstart = -10;
 const xend = 10;
@@ -33,5 +36,7 @@ const element = document.querySelector('.graph');
 
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 
-drawPath(graph, fn, xstart + incr, xend - incr, step, 'blue');
-// drawPath(graph, cos, xstart + incr, xend - incr, step, 'red');
+drawPath(graph, constant, xstart + incr, xend - incr, step, 'blue');
+drawPath(graph, droite, xstart + incr, xend - incr, step, 'orange');
+drawPath(graph, parabol, xstart + incr, xend - incr, step, 'red');
+drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
