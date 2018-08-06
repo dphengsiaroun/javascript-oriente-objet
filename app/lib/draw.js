@@ -51,7 +51,7 @@ export function drawPath(svg, fn, start, end, incr, color) {
     g.setAttribute('class', 'draw');
     wrapper.appendChild(g);
     let d = `M${start} ${fn(start)} `;
-    for (let x = start + incr; x < end; x += incr) {
+    for (let x = start + incr; x <= end; x += incr) {
         d += bezierCurve(x, fn, incr);
     }
     const path = document.createElementNS(ns, 'path');

@@ -49,7 +49,7 @@ const formatEquation = array => array.map((a, i, array) => format(a, i, array)).
 
 const a = [0, -5, 0, 0.5];
 const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
-let g = drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
+let g = drawPath(graph, cubic, xstart, xend, step, 'green');
 const equationElt = document.querySelector('.equation');
 equationElt.innerHTML = formatEquation(a);
 
@@ -61,6 +61,6 @@ for (let i = 0; i < 4; i++) {
         equationElt.innerHTML = formatEquation(a);
         const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
         g.remove();
-        g = drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
+        g = drawPath(graph, cubic, xstart, xend + incr, step, 'green');
     });
 }
