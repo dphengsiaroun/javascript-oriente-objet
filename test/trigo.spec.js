@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-describe.only('Trigonometry', () => {
+describe('Trigonometry', () => {
 
     it('should be equal to 1', () => {
         const a = 1000 * Math.random();
