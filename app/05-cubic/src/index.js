@@ -34,9 +34,7 @@ const format = (a, n, array) => {
         }
     }
     
-    if (Math.abs(a) === 1 && n > 0) {
-        result += '';
-    } else {
+    if (!(Math.abs(a) === 1 && n > 0)) {
         result += `${Math.abs(a)}`;
     }
     if (n > 0) {
