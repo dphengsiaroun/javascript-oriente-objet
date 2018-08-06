@@ -21,6 +21,9 @@ const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 const format = (a, n, array) => {
     const maxDegree = array.reduce((acc, n, i) => n !== 0 ? i : acc, 0);
     if (a === 0) {
+        if (maxDegree === 0 && n === 0) {
+            return '0';
+        }
         return '';
     }
     let result = '';
