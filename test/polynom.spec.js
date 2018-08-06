@@ -9,4 +9,10 @@ describe.only('Polynom', () => {
         const b = [-2, 1];
         assert.deepStrictEqual(Polynom.product(a, b), [-2, -1, 1]);
     });
+    
+    it('should product', () => {
+        const a = [1, 3, 5];
+        const b = [4, 2, 1];
+        assert.deepStrictEqual(Polynom.product(a, b), [4, 14, 27, 13, 5]);
+    });
 });
