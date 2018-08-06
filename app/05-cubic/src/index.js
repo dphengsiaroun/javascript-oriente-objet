@@ -20,10 +20,8 @@ let grid;
 
 document.querySelector('#grid').addEventListener('click', (e) => {
     const checkValue = document.getElementById('grid').checked;
-    console.log('checkValue', checkValue);
     if (checkValue) {
         grid = addGrid(graph, xstart, xend, ystart, yend, incr);
-        console.log('grid', grid);
     } else {
         removeGrid(grid);
     } 
