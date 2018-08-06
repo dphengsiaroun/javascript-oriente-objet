@@ -27,12 +27,13 @@ const format = (a, n, array) => {
     if (a >= 0 && n !== maxDegree) {
         result += '+ ';
     }
-    if (a < 0 && n !== maxDegree) {
-        result += '- ';
-    }
-    if (a < 0 && n === maxDegree) {
+    if (a < 0) {
         result += '-';
+        if (n !== maxDegree) {
+            result += ' ';
+        }
     }
+    
     if (Math.abs(a) === 1 && n > 0) {
         result += '';
     } else {
