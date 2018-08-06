@@ -1,5 +1,5 @@
 import {
-    makeGraph
+    makeGraph, addGrid
 } from '../../lib/graph';
 import {
     drawPath
@@ -17,6 +17,7 @@ const element = document.querySelector('.graph');
 
 
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
+addGrid(graph, xstart, xend, ystart, yend, incr);
 
 const format = (a, n, array) => {
     const maxDegree = array.reduce((acc, n, i) => n !== 0 ? i : acc, 0);
