@@ -18,7 +18,7 @@ const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 
 let grid;
 
-document.querySelector('#grid').addEventListener('click', (e) => {
+document.querySelector('#grid').addEventListener('click', () => {
     const checkValue = document.getElementById('grid').checked;
     if (checkValue) {
         grid = addGrid(graph, xstart, xend, ystart, yend, incr);
