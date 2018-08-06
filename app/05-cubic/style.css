@@ -25,9 +25,8 @@ section {
 }
 
 .settings {
-    display: flex;
+    display: block;
     width: 30%;
-    flex-flow: column nowrap;
     padding: 0 2em;
 }
 
@@ -39,6 +38,22 @@ section {
 
 .equation {
     padding: 1em 0 ;
+}
+
+.add-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-grid .label {
+    margin-right: 1em;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 input {
