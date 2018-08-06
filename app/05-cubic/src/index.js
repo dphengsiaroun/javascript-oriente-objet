@@ -1,5 +1,5 @@
 import {
-    makeGraph, addGrid
+    makeGraph, addGrid, removeGrid
 } from '../../lib/graph';
 import {
     drawPath
@@ -14,10 +14,21 @@ const incr = 1;
 const step = 0.3;
 const element = document.querySelector('.graph');
 
-
-
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
-addGrid(graph, xstart, xend, ystart, yend, incr);
+
+let grid;
+
+document.querySelector('#grid').addEventListener('click', (e) => {
+    const checkValue = document.getElementById('grid').checked;
+    console.log('checkValue', checkValue);
+    if (checkValue) {
+        grid = addGrid(graph, xstart, xend, ystart, yend, incr);
+        console.log('grid', grid);
+    } else {
+        removeGrid(grid);
+    } 
+});
+
 
 const format = (a, n, array) => {
     const maxDegree = array.reduce((acc, n, i) => n !== 0 ? i : acc, 0);
@@ -68,3 +79,4 @@ for (let i = 0; i < 4; i++) {
         g = drawPath(graph, cubic, xstart, xend + incr, step, 'green');
     });
 }
+

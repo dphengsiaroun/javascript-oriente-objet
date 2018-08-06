@@ -89,3 +89,7 @@ export function addGrid(svg, xstart, xend, ystart, yend, incr) {
     }
     return grid;
 }
+
+export function removeGrid(grid) {
+    grid.remove();
+}
