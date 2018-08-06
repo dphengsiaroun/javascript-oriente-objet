@@ -18,21 +18,19 @@ const element = document.querySelector('.graph');
 
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
 
-
-const MAX_DEGREE = 3;
-
-const format = (a, n) => {
+const format = (a, n, array) => {
+    const maxDegree = array.reduce((acc, n, i) => n !== 0 ? i : acc, 0);
     if (a === 0) {
         return '';
     }
     let result = '';
-    if (a >= 0 && n !== MAX_DEGREE) {
+    if (a >= 0 && n !== maxDegree) {
         result += '+ ';
     }
-    if (a < 0  && n !== MAX_DEGREE) {
+    if (a < 0 && n !== maxDegree) {
         result += '- ';
     }
-    if (a < 0  && n === MAX_DEGREE) {
+    if (a < 0 && n === maxDegree) {
         result += '-';
     }
     if (Math.abs(a) === 1 && n > 0) {
@@ -48,7 +46,7 @@ const format = (a, n) => {
     }
     return result;
 };
-const formatEquation = array => array.map((a, i) => format(a, i)).reverse().join(' ');
+const formatEquation = array => array.map((a, i, array) => format(a, i, array)).reverse().join(' ').trim();
 
 const a = [0, -5, 0, 0.5];
 const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
@@ -67,4 +65,3 @@ for (let i = 0; i < 4; i++) {
         g = drawPath(graph, cubic, xstart + incr, xend - incr, step, 'green');
     });
 }
-
