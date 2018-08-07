@@ -76,4 +76,15 @@ describe.only('Polynom', () => {
         const a = [4, 0, 6, 2];
         assert.deepStrictEqual(Polynom.normalize(a), [2, 0, 3, 1]);
     });
+
+    it('should canonize', () => {
+        const a = [0, 0, 0, 0];
+        assert.deepStrictEqual(Polynom.canonize(a), []);
+    });
+
+    it('should get the PGCD', () => {
+        const a = [1, 3, 3, 1];
+        const b = [1, 2, 2, 1];
+        assert.deepStrictEqual(Polynom.pgcd(a, b), [1, 1]);
+    });
 });

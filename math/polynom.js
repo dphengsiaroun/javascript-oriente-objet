@@ -1,7 +1,8 @@
 class Polynom {
 
     static canonize(a) {
-        a.length = Polynom.degreeOf(a) + 1;
+        const deg = Polynom.degreeOf(a);
+        a.length = (deg === -Infinity ? -1 : deg) + 1;
         return a;
     }
 
@@ -47,7 +48,7 @@ class Polynom {
         if (degq < 0) {
             return {
                 quotient: [],
-                remainder: a
+                remainder: Polynom.canonize(a)
             };
         }
         const ca = Polynom.dominantCoef(a);
@@ -73,6 +74,20 @@ class Polynom {
 
     static normalize(a) {
         return Polynom.multiply(1 / Polynom.dominantCoef(a), a);
+    }
+
+    static isZero(a) {
+        return Polynom.degreeOf(a) === -Infinity;
+    }
+
+    static pgcd(a, b) {
+        let d = Polynom.divide(a, b);
+        let result = b;
+        while (!Polynom.isZero(d.remainder)) {
+            result = d.remainder;
+            d = Polynom.divide(b, result);
+        }
+        return result;
     }
 
 
