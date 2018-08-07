@@ -87,4 +87,9 @@ describe.only('Polynom', () => {
         const b = [1, 2, 2, 1];
         assert.deepStrictEqual(Polynom.pgcd(a, b), [1, 1]);
     });
+
+    it('should get is irreductible', () => {
+        const a = [1, 1, 1];
+        assert.equal(Polynom.isIrreductible(a), true);
+    });
 });

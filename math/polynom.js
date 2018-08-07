@@ -35,7 +35,7 @@ class Polynom {
     }
 
     static term(coef, degree) {
-        const result =  new Array(degree + 1).fill(0);
+        const result = new Array(degree + 1).fill(0);
         result[degree] = coef;
         return result;
     }
@@ -62,7 +62,7 @@ class Polynom {
         if (degq === 0) {
             return {
                 quotient: [cq],
-                remainder 
+                remainder
             };
         }
         const division = Polynom.divide(remainder, b);
@@ -89,6 +89,31 @@ class Polynom {
         }
         return Polynom.normalize(result);
     }
+
+    static isIrreductible(a, field = 'real') {
+        const d = Polynom.degreeOf(a);
+        if (d >= 3) {
+            return false;
+        }
+        if (d === 1) {
+            return true;
+        }
+        if (d === 2) {
+            if (field === 'complex') {
+                return false;
+            }
+            if (field === 'real') {
+                const delta = a[1] ** 2 - 4 * a[2] * a[0];
+                if (delta < 0) {
+                    return true;
+                }
+                return false;
+            }
+            throw new Error('Field not recognized');
+        }
+    }
+
+
 
 
 }
