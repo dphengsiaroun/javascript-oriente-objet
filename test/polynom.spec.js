@@ -3,7 +3,7 @@ const {
     Polynom
 } = require('../math/polynom');
 
-describe('Polynom', () => {
+describe.only('Polynom', () => {
     it('should product', () => {
         const a = [1, 1];
         const b = [-2, 1];
@@ -23,7 +23,7 @@ describe('Polynom', () => {
     });
 
     it('should get degree', () => {
-        const a = [1, 0, 0, 0, 0, 1, 0, 0];
+        const a = [1, 0, 0, 0, 0, -1, 0, 0];
         assert.equal(Polynom.degreeOf(a), 5);
     });
 
@@ -49,8 +49,26 @@ describe('Polynom', () => {
     });
 
     it('should minus', () => {
-        const a = [1, 1, 5, 2];
-        const b = [2, 3, 0];
-        assert.deepStrictEqual(Polynom.minus(a, b), [-1, -2, 5, 2]);
+        const a = [6, -5, 3];
+        const b = [3, 0, 3];
+        assert.deepStrictEqual(Polynom.minus(a, b), [3, -5]);
+    });
+
+    it('should divide', () => {
+        const a = [1, 1, 5];
+        const b = [-1, 1];
+        assert.deepStrictEqual(Polynom.divide(a, b), {
+            quotient: [6, 5],
+            modulo: [7]
+        });
+    });
+
+    it('should divide also', () => {
+        const a = [6, 1, 3, 6];
+        const b = [1, 0, 1];
+        assert.deepStrictEqual(Polynom.divide(a, b), {
+            quotient: [3, 6],
+            modulo: [3, -5]
+        });
     });
 });
