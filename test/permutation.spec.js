@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {
     Permutation
-} = require('../permutation');
+} = require('../math/permutation');
 
 describe('Permutation', () => {
 

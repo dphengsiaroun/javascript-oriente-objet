@@ -1,9 +1,9 @@
 const assert = require('assert');
 const {
     Polynom
-} = require('../polynom');
+} = require('../math/polynom');
 
-describe.only('Polynom', () => {
+describe('Polynom', () => {
     it('should product', () => {
         const a = [1, 1];
         const b = [-2, 1];

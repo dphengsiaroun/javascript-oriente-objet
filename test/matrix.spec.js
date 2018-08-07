@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {
     Matrix
-} = require('../matrix');
+} = require('../math/matrix');
 
 describe('Matrix', () => {
     it('should plus', () => {

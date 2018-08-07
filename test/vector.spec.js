@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {
     Vector
-} = require('../vector');
+} = require('../math/vector');
 
 describe('Vector', () => {
 

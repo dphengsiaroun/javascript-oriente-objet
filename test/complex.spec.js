@@ -2,7 +2,7 @@ const assert = require('assert');
 const {
     Complex,
     deg2Rad
-} = require('../complex');
+} = require('../math/complex');
 
 describe('Complex', () => {
     it('should multiply', () => {
