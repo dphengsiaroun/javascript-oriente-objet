@@ -1,6 +1,6 @@
 class Polynom {
 
-    static normalize(a) {
+    static canonize(a) {
         a.length = Polynom.degreeOf(a) + 1;
         return a;
     }
@@ -24,12 +24,12 @@ class Polynom {
     }
 
     static plus(a, b) {
-        return Polynom.normalize(new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
+        return Polynom.canonize(new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
             .fill(0).map((n, i) => (a[i] ? a[i] : 0) + (b[i] ? b[i] : 0)));
     }
 
     static minus(a, b) {
-        return Polynom.normalize(new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
+        return Polynom.canonize(new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
             .fill(0).map((n, i) => (a[i] ? a[i] : 0) - (b[i] ? b[i] : 0)));
     }
 
@@ -69,6 +69,10 @@ class Polynom {
             quotient: Polynom.plus(q, division.quotient),
             remainder: division.remainder
         };
+    }
+
+    static normalize(a) {
+        return Polynom.multiply(1 / Polynom.dominantCoef(a), a);
     }
 
 

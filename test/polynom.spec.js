@@ -71,4 +71,9 @@ describe.only('Polynom', () => {
             remainder: [3, -5]
         });
     });
+
+    it('should normalize', () => {
+        const a = [4, 0, 6, 2];
+        assert.deepStrictEqual(Polynom.normalize(a), [2, 0, 3, 1]);
+    });
 });
