@@ -87,7 +87,7 @@ class Polynom {
             result = d.remainder;
             d = Polynom.divide(b, result);
         }
-        return result;
+        return Polynom.normalize(result);
     }
 
 

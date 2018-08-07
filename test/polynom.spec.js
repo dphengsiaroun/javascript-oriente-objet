@@ -83,7 +83,7 @@ describe.only('Polynom', () => {
     });
 
     it('should get the PGCD', () => {
-        const a = [1, 3, 3, 1];
+        const a = [2, 6, 6, 2];
         const b = [1, 2, 2, 1];
         assert.deepStrictEqual(Polynom.pgcd(a, b), [1, 1]);
     });
