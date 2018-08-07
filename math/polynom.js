@@ -47,7 +47,7 @@ class Polynom {
         if (degq < 0) {
             return {
                 quotient: [],
-                modulo: a
+                remainder: a
             };
         }
         const ca = Polynom.dominantCoef(a);
@@ -56,18 +56,18 @@ class Polynom {
         const q = Polynom.term(cq, degq);
 
         const p = Polynom.product(q, b);
-        const modulo = Polynom.minus(a, p);
+        const remainder = Polynom.minus(a, p);
 
         if (degq === 0) {
             return {
                 quotient: [cq],
-                modulo 
+                remainder 
             };
         }
-        const division = Polynom.divide(modulo, b);
+        const division = Polynom.divide(remainder, b);
         return {
             quotient: Polynom.plus(q, division.quotient),
-            modulo: division.modulo
+            remainder: division.remainder
         };
     }
 

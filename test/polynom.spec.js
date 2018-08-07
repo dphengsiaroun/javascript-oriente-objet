@@ -59,7 +59,7 @@ describe.only('Polynom', () => {
         const b = [-1, 1];
         assert.deepStrictEqual(Polynom.divide(a, b), {
             quotient: [6, 5],
-            modulo: [7]
+            remainder: [7]
         });
     });
 
@@ -68,7 +68,7 @@ describe.only('Polynom', () => {
         const b = [1, 0, 1];
         assert.deepStrictEqual(Polynom.divide(a, b), {
             quotient: [3, 6],
-            modulo: [3, -5]
+            remainder: [3, -5]
         });
     });
 });
