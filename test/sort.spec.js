@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { compare } = require('../array');
+const {
+    compare
+} = require('../array');
 
 describe('Sort should', () => {
     it('sort2', () => {
@@ -43,19 +45,26 @@ describe('Sort should', () => {
     });
 
     it('sort4 with cb', () => {
-        const b = [[8, 5], [3, 4], [6, 2]];
-        const dist = p => (p[0]**2 + p[1]**2)**0.5;
-        assert.deepStrictEqual(b.sort4((a, b) => compare(dist(a), dist(b))), [[3, 4], [6, 2], [8, 5]]);
+        const b = [
+            [8, 5],
+            [3, 4],
+            [6, 2]
+        ];
+        const dist = p => (p[0] ** 2 + p[1] ** 2) ** 0.5;
+        assert.deepStrictEqual(b.sort4((a, b) => compare(dist(a), dist(b))), [
+            [3, 4],
+            [6, 2],
+            [8, 5]
+        ]);
     });
 
     it('sort5', (done) => {
         const b = [20, 9, 8, 5, 2];
-        const sort5 = b.sort5();
-        setTimeout(() => {
-            assert.deepStrictEqual(sort5, [2, 5, 8, 9, 20]);
+        b.sort5(200, (err, result) => {
+            assert.deepStrictEqual(result, [2, 5, 8, 9, 20]);
             done();
-        }, 100); 
+        });
     });
-    
+
 
 });

@@ -154,12 +154,14 @@ Array.prototype.sort4 = function (cb = compare) {
     return this;
 }
 
-Array.prototype.sort5 = function (cb = compare) {
+Array.prototype.sort5 = function (time, cb) {
     const result = [];
     for (let i = 0; i < this.length; i++) {
         setTimeout(() => {
             result.push(this[i]);
         }, this[i]);
     }
-    return result;
+    setTimeout(() => {
+        cb(null, result);
+    }, time);
 }

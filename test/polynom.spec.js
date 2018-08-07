@@ -36,4 +36,9 @@ describe('Polynom', () => {
         const a = [1, 3, 4, 2, 0];
         assert.equal(Polynom.dominantCoef(a), 2);
     });
+
+    it('should multiply', () => {
+        const a = [1, 1, 5];
+        assert.deepStrictEqual(Polynom.multiply(4, a), [4, 4, 20]);
+    });
 });

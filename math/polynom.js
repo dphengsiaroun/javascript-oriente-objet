@@ -12,6 +12,10 @@ class Polynom {
     static dominantCoef(a) {
         return a.reduce((acc, n, i) => n > 0 ? n : acc, 0);
     }
+
+    static multiply(n, a) {
+        return a.map(c => n * c);
+    }
 }
 
 module.exports = {
