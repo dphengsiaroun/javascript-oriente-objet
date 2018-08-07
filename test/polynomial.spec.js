@@ -88,8 +88,14 @@ describe.only('Polynomial', () => {
         assert.deepStrictEqual(Polynomial.pgcd(a, b), [1, 1]);
     });
 
-    it('should get is irreductible', () => {
+    it('should check if irreducible', () => {
         const a = [1, 1, 1];
-        assert.equal(Polynomial.isIrreductible(a), true);
+        assert.equal(Polynomial.isIrreducible(a), true);
+    });
+
+    it('should get if two polynomials are prime between then', () => {
+        const a = [1, 1, 1];
+        const b = [2, 3, 4];
+        assert.equal(Polynomial.arePrime(a, b), true);
     });
 });

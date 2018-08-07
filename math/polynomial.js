@@ -80,6 +80,10 @@ class Polynomial {
         return Polynomial.degreeOf(a) === -Infinity;
     }
 
+    static isOne(a) {
+        return Polynomial.degreeOf(a) === 0 && Polynomial.dominantCoef(a) === 1;
+    }
+
     static pgcd(a, b) {
         let d = Polynomial.divide(a, b);
         let result = b;
@@ -90,7 +94,7 @@ class Polynomial {
         return Polynomial.normalize(result);
     }
 
-    static isIrreductible(a, field = 'real') {
+    static isIrreducible(a, field = 'real') {
         const d = Polynomial.degreeOf(a);
         if (d >= 3) {
             return false;
@@ -113,9 +117,9 @@ class Polynomial {
         }
     }
 
-
-
-
+    static arePrime(a, b) {
+        return Polynomial.isOne(Polynomial.pgcd(a, b));
+    }
 }
 
 module.exports = {
