@@ -16,6 +16,18 @@ class Polynom {
     static multiply(n, a) {
         return a.map(c => n * c);
     }
+
+    static plus(a, b) {
+        return new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
+            .fill(0).map((n, i) => (a[i] ? a[i] : 0) + (b[i] ? b[i] : 0));
+    }
+
+    static minus(a, b) {
+        return new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
+            .fill(0).map((n, i) => (a[i] ? a[i] : 0) - (b[i] ? b[i] : 0));
+    }
+
+
 }
 
 module.exports = {

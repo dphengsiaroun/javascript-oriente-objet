@@ -41,4 +41,16 @@ describe('Polynom', () => {
         const a = [1, 1, 5];
         assert.deepStrictEqual(Polynom.multiply(4, a), [4, 4, 20]);
     });
+
+    it('should plus', () => {
+        const a = [1, 1, 5, 2];
+        const b = [2, 3, 0];
+        assert.deepStrictEqual(Polynom.plus(a, b), [3, 4, 5, 2]);
+    });
+
+    it('should minus', () => {
+        const a = [1, 1, 5, 2];
+        const b = [2, 3, 0];
+        assert.deepStrictEqual(Polynom.minus(a, b), [-1, -2, 5, 2]);
+    });
 });
