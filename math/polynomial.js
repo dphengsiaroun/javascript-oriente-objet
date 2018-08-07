@@ -1,7 +1,7 @@
-class Polynom {
+class Polynomial {
 
     static canonize(a) {
-        const deg = Polynom.degreeOf(a);
+        const deg = Polynomial.degreeOf(a);
         a.length = (deg === -Infinity ? -1 : deg) + 1;
         return a;
     }
@@ -25,12 +25,12 @@ class Polynom {
     }
 
     static plus(a, b) {
-        return Polynom.canonize(new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
+        return Polynomial.canonize(new Array(Math.max(Polynomial.degreeOf(a), Polynomial.degreeOf(b)) + 1)
             .fill(0).map((n, i) => (a[i] ? a[i] : 0) + (b[i] ? b[i] : 0)));
     }
 
     static minus(a, b) {
-        return Polynom.canonize(new Array(Math.max(Polynom.degreeOf(a), Polynom.degreeOf(b)) + 1)
+        return Polynomial.canonize(new Array(Math.max(Polynomial.degreeOf(a), Polynomial.degreeOf(b)) + 1)
             .fill(0).map((n, i) => (a[i] ? a[i] : 0) - (b[i] ? b[i] : 0)));
     }
 
@@ -41,23 +41,23 @@ class Polynom {
     }
 
     static divide(a, b) {
-        const dega = Polynom.degreeOf(a);
-        const degb = Polynom.degreeOf(b);
+        const dega = Polynomial.degreeOf(a);
+        const degb = Polynomial.degreeOf(b);
         const degq = dega - degb;
 
         if (degq < 0) {
             return {
                 quotient: [],
-                remainder: Polynom.canonize(a)
+                remainder: Polynomial.canonize(a)
             };
         }
-        const ca = Polynom.dominantCoef(a);
-        const cb = Polynom.dominantCoef(b);
+        const ca = Polynomial.dominantCoef(a);
+        const cb = Polynomial.dominantCoef(b);
         const cq = ca / cb;
-        const q = Polynom.term(cq, degq);
+        const q = Polynomial.term(cq, degq);
 
-        const p = Polynom.product(q, b);
-        const remainder = Polynom.minus(a, p);
+        const p = Polynomial.product(q, b);
+        const remainder = Polynomial.minus(a, p);
 
         if (degq === 0) {
             return {
@@ -65,33 +65,33 @@ class Polynom {
                 remainder
             };
         }
-        const division = Polynom.divide(remainder, b);
+        const division = Polynomial.divide(remainder, b);
         return {
-            quotient: Polynom.plus(q, division.quotient),
+            quotient: Polynomial.plus(q, division.quotient),
             remainder: division.remainder
         };
     }
 
     static normalize(a) {
-        return Polynom.multiply(1 / Polynom.dominantCoef(a), a);
+        return Polynomial.multiply(1 / Polynomial.dominantCoef(a), a);
     }
 
     static isZero(a) {
-        return Polynom.degreeOf(a) === -Infinity;
+        return Polynomial.degreeOf(a) === -Infinity;
     }
 
     static pgcd(a, b) {
-        let d = Polynom.divide(a, b);
+        let d = Polynomial.divide(a, b);
         let result = b;
-        while (!Polynom.isZero(d.remainder)) {
+        while (!Polynomial.isZero(d.remainder)) {
             result = d.remainder;
-            d = Polynom.divide(b, result);
+            d = Polynomial.divide(b, result);
         }
-        return Polynom.normalize(result);
+        return Polynomial.normalize(result);
     }
 
     static isIrreductible(a, field = 'real') {
-        const d = Polynom.degreeOf(a);
+        const d = Polynomial.degreeOf(a);
         if (d >= 3) {
             return false;
         }
@@ -119,5 +119,5 @@ class Polynom {
 }
 
 module.exports = {
-    Polynom
+    Polynomial
 };
