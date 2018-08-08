@@ -1,6 +1,6 @@
 import {
-    makeGraph
-} from '../../lib/graph';
+    Graph
+} from '../../lib/Graph';
 import {
     draw,
     drawPath,
@@ -16,27 +16,11 @@ import {
 
 const leftElt = document.querySelector('.circle');
 console.log('leftElt', leftElt);
-const graph1 = makeGraph(leftElt, -1.2, 1.2, -1.2, 1.2, 1);
+const graph1 = new Graph(leftElt, -1.2, 1.2, -1.2, 1.2, 1);
 
-printMouseCoord(graph1);
+printMouseCoord(graph1.svg);
 
-// const circleHigh = x => (1 - x**2)**0.5;
-// const circleLow = x => -((1 - x**2)**0.5);
-
-// console.log('circleHigh', circleHigh(1));
-
-// const cs = 1e-4;
-
-// drawPath(graph1, circleHigh, -1 + cs, 1 - cs, cs, 'black');
-// drawPath(graph1, circleLow, -1 + cs, 1 - cs, cs, 'black');
-
-drawPathXY(graph1, Math.cos, Math.sin, 0, 2 * Math.PI, 1e-2, 'black');
-
-
-
-
-
-
+drawPathXY(graph1.svg, Math.cos, Math.sin, 0, 2 * Math.PI, 1e-2, 'black');
 
 //////////////////////
 
@@ -53,9 +37,9 @@ const step = 0.3;
 
 
 const rightElt = document.querySelector('div.graph');
-const graph2 = makeGraph(rightElt, xstart, xend, ystart, yend, incr);
+const graph2 = new Graph(rightElt, xstart, xend, ystart, yend, incr);
 
-drawPath(graph2, sin, xstart + incr, xend - incr, step, 'blue');
-drawPath(graph2, cos, xstart + incr, xend - incr, step, 'red');
+drawPath(graph2.svg, sin, xstart + incr, xend - incr, step, 'blue');
+drawPath(graph2.svg, cos, xstart + incr, xend - incr, step, 'red');
 
-initCircle(graph1, graph2);
+initCircle(graph1.svg, graph2.svg);
