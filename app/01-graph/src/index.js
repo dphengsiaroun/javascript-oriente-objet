@@ -1,8 +1,8 @@
 import * as rxjs from 'rxjs/bundles/rxjs.umd';
 
 import {
-    makeGraph
-} from '../../lib/graph';
+    Graph
+} from '../../lib/Graph';
 import {
     draw,
     drawPath
@@ -33,7 +33,7 @@ const incr = 1;
 const step = 0.3;
 const element = document.querySelector('.graph');
 
-const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
+const graph = new Graph(element, xstart, xend, ystart, yend, incr);
 
-drawPath(graph, sin, xstart + incr, xend - incr, step, 'blue');
-drawPath(graph, cos, xstart + incr, xend - incr, step, 'red');
+drawPath(graph.svg, sin, xstart + incr, xend - incr, step, 'blue');
+drawPath(graph.svg, cos, xstart + incr, xend - incr, step, 'red');
