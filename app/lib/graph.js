@@ -57,45 +57,49 @@ export class Graph {
         }
         this.svg = svg;
     }
+
+    addGrid(xstart, xend, ystart, yend, incr) {
+        const ns = 'http://www.w3.org/2000/svg';
+    
+        const wrapper = this.svg.querySelector('.wrapper');
+        const grid = document.createElementNS(ns, 'g');
+        grid.setAttribute('class', 'grid');
+        wrapper.appendChild(grid);
+    
+        for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
+            const hLine = document.createElementNS(ns, 'line');
+            hLine.setAttribute('class', 'grid-line');
+            hLine.setAttribute('x1', xstart);
+            hLine.setAttribute('x2', xend);
+            hLine.setAttribute('y1', y);
+            hLine.setAttribute('y2', y);
+            hLine.setAttribute('stroke-width', '0.1%');
+            hLine.setAttribute('stroke-dasharray', '0.1');
+            grid.appendChild(hLine);
+        }
+        for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
+            const vLine = document.createElementNS(ns, 'line');
+            vLine.setAttribute('class', 'grid-line');
+            vLine.setAttribute('x1', x);
+            vLine.setAttribute('x2', x);
+            vLine.setAttribute('y1', ystart);
+            vLine.setAttribute('y2', yend);
+            vLine.setAttribute('stroke-width', '0.1%');
+            vLine.setAttribute('stroke-dasharray', '0.1');
+            grid.appendChild(vLine);
+        }
+        this.grid = grid;
+    }
+
+    removeGrid() {
+        this.grid.remove();
+    }
 }
     
 
-export function addGrid(svg, xstart, xend, ystart, yend, incr) {
-    const ns = 'http://www.w3.org/2000/svg';
 
-    const wrapper = svg.querySelector('.wrapper');
-    const grid = document.createElementNS(ns, 'g');
-    grid.setAttribute('class', 'grid');
-    wrapper.appendChild(grid);
 
-    for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
-        const hLine = document.createElementNS(ns, 'line');
-        hLine.setAttribute('class', 'grid-line');
-        hLine.setAttribute('x1', xstart);
-        hLine.setAttribute('x2', xend);
-        hLine.setAttribute('y1', y);
-        hLine.setAttribute('y2', y);
-        hLine.setAttribute('stroke-width', '0.1%');
-        hLine.setAttribute('stroke-dasharray', '0.1');
-        grid.appendChild(hLine);
-    }
-    for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
-        const vLine = document.createElementNS(ns, 'line');
-        vLine.setAttribute('class', 'grid-line');
-        vLine.setAttribute('x1', x);
-        vLine.setAttribute('x2', x);
-        vLine.setAttribute('y1', ystart);
-        vLine.setAttribute('y2', yend);
-        vLine.setAttribute('stroke-width', '0.1%');
-        vLine.setAttribute('stroke-dasharray', '0.1');
-        grid.appendChild(vLine);
-    }
-    return grid;
-}
 
-export function removeGrid(grid) {
-    grid.remove();
-}
 
 export function addNumber(svg, xstart, xend, ystart, yend, incr) {
     const ns = 'http://www.w3.org/2000/svg';

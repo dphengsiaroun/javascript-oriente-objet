@@ -1,5 +1,5 @@
 import {
-    Graph, addGrid, removeGrid, addNumber, removeNumber
+    Graph, addNumber, removeNumber
 } from '../../lib/Graph';
 import {
     drawPath
@@ -20,14 +20,12 @@ const element = document.querySelector('.graph');
 
 const graph = new Graph(element, xstart, xend, ystart, yend, incr);
 
-let grid;
-
 document.querySelector('#grid').addEventListener('click', () => {
     const checkValue = document.querySelector('#grid').checked;
     if (checkValue) {
-        grid = addGrid(graph.svg, xstart, xend, ystart, yend, incr);
+        graph.addGrid(xstart, xend, ystart, yend, incr);
     } else {
-        removeGrid(grid);
+        graph.removeGrid();
     } 
 });
 
