@@ -6,14 +6,14 @@ export class Graph {
         svg.setAttribute('viewBox', `${xstart} ${ystart} ${xend - xstart} ${yend - ystart}`);
         element.appendChild(svg);
 
-        const wrapper = document.createElementNS(ns, 'g');
-        wrapper.setAttribute('class', 'wrapper');
-        wrapper.setAttribute('transform', 'scale(1, -1)');
-        svg.appendChild(wrapper);
+        this.wrapper = document.createElementNS(ns, 'g');
+        this.wrapper.setAttribute('class', 'wrapper');
+        this.wrapper.setAttribute('transform', 'scale(1, -1)');
+        svg.appendChild(this.wrapper);
 
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'graph');
-        wrapper.appendChild(g);
+        this.wrapper.appendChild(g);
 
         const xLine = document.createElementNS(ns, 'line');
         xLine.setAttribute('x1', xstart);
@@ -66,8 +66,13 @@ export class Graph {
             } else {
                 this.zoomLevel /= 2;
             }
-            wrapper.setAttribute('transform', `scale(${this.zoomLevel}, -${this.zoomLevel})`);
+            this.render();
+            
         });
+    }
+
+    render() {
+        this.wrapper.setAttribute('transform', `scale(${this.zoomLevel}, -${this.zoomLevel})`);
     }
 
     addGrid(xstart, xend, ystart, yend, incr) {
