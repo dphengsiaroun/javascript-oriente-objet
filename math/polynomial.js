@@ -2,6 +2,8 @@ const {
 	polynomialFormat
 } = require('./polynomial/format');
 
+
+
 const round = (x, n = 16) => {
 	if (Math.abs(x) < 1e-11) {
 		return 0;
@@ -114,22 +116,6 @@ class Polynomial {
 		return Polynomial.degreeOf(a) === 0 && Polynomial.leadingCoef(a) === 1;
 	}
 
-	static pgcd(a, b) {
-		let d = Polynomial.divide(a, b);
-		let result = b;
-		while (!Polynomial.isZero(d.remainder)) {
-			result = d.remainder;
-			d = Polynomial.divide(b, result);
-		}
-		return Polynomial.normalize(result);
-	}
-
-	static ppcm(a, b) {
-		const pgcd = Polynomial.pgcd(a, b);
-		const bp = Polynomial.divide(b, pgcd).quotient;
-		return Polynomial.product(a, bp);
-	}
-
 	static isIrreducible(a, field = 'real') {
 		const d = Polynomial.degreeOf(a);
 		if (d >= 3) {
@@ -217,6 +203,14 @@ class Polynomial {
 	}
 
 }
+
+const {
+	pgcd, ppcm
+} = require('./polynomial/binaryOps')(Polynomial);
+
+Polynomial.pgcd = pgcd;
+Polynomial.ppcm = ppcm;
+
 
 module.exports = {
 	Polynomial
