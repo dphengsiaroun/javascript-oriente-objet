@@ -111,7 +111,7 @@ export function addNumber(svg, xstart, xend, ystart, yend, incr) {
         text.setAttribute('class', 'graph-number-text');
         text.setAttribute('x', -0.4);
         text.setAttribute('y', y + 0.14);
-        text.setAttribute('font-size', 0.5);
+        text.setAttribute('font-size', 0.4);
         text.setAttribute('text-anchor', 'end');
         text.innerHTML = -y;
         graphNumber.appendChild(text);
@@ -124,7 +124,7 @@ export function addNumber(svg, xstart, xend, ystart, yend, incr) {
         text.setAttribute('class', 'graph-number-text');
         text.setAttribute('x', x - 0.14);
         text.setAttribute('y', 0.8);
-        text.setAttribute('font-size', 0.5);
+        text.setAttribute('font-size', 0.4);
         text.innerHTML = x;
         graphNumber.appendChild(text);
     }
