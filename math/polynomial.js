@@ -1,3 +1,7 @@
+const {
+	polynomialFormat
+} = require('./polynomial/format');
+
 const round = (x, n = 16) => {
 	if (Math.abs(x) < 1e-11) {
 		return 0;
@@ -184,7 +188,7 @@ class Polynomial {
 	}
 
 	static toString(a, format = 'js') {
-		return 'x**2 + x + 1';
+		return polynomialFormat(a);
 	}
 
 }

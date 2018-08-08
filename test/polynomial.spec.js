@@ -115,7 +115,7 @@ describe.only('Polynomial', () => {
     });
 
     it('should get the js format of the polynomial', () => {
-        const a = [1, 1, 1];
-        assert.equal(Polynomial.toString(a, 'js'), 'x**2 + x + 1');
+        const a = [1, 2, 1];
+        assert.equal(Polynomial.toString(a, 'js'), 'x**2 + 2*x + 1');
     });
 });
