@@ -19,29 +19,19 @@ export class Graph {
         this.wrapper.setAttribute('class', 'wrapper');
         this.wrapper.setAttribute('transform', `scale(1, -1)`);
         svg.appendChild(this.wrapper);
-        this.render();
+        
 
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'graph');
         this.wrapper.appendChild(g);
 
-        const xLine = document.createElementNS(ns, 'line');
-        xLine.setAttribute('x1', xstart);
-        xLine.setAttribute('y1', 0);
-        xLine.setAttribute('x2', xend);
-        xLine.setAttribute('y2', 0);
-        xLine.setAttribute('stroke-width', '0.4%');
-        xLine.setAttribute('stroke', 'black');
-        g.appendChild(xLine);
+        this.xLine = document.createElementNS(ns, 'line');
+        g.appendChild(this.xLine);
 
-        const yLine = document.createElementNS(ns, 'line');
-        yLine.setAttribute('x1', 0);
-        yLine.setAttribute('y1', ystart);
-        yLine.setAttribute('x2', 0);
-        yLine.setAttribute('y2', yend);
-        yLine.setAttribute('stroke-width', '0.4%');
-        yLine.setAttribute('stroke', 'black');
-        g.appendChild(yLine);
+        this.yLine = document.createElementNS(ns, 'line');
+        g.appendChild(this.yLine);
+        
+        this.render();
 
 
         const width = (xstart - xend) / 100;
@@ -82,6 +72,22 @@ export class Graph {
 
     render() {
         this.svg.setAttribute('viewBox', `${this.center.x - this.zoomLevel / 2} ${this.center.y - (this.zoomLevel / 2) * this.ratioYX} ${this.zoomLevel} ${this.zoomLevel * this.ratioYX}`);
+
+        const xLine = this.xLine;
+        xLine.setAttribute('x1', this.center.x - this.zoomLevel / 2);
+        xLine.setAttribute('y1', 0);
+        xLine.setAttribute('x2', this.center.x + this.zoomLevel / 2);
+        xLine.setAttribute('y2', 0);
+        xLine.setAttribute('stroke-width', '0.4%');
+        xLine.setAttribute('stroke', 'black');
+
+        const yLine = this.yLine;
+        yLine.setAttribute('x1', 0);
+        yLine.setAttribute('y1', this.center.y - (this.zoomLevel / 2) * this.ratioYX);
+        yLine.setAttribute('x2', 0);
+        yLine.setAttribute('y2', this.center.y + (this.zoomLevel / 2) * this.ratioYX);
+        yLine.setAttribute('stroke-width', '0.4%');
+        yLine.setAttribute('stroke', 'black');
     }
 
     addGrid(xstart, xend, ystart, yend, incr) {
