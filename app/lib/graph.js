@@ -1,16 +1,25 @@
 export class Graph {
     constructor(element, xstart, xend, ystart, yend, incr) {
-        this.zoomLevel = 1;
+        
+        this.center = {
+            x: (xstart + xend) / 2,
+            y: (ystart + yend) / 2,
+        };
+        this.zoomLevel = xend - xstart;
+        this.ratioYX = (yend - ystart) / (xend - xstart);
+        this.xstart = xstart;
         const ns = 'http://www.w3.org/2000/svg';
 
         const svg = document.createElementNS(ns, 'svg');
-        svg.setAttribute('viewBox', `${xstart} ${ystart} ${xend - xstart} ${yend - ystart}`);
+        this.svg = svg;
+        
         element.appendChild(svg);
 
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
-        this.render();
+        this.wrapper.setAttribute('transform', `scale(1, -1)`);
         svg.appendChild(this.wrapper);
+        this.render();
 
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'graph');
@@ -56,7 +65,7 @@ export class Graph {
             mark.setAttribute('stroke-width', '0.15%');
             g.appendChild(mark);
         }
-        this.svg = svg;
+        
 
         svg.addEventListener('mousewheel', e => {
             console.log('e', e.deltaY);
@@ -72,7 +81,7 @@ export class Graph {
     }
 
     render() {
-        this.wrapper.setAttribute('transform', `scale(${this.zoomLevel}, -${this.zoomLevel})`);
+        this.svg.setAttribute('viewBox', `${this.center.x - this.zoomLevel / 2} ${this.center.y - (this.zoomLevel / 2) * this.ratioYX} ${this.zoomLevel} ${this.zoomLevel * this.ratioYX}`);
     }
 
     addGrid(xstart, xend, ystart, yend, incr) {
