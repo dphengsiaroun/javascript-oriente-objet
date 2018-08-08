@@ -127,42 +127,6 @@ class Polynomial {
 		return Polynomial.isOne(Polynomial.pgcd(a, b));
 	}
 
-
-	/**
-	 * See algorithm at https://www-fourier.ujf-grenoble.fr/~parisse/mat249/mat249/node21.html
-	 *
-	 * @static
-	 * @param {*} a
-	 * @param {*} b
-	 * @memberof Polynomial
-	 */
-	static bezout(a, b) {
-		const u = [];
-		const v = [];
-		const r = [];
-
-		u[0] = [1];
-		v[0] = [];
-		r[0] = a;
-
-		u[1] = [];
-		v[1] = [1];
-		r[1] = b;
-
-		let n = -1;
-		do {
-			n++;
-			const division = Polynomial.divide(r[n], r[n + 1]);
-			r[n + 2] = division.remainder;
-			u[n + 2] = Polynomial.minus(u[n], Polynomial.product(division.quotient, u[n + 1]));
-			v[n + 2] = Polynomial.minus(v[n], Polynomial.product(division.quotient, v[n + 1]));
-		} while (!Polynomial.isZero(r[n + 2]));
-		return {
-			u: u[n + 1],
-			v: v[n + 1]
-		};
-	}
-
 	static toString(a, format = 'tex') {
 		return polynomialFormat(a, format);
 	}
