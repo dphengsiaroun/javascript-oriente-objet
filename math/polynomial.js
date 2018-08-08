@@ -124,6 +124,12 @@ class Polynomial {
 		return Polynomial.normalize(result);
 	}
 
+	static ppcm(a, b) {
+		const pgcd = Polynomial.pgcd(a, b);
+		const bp = Polynomial.divide(b, pgcd).quotient;
+		return Polynomial.product(a, bp);
+	}
+
 	static isIrreducible(a, field = 'real') {
 		const d = Polynomial.degreeOf(a);
 		if (d >= 3) {

@@ -151,4 +151,19 @@ describe.only('Polynomial', () => {
             remainder: [-1.25]
         });
     });
+
+    it('should compute the ppcm', () => {
+        const ap = [-1, 1];
+        const bp = [-2, 1];
+        const c = [1, 1];
+
+        const a = Polynomial.product(c, ap);
+        const b = Polynomial.product(c, bp);
+
+        const pgcd = Polynomial.pgcd(a, b);
+        
+        assert.deepStrictEqual(pgcd, c);
+        assert.deepStrictEqual(Polynomial.ppcm(a, b), Polynomial.product(a, bp));
+
+    });
 });
