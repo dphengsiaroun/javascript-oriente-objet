@@ -102,18 +102,20 @@ describe.only('Polynomial', () => {
     });
 
     it('should get the two bezout polynomials', () => {
-        // const a = [rand(0, 10), rand(0, 10), rand(1, 10)];
-        // const b = [rand(0, 10), rand(0, 10), rand(1, 10)];
-        const a = [6, 8, 5];
-        const b = [2, 2, 3];
-        console.log('a', a, 'b', b);
+        const a = [rand(0, 10), rand(0, 10), rand(1, 10)];
+        const b = [rand(0, 10), rand(0, 10), rand(1, 10)];
+        // const a = [9, 5, 7];
+        // const b = [0, 7, 9];
         const {
             u,
             v
         } = Polynomial.bezout(a, b);
-        console.log('u', u, 'v', v);
         const au_bv = Polynomial.plus(Polynomial.product(a, u), Polynomial.product(b, v));
-        console.log('au_bv', au_bv);
         assert.deepStrictEqual(Polynomial.normalize(au_bv), Polynomial.pgcd(a, b));
+    });
+
+    it('should get the js format of the polynomial', () => {
+        const a = [1, 1, 1];
+        assert.equal(Polynomial.toString(a, 'js'), 'x**2 + x + 1');
     });
 });
