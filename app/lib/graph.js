@@ -110,7 +110,7 @@ export function addNumber(svg, xstart, xend, ystart, yend, incr) {
         const text = document.createElementNS(ns, 'text');
         text.setAttribute('class', 'graph-number-text');
         text.setAttribute('x', -0.4);
-        text.setAttribute('y', y + 0.14);
+        text.setAttribute('y', y + 0.11);
         text.setAttribute('font-size', 0.4);
         text.setAttribute('text-anchor', 'end');
         text.innerHTML = -y;
