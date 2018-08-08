@@ -94,50 +94,47 @@ export class Graph {
     removeGrid() {
         this.grid.remove();
     }
+
+    addNumber(xstart, xend, ystart, yend, incr) {
+        const ns = 'http://www.w3.org/2000/svg';
+    
+        const wrapper = this.svg.querySelector('.wrapper');
+        const graphNumber = document.createElementNS(ns, 'g');
+        graphNumber.setAttribute('class', 'graph-number');
+        graphNumber.setAttribute('transform', 'scale(1, -1)');
+        wrapper.appendChild(graphNumber);
+    
+        for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
+            if (y === 0) {
+                continue;
+            }
+            const text = document.createElementNS(ns, 'text');
+            text.setAttribute('class', 'graph-number-text');
+            text.setAttribute('x', -0.4);
+            text.setAttribute('y', y + 0.10);
+            text.setAttribute('font-size', 0.35);
+            text.setAttribute('text-anchor', 'end');
+            text.innerHTML = -y;
+            graphNumber.appendChild(text);
+        }
+        for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
+            if (x === 0) {
+                continue;
+            }
+            const text = document.createElementNS(ns, 'text');
+            text.setAttribute('class', 'graph-number-text');
+            text.setAttribute('x', x - 0.14);
+            text.setAttribute('y', 0.8);
+            text.setAttribute('font-size', 0.35);
+            text.innerHTML = x;
+            graphNumber.appendChild(text);
+        }
+        this.graphNumber = graphNumber;
+    }
+
+    removeNumber() {
+        this.graphNumber.remove();
+    }
+    
 }
     
-
-
-
-
-
-export function addNumber(svg, xstart, xend, ystart, yend, incr) {
-    const ns = 'http://www.w3.org/2000/svg';
-
-    const wrapper = svg.querySelector('.wrapper');
-    const graphNumber = document.createElementNS(ns, 'g');
-    graphNumber.setAttribute('class', 'graph-number');
-    graphNumber.setAttribute('transform', 'scale(1, -1)');
-    wrapper.appendChild(graphNumber);
-
-    for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
-        if (y === 0) {
-            continue;
-        }
-        const text = document.createElementNS(ns, 'text');
-        text.setAttribute('class', 'graph-number-text');
-        text.setAttribute('x', -0.4);
-        text.setAttribute('y', y + 0.10);
-        text.setAttribute('font-size', 0.35);
-        text.setAttribute('text-anchor', 'end');
-        text.innerHTML = -y;
-        graphNumber.appendChild(text);
-    }
-    for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
-        if (x === 0) {
-            continue;
-        }
-        const text = document.createElementNS(ns, 'text');
-        text.setAttribute('class', 'graph-number-text');
-        text.setAttribute('x', x - 0.14);
-        text.setAttribute('y', 0.8);
-        text.setAttribute('font-size', 0.35);
-        text.innerHTML = x;
-        graphNumber.appendChild(text);
-    }
-    return graphNumber;
-}
-
-export function removeNumber(graphNumber) {
-    graphNumber.remove();
-}
