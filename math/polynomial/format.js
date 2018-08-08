@@ -1,5 +1,5 @@
 const FORMAT_JS = 'js';
-const FORMAT_TEXT = 'text';
+const FORMAT_TEX = 'tex';
 const FORMAT_HTML = 'html';
 
 const formatMonomial = format => (a, n, array) => {
@@ -36,7 +36,7 @@ const formatMonomial = format => (a, n, array) => {
         if (format === FORMAT_JS) {
             result += `**${n}`;
         }
-        if (format === FORMAT_TEXT) {
+        if (format === FORMAT_TEX) {
             result += `^${n}`;
         }
         if (format === FORMAT_HTML) {

@@ -187,7 +187,7 @@ class Polynomial {
 		};
 	}
 
-	static toString(a, format = 'text') {
+	static toString(a, format = 'tex') {
 		return polynomialFormat(a, format);
 	}
 
