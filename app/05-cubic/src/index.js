@@ -15,7 +15,7 @@ const xend = 10;
 const ystart = -10;
 const yend = 10;
 const incr = 1;
-const step = 0.3;
+const step = 0.1;
 const element = document.querySelector('.graph');
 
 const graph = makeGraph(element, xstart, xend, ystart, yend, incr);
@@ -32,7 +32,7 @@ document.querySelector('#grid').addEventListener('click', () => {
 });
 
 const a = [0, -5, 0, 0.5];
-const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
+const cubic = Polynomial.toFunction(a);
 let g = drawPath(graph, cubic, xstart, xend, step, 'green');
 const equationElt = document.querySelector('.equation');
 equationElt.innerHTML = Polynomial.toString(a, 'html');
@@ -43,7 +43,7 @@ for (let i = 0; i < 4; i++) {
     elt.addEventListener('input', (e) => {
         a[i] = +e.target.value;
         equationElt.innerHTML = Polynomial.toString(a, 'html');
-        const cubic = x => (a[3] * x ** 3) + (a[2] * x ** 2) + (a[1] * x) + a[0];
+        const cubic = Polynomial.toFunction(a);
         g.remove();
         g = drawPath(graph, cubic, xstart, xend + incr, step, 'green');
     });

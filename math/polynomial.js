@@ -191,6 +191,10 @@ class Polynomial {
 		return polynomialFormat(a, format);
 	}
 
+	static toFunction(a) {
+		return x => a.reduce((acc, n, i) => acc + n * x ** i, 0);
+	}
+
 }
 
 module.exports = {
