@@ -120,5 +120,18 @@ describe.only('Polynomial', () => {
         assert.equal(Polynomial.toString([1, 2, 2], 'js'), '2*x**2 + 2*x + 1');
         assert.equal(Polynomial.toString([0, 0, 0], 'js'), '0');
         assert.equal(Polynomial.toString([-1, 2, -1], 'js'), '-x**2 + 2*x - 1');
+
+        assert.equal(Polynomial.toString([1, 2, 1]), 'x^2 + 2x + 1');
+        assert.equal(Polynomial.toString([1, 1, 1]), 'x^2 + x + 1');
+        assert.equal(Polynomial.toString([1, 2, 2]), '2x^2 + 2x + 1');
+        assert.equal(Polynomial.toString([0, 0, 0]), '0');
+        assert.equal(Polynomial.toString([-1, 2, -1]), '-x^2 + 2x - 1');
+
+        assert.equal(Polynomial.toString([1, 2, 1], 'html'), 'x<sup>2</sup> + 2x + 1');
+        assert.equal(Polynomial.toString([1, 1, 1], 'html'), 'x<sup>2</sup> + x + 1');
+        assert.equal(Polynomial.toString([1, 2, 2], 'html'), '2x<sup>2</sup> + 2x + 1');
+        assert.equal(Polynomial.toString([0, 0, 0], 'html'), '0');
+        assert.equal(Polynomial.toString([-1, 2, -1], 'html'), '-x<sup>2</sup> + 2x - 1');
+        
     });
 });
