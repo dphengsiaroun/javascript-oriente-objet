@@ -26,6 +26,7 @@
   "homepage": "https://github.com/dphengsiaroun/javascript-oriente-objet#readme",
   "dependencies": {
     "@reactivex/rxjs": "^6.2.2",
+    "mathjax": "^2.7.5",
     "mocha": "^5.2.0",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",

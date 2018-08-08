@@ -41,7 +41,7 @@ export function makeGraph(element, xstart, xend, ystart, yend, incr) {
         mark.setAttribute('x2', x);
         mark.setAttribute('y1', -width);
         mark.setAttribute('y2', width);
-        mark.setAttribute('stroke-width', '0.4%');
+        mark.setAttribute('stroke-width', '0.15%');
         g.appendChild(mark);
     }
     for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
@@ -51,7 +51,7 @@ export function makeGraph(element, xstart, xend, ystart, yend, incr) {
         mark.setAttribute('x2', width);
         mark.setAttribute('y1', y);
         mark.setAttribute('y2', y);
-        mark.setAttribute('stroke-width', '0.4%');
+        mark.setAttribute('stroke-width', '0.15%');
         g.appendChild(mark);
     }
     return svg;
@@ -110,8 +110,8 @@ export function addNumber(svg, xstart, xend, ystart, yend, incr) {
         const text = document.createElementNS(ns, 'text');
         text.setAttribute('class', 'graph-number-text');
         text.setAttribute('x', -0.4);
-        text.setAttribute('y', y + 0.11);
-        text.setAttribute('font-size', 0.4);
+        text.setAttribute('y', y + 0.10);
+        text.setAttribute('font-size', 0.35);
         text.setAttribute('text-anchor', 'end');
         text.innerHTML = -y;
         graphNumber.appendChild(text);
@@ -124,7 +124,7 @@ export function addNumber(svg, xstart, xend, ystart, yend, incr) {
         text.setAttribute('class', 'graph-number-text');
         text.setAttribute('x', x - 0.14);
         text.setAttribute('y', 0.8);
-        text.setAttribute('font-size', 0.4);
+        text.setAttribute('font-size', 0.35);
         text.innerHTML = x;
         graphNumber.appendChild(text);
     }
