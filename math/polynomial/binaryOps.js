@@ -1,3 +1,7 @@
+const {
+	round
+} = require('../decimal');
+
 module.exports = function (Polynomial) {
 
     Polynomial.plus = (a, b) => {
@@ -57,6 +61,59 @@ module.exports = function (Polynomial) {
             u: u[n + 1],
             v: v[n + 1]
         };
+    }
+
+    Polynomial.divideByIPO = (a, b, k) => {
+        let r = a;
+        const quotient = [];
+        for (let i = 0; i <= k; i++) {
+            const q = r[i] / b[0];
+            quotient.push(q);
+            r = Polynomial.minus(r, Polynomial.product(Polynomial.term(q, i), b));
+        }
+        const remainder = r.slice(k + 1);
+        return {
+            quotient,
+            remainder
+        };
+    }
+
+    Polynomial.divide = (a, b) => {
+        const dega = Polynomial.degreeOf(a);
+        const degb = Polynomial.degreeOf(b);
+        const degq = dega - degb;
+
+        if (degq < 0) {
+            return {
+                quotient: [],
+                remainder: Polynomial.canonize(a)
+            };
+        }
+        const ca = Polynomial.leadingCoef(a);
+        if (Math.abs(ca) < 1e-10) {
+            throw new Error('Leading coef very small');
+        }
+        const cb = Polynomial.leadingCoef(b);
+        const cq = round(ca / cb);
+
+        const q = Polynomial.term(cq, degq);
+
+        const p = Polynomial.product(q, b);
+        const remainder = Polynomial.minus(a, p);
+
+        if (degq === 0) {
+            const result = {
+                quotient: [cq],
+                remainder
+            };
+            return result;
+        }
+        const division = Polynomial.divide(remainder, b);
+        const result = {
+            quotient: Polynomial.plus(q, division.quotient),
+            remainder: division.remainder
+        };
+        return result;
     }
 
 };

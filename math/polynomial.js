@@ -2,22 +2,9 @@ const {
 	polynomialFormat
 } = require('./polynomial/format');
 
-
-
-const round = (x, n = 16) => {
-	if (Math.abs(x) < 1e-11) {
-		return 0;
-	}
-	if (x.toString().match(/\..*000000000/)) {
-		const result = +(x.toString().replace(/^(.*\..*)000000000.*$/, '$1'));
-		return result;
-	}
-	if (x.toString().match(/\..*999999999/)) {
-		const result = +Number.parseFloat(x).toPrecision(12);
-		return result;
-	}
-	return x;
-};
+const {
+	round
+} = require('./decimal');
 
 class Polynomial {
 
@@ -46,44 +33,6 @@ class Polynomial {
 	static term(coef, degree) {
 		const result = new Array(degree + 1).fill(0);
 		result[degree] = coef;
-		return result;
-	}
-
-	static divide(a, b) {
-		const dega = Polynomial.degreeOf(a);
-		const degb = Polynomial.degreeOf(b);
-		const degq = dega - degb;
-
-		if (degq < 0) {
-			return {
-				quotient: [],
-				remainder: Polynomial.canonize(a)
-			};
-		}
-		const ca = Polynomial.leadingCoef(a);
-		if (Math.abs(ca) < 1e-10) {
-			throw new Error('Leading coef very small');
-		}
-		const cb = Polynomial.leadingCoef(b);
-		const cq = round(ca / cb);
-
-		const q = Polynomial.term(cq, degq);
-
-		const p = Polynomial.product(q, b);
-		const remainder = Polynomial.minus(a, p);
-
-		if (degq === 0) {
-			const result = {
-				quotient: [cq],
-				remainder
-			};
-			return result;
-		}
-		const division = Polynomial.divide(remainder, b);
-		const result = {
-			quotient: Polynomial.plus(q, division.quotient),
-			remainder: division.remainder
-		};
 		return result;
 	}
 
@@ -133,21 +82,6 @@ class Polynomial {
 
 	static toFunction(a) {
 		return x => a.reduce((acc, n, i) => acc + n * x ** i, 0);
-	}
-
-	static divideByIPO(a, b, k) {
-		let r = a;
-		const quotient = [];
-		for (let i = 0; i <= k; i++) {
-			const q = r[i] / b[0];
-			quotient.push(q);
-			r = Polynomial.minus(r, Polynomial.product(Polynomial.term(q, i), b));
-		}
-		const remainder = r.slice(k + 1);
-		return {
-			quotient,
-			remainder
-		};
 	}
 
 }
