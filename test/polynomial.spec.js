@@ -115,7 +115,10 @@ describe.only('Polynomial', () => {
     });
 
     it('should get the js format of the polynomial', () => {
-        const a = [1, 2, 1];
-        assert.equal(Polynomial.toString(a, 'js'), 'x**2 + 2*x + 1');
+        assert.equal(Polynomial.toString([1, 2, 1], 'js'), 'x**2 + 2*x + 1');
+        assert.equal(Polynomial.toString([1, 1, 1], 'js'), 'x**2 + x + 1');
+        assert.equal(Polynomial.toString([1, 2, 2], 'js'), '2*x**2 + 2*x + 1');
+        assert.equal(Polynomial.toString([0, 0, 0], 'js'), '0');
+        assert.equal(Polynomial.toString([-1, 2, -1], 'js'), '-x**2 + 2*x - 1');
     });
 });
