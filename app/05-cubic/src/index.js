@@ -1,6 +1,6 @@
 import {
     Graph, addGrid, removeGrid, addNumber, removeNumber
-} from '../../lib/graph';
+} from '../../lib/Graph';
 import {
     drawPath
 } from '../../lib/draw';
