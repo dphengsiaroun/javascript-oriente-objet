@@ -1,5 +1,6 @@
 export class Graph {
     constructor(element, xstart, xend, ystart, yend, incr) {
+        this.zoomLevel = 1;
         const ns = 'http://www.w3.org/2000/svg';
 
         const svg = document.createElementNS(ns, 'svg');
@@ -8,7 +9,7 @@ export class Graph {
 
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
-        this.wrapper.setAttribute('transform', 'scale(1, -1)');
+        this.render();
         svg.appendChild(this.wrapper);
 
         const g = document.createElementNS(ns, 'g');
@@ -57,7 +58,6 @@ export class Graph {
         }
         this.svg = svg;
 
-        this.zoomLevel = 1;
         svg.addEventListener('mousewheel', e => {
             console.log('e', e.deltaY);
             const zoomIn = e.deltaY > 0;
