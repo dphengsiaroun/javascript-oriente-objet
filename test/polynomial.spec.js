@@ -29,14 +29,14 @@ describe.only('Polynomial', () => {
         assert.equal(Polynomial.degreeOf(a), 5);
     });
 
-    it('should get degree -Infinity', () => {
+    it('should get degree -1', () => {
         const a = [0, 0, 0, 0, 0, 0, 0, 0];
-        assert.equal(Polynomial.degreeOf(a), -Infinity);
+        assert.equal(Polynomial.degreeOf(a), -1);
     });
 
-    it('should get dominant coef', () => {
+    it('should get the leading coef', () => {
         const a = [1, 3, 4, 2, 0];
-        assert.equal(Polynomial.dominantCoef(a), 2);
+        assert.equal(Polynomial.leadingCoef(a), 2);
     });
 
     it('should multiply', () => {
@@ -104,8 +104,8 @@ describe.only('Polynomial', () => {
     it('should get the two bezout polynomials', () => {
         // const a = [rand(0, 10), rand(0, 10), rand(1, 10)];
         // const b = [rand(0, 10), rand(0, 10), rand(1, 10)];
-        const a = [ 1, 5, 4 ];
-        const b = [ 8, 9, 7 ];
+        const a = [6, 8, 5];
+        const b = [2, 2, 3];
         console.log('a', a, 'b', b);
         const {
             u,
