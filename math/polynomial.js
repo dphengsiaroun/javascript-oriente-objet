@@ -195,6 +195,16 @@ class Polynomial {
 		return x => a.reduce((acc, n, i) => acc + n * x ** i, 0);
 	}
 
+	static divideByIPO(a, b, k) {
+		const q = a[0] / b[0];
+		const quotient = [q];
+		const remainder = Polynomial.minus(a, Polynomial.product(quotient, b)).slice(1);
+		return {
+			quotient,
+			remainder
+		};
+	}
+
 }
 
 module.exports = {

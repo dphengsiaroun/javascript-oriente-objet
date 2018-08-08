@@ -132,6 +132,15 @@ describe.only('Polynomial', () => {
         assert.equal(Polynomial.toString([1, 2, 2], 'html'), '2x<sup>2</sup> + 2x + 1');
         assert.equal(Polynomial.toString([0, 0, 0], 'html'), '0');
         assert.equal(Polynomial.toString([-1, 2, -1], 'html'), '-x<sup>2</sup> + 2x - 1');
-        
+
+    });
+
+    it('should divide by increasing power order', () => {
+        const a = [2, 2, 3];
+        const b = [2, 1];
+        assert.deepStrictEqual(Polynomial.divideByIPO(a, b, 0), {
+            quotient: [1],
+            remainder: [1, 3]
+        });
     });
 });
