@@ -196,9 +196,14 @@ class Polynomial {
 	}
 
 	static divideByIPO(a, b, k) {
-		const q = a[0] / b[0];
-		const quotient = [q];
-		const remainder = Polynomial.minus(a, Polynomial.product(quotient, b)).slice(1);
+		let r = a;
+		const quotient = [];
+		for (let i = 0; i <= k; i++) {
+			const q = r[i] / b[0];
+			quotient.push(q);
+			r = Polynomial.minus(r, Polynomial.product(Polynomial.term(q, i), b));
+		}
+		const remainder = r.slice(k + 1);
 		return {
 			quotient,
 			remainder

@@ -142,5 +142,13 @@ describe.only('Polynomial', () => {
             quotient: [1],
             remainder: [1, 3]
         });
+        assert.deepStrictEqual(Polynomial.divideByIPO(a, b, 1), {
+            quotient: [1, 0.5],
+            remainder: [2.5]
+        });
+        assert.deepStrictEqual(Polynomial.divideByIPO(a, b, 2), {
+            quotient: [1, 0.5, 1.25],
+            remainder: [-1.25]
+        });
     });
 });
