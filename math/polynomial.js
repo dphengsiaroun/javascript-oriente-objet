@@ -7,6 +7,7 @@ const round = (x, n = 16) => {
 		return result;
 	}
 	if (x.toString().match(/\..*999999999/)) {
+		console.log('match 99999');
 		const result = +Number.parseFloat(x).toPrecision(12);
 		return result;
 	}
@@ -41,7 +42,7 @@ class Polynomial {
 	}
 
 	static multiply(n, a) {
-		return a.map(c => n * c);
+		return a.map(c => round(n * c));
 	}
 
 	static plus(a, b) {
@@ -98,7 +99,10 @@ class Polynomial {
 	}
 
 	static normalize(a) {
-		return Polynomial.multiply(1 / Polynomial.leadingCoef(a), a);
+		console.log('a', a);
+		const result = Polynomial.multiply(1 / Polynomial.leadingCoef(a), a);
+		console.log('result', result);
+		return result;
 	}
 
 	static isZero(a) {
