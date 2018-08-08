@@ -84,6 +84,10 @@ class Polynomial {
 		return x => a.reduce((acc, n, i) => acc + n * x ** i, 0);
 	}
 
+	static fromRoots(...roots) {
+		return roots.reduce((acc, n) => Polynomial.product(acc, [-n, 1]),[1]);
+	}
+
 }
 
 require('./polynomial/binaryOps')(Polynomial);

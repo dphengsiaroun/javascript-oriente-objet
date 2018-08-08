@@ -166,4 +166,8 @@ describe.only('Polynomial', () => {
         assert.deepStrictEqual(Polynomial.ppcm(a, b), Polynomial.product(a, bp));
 
     });
+
+    it('should generate a polynomial from roots', () => {
+        assert.deepStrictEqual(Polynomial.fromRoots(2, 3, 4), [-24, 26, -9, 1]);
+    });
 });
