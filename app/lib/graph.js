@@ -72,7 +72,6 @@ export class Graph {
                 pt.x = evt.clientX;
                 pt.y = evt.clientY;
                 const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
-                result.y = -result.y;
                 return result;
             };
             const point = cursorPoint(e);
@@ -89,26 +88,31 @@ export class Graph {
         });
     }
 
-    zoom(factor) {
+    zoom(factor, c) {
+        console.log('factor', factor, 'c', c);
         this.zoomLevel *= factor;
+        this.xstart = c.x + factor * (this.xstart - c.x);
+        this.ystart = c.y + factor * (this.ystart - c.y);
+        this.xend = c.x + factor * (this.xend - c.x);
+        this.yend = c.y + factor * (this.yend - c.y);
     }
 
     render() {
-        this.svg.setAttribute('viewBox', `${this.center.x - this.zoomLevel / 2} ${this.center.y - (this.zoomLevel / 2) * this.ratioYX} ${this.zoomLevel} ${this.zoomLevel * this.ratioYX}`);
+        this.svg.setAttribute('viewBox', `${this.xstart} ${this.ystart} ${this.xend - this.xstart} ${this.yend - this.ystart}`);
 
         const xLine = this.xLine;
-        xLine.setAttribute('x1', this.center.x - this.zoomLevel / 2);
+        xLine.setAttribute('x1', this.xstart);
         xLine.setAttribute('y1', 0);
-        xLine.setAttribute('x2', this.center.x + this.zoomLevel / 2);
+        xLine.setAttribute('x2', this.xend);
         xLine.setAttribute('y2', 0);
         xLine.setAttribute('stroke-width', '0.4%');
         xLine.setAttribute('stroke', 'black');
 
         const yLine = this.yLine;
         yLine.setAttribute('x1', 0);
-        yLine.setAttribute('y1', this.center.y - (this.zoomLevel / 2) * this.ratioYX);
+        yLine.setAttribute('y1', this.ystart);
         yLine.setAttribute('x2', 0);
-        yLine.setAttribute('y2', this.center.y + (this.zoomLevel / 2) * this.ratioYX);
+        yLine.setAttribute('y2', this.yend);
         yLine.setAttribute('stroke-width', '0.4%');
         yLine.setAttribute('stroke', 'black');
     }
