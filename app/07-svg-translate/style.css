@@ -24,8 +24,9 @@ section {
     flex-flow: row nowrap;
 }
 
-.graph {
-    width: 70%;
+section>div {
+    padding: 1em;
+    width: 40%;
 }
 
 .settings {
