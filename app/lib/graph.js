@@ -39,7 +39,7 @@ export class Graph {
         this.render();
 
 
-        
+
 
         svg.addEventListener('mousewheel', e => {
             event.preventDefault();
@@ -182,10 +182,10 @@ export class Graph {
 
         if (this.marks) {
             this.marks.remove();
-        } 
+        }
         this.drawMarks();
 
-        
+
     }
 
     drawMarks() {
@@ -218,7 +218,14 @@ export class Graph {
         }
     }
 
-    addGrid(xstart, xend, ystart, yend, incr) {
+    addGrid() {
+        const {
+            xstart,
+            xend,
+            ystart,
+            yend,
+            incr
+        } = this;
         const ns = 'http://www.w3.org/2000/svg';
 
         const wrapper = this.svg.querySelector('.wrapper');
@@ -255,7 +262,8 @@ export class Graph {
         this.grid.remove();
     }
 
-    addNumber(xstart, xend, ystart, yend, incr) {
+    addNumber() {
+        const {xstart, xend, ystart, yend, incr} = this;
         const ns = 'http://www.w3.org/2000/svg';
 
         const wrapper = this.svg.querySelector('.wrapper');
