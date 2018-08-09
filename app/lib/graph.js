@@ -184,7 +184,8 @@ export class Graph {
             this.marks.remove();
         }
         this.drawMarks();
-
+        this.drawNumbers();
+        this.drawGrid();
 
     }
 
@@ -260,6 +261,7 @@ export class Graph {
 
     removeGrid() {
         this.grid.remove();
+        delete this.grid;
     }
 
     addNumber() {
@@ -272,7 +274,7 @@ export class Graph {
         numberAxis.setAttribute('transform', 'scale(1, -1)');
         wrapper.appendChild(numberAxis);
 
-        for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
+        for (let y = Math.ceil(-yend); y <= Math.floor(-ystart); y += incr) {
             if (y === 0) {
                 continue;
             }
@@ -302,6 +304,21 @@ export class Graph {
 
     removeNumber() {
         this.numberAxis.remove();
+        delete this.numberAxis;
+    }
+
+    drawNumbers() {
+        if (this.numberAxis) {
+            this.removeNumber();
+            this.addNumber();
+        }
+    }
+
+    drawGrid() {
+        if (this.grid) {
+            this.removeGrid();
+            this.addGrid();
+        }
     }
 
 }
