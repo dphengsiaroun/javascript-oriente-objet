@@ -1,3 +1,5 @@
+const NS = 'http://www.w3.org/2000/svg';
+
 export class Graph {
     constructor(element, options) {
         const opts = Object.assign({
@@ -9,36 +11,33 @@ export class Graph {
         }, options);
         Object.assign(this, opts);
         this.opts = opts;
-        const ns = 'http://www.w3.org/2000/svg';
 
-        const svg = document.createElementNS(ns, 'svg');
-        this.svg = svg;
+        this.svg = document.createElementNS(NS, 'svg');
+        element.appendChild(this.svg);
 
-        element.appendChild(svg);
-
-        this.wrapper = document.createElementNS(ns, 'g');
+        this.wrapper = document.createElementNS(NS, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
-        svg.appendChild(this.wrapper);
+        this.svg.appendChild(this.wrapper);
 
 
-        const g = document.createElementNS(ns, 'g');
+        const g = document.createElementNS(NS, 'g');
         g.setAttribute('class', 'graph');
         this.wrapper.appendChild(g);
 
-        this.xLine = document.createElementNS(ns, 'line');
+        this.xLine = document.createElementNS(NS, 'line');
         g.appendChild(this.xLine);
 
-        this.yLine = document.createElementNS(ns, 'line');
+        this.yLine = document.createElementNS(NS, 'line');
         g.appendChild(this.yLine);
 
         this.resize();
-
         this.render();
+        this.addTranslate();
+        this.addZoom();
+    }
 
-
-
-
-        svg.addEventListener('mousewheel', e => {
+    addZoom() {
+        this.svg.addEventListener('mousewheel', e => {
             event.preventDefault();
             const point = this.getCursorPoint(e);
             const zoomIn = e.deltaY > 0;
@@ -48,11 +47,7 @@ export class Graph {
                 this.zoom(0.5, point);
             }
             this.render();
-
         });
-        this.addTranslate();
-
-
     }
 
     resize() {
@@ -166,20 +161,18 @@ export class Graph {
             this.marks.remove();
         }
         this.drawMarks();
-        this.drawNumbers();
-        this.drawGrid();
-
+        this.refreshNumbers();
+        this.refreshGrid();
     }
 
     drawMarks() {
-        const ns = 'http://www.w3.org/2000/svg';
-        this.marks = document.createElementNS(ns, 'g');
+        this.marks = document.createElementNS(NS, 'g');
         this.marks.setAttribute('class', 'marks');
         this.wrapper.appendChild(this.marks);
 
         const width = (this.xstart - this.xend) / 100;
         for (let x = Math.ceil(this.xstart); x <= Math.floor(this.xend); x += this.incr) {
-            const mark = document.createElementNS(ns, 'line');
+            const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', x);
             mark.setAttribute('x2', x);
@@ -189,7 +182,7 @@ export class Graph {
             this.marks.appendChild(mark);
         }
         for (let y = Math.ceil(this.ystart); y <= Math.floor(this.yend); y += this.incr) {
-            const mark = document.createElementNS(ns, 'line');
+            const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', -width);
             mark.setAttribute('x2', width);
@@ -208,15 +201,13 @@ export class Graph {
             yend,
             incr
         } = this;
-        const ns = 'http://www.w3.org/2000/svg';
-
         const wrapper = this.svg.querySelector('.wrapper');
-        const grid = document.createElementNS(ns, 'g');
+        const grid = document.createElementNS(NS, 'g');
         grid.setAttribute('class', 'grid');
         wrapper.appendChild(grid);
 
         for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
-            const hLine = document.createElementNS(ns, 'line');
+            const hLine = document.createElementNS(NS, 'line');
             hLine.setAttribute('class', 'grid-line');
             hLine.setAttribute('x1', xstart);
             hLine.setAttribute('x2', xend);
@@ -227,7 +218,7 @@ export class Graph {
             grid.appendChild(hLine);
         }
         for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
-            const vLine = document.createElementNS(ns, 'line');
+            const vLine = document.createElementNS(NS, 'line');
             vLine.setAttribute('class', 'grid-line');
             vLine.setAttribute('x1', x);
             vLine.setAttribute('x2', x);
@@ -247,10 +238,8 @@ export class Graph {
 
     addNumber() {
         const {xstart, xend, ystart, yend, incr} = this;
-        const ns = 'http://www.w3.org/2000/svg';
-
         const wrapper = this.svg.querySelector('.wrapper');
-        const numberAxis = document.createElementNS(ns, 'g');
+        const numberAxis = document.createElementNS(NS, 'g');
         numberAxis.setAttribute('class', 'graph-number');
         numberAxis.setAttribute('transform', 'scale(1, -1)');
         wrapper.appendChild(numberAxis);
@@ -259,7 +248,7 @@ export class Graph {
             if (y === 0) {
                 continue;
             }
-            const text = document.createElementNS(ns, 'text');
+            const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', -0.4);
             text.setAttribute('y', y + 0.10);
@@ -272,7 +261,7 @@ export class Graph {
             if (x === 0) {
                 continue;
             }
-            const text = document.createElementNS(ns, 'text');
+            const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', x - 0.14);
             text.setAttribute('y', 0.8);
@@ -288,14 +277,14 @@ export class Graph {
         delete this.numberAxis;
     }
 
-    drawNumbers() {
+    refreshNumbers() {
         if (this.numberAxis) {
             this.removeNumber();
             this.addNumber();
         }
     }
 
-    drawGrid() {
+    refreshGrid() {
         if (this.grid) {
             this.removeGrid();
             this.addGrid();
