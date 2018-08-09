@@ -16,9 +16,6 @@ export class Graph {
 
         element.appendChild(svg);
 
-        console.log('svg %O', this.svg);
-
-
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
         svg.appendChild(this.wrapper);
@@ -43,10 +40,7 @@ export class Graph {
 
         svg.addEventListener('mousewheel', e => {
             event.preventDefault();
-            console.log('e', e.deltaY);
             const point = this.getCursorPoint(e);
-            console.log('point', point);
-
             const zoomIn = e.deltaY > 0;
             if (zoomIn) {
                 this.zoom(2, point);
@@ -62,12 +56,9 @@ export class Graph {
     }
 
     resize() {
-        console.log('this', this);
         const svgWidth = this.svg.clientWidth;
         const svgHeight = this.svg.clientHeight;
-        console.log('svgWidth', svgWidth);
         const svgRatioYX = svgHeight / svgWidth;
-        console.log('svgRatioYX', svgRatioYX);
 
         const graphWidth = this.xend - this.xstart;
         const graphHeight = this.yend - this.ystart;
@@ -82,8 +73,6 @@ export class Graph {
             this.ystart -= delta;
             this.yend += delta;
         }
-        console.log('this', this);
-
     }
 
     getCursorPoint(evt) {
@@ -92,7 +81,6 @@ export class Graph {
         pt.y = evt.clientY;
         const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
         result.y = this.svgToGraph(result.y);
-        console.log('getCursorPoint', result);
         return result;
     }
 
@@ -155,14 +143,8 @@ export class Graph {
     }
 
     render() {
-        console.log('xstart', this.xstart);
-        console.log('xend', this.xend);
-        console.log('ystart', this.ystart);
-        console.log('yend', this.yend);
         this.svg.setAttribute('viewBox', `${this.xstart} ${this.ystart} ${this.xend - this.xstart} ${this.yend - this.ystart}`);
         this.wrapper.setAttribute('transform', `translate(0, ${this.svgToGraph(0)}) scale(1, -1)`);
-        console.log('svg %O', this.svg.viewBox);
-        console.log('svg %O', this.svg.getBBox());
 
         const xLine = this.xLine;
         xLine.setAttribute('x1', this.xstart - 1000);
@@ -190,7 +172,6 @@ export class Graph {
     }
 
     drawMarks() {
-        console.log('drawMarks');
         const ns = 'http://www.w3.org/2000/svg';
         this.marks = document.createElementNS(ns, 'g');
         this.marks.setAttribute('class', 'marks');
