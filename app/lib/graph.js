@@ -18,16 +18,12 @@ export class Graph {
 
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
-        this.wrapper.setAttribute('transform', `translate(0, ${this.yend + this.ystart}) scale(1, -1)`);
         svg.appendChild(this.wrapper);
 
 
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'graph');
         this.wrapper.appendChild(g);
-
-        this.area = document.createElementNS(ns, 'rect');
-        g.appendChild(this.area);
 
         this.xLine = document.createElementNS(ns, 'line');
         g.appendChild(this.xLine);
@@ -60,17 +56,19 @@ export class Graph {
             g.appendChild(mark);
         }
 
+        const pt = this.svg.createSVGPoint();
+        const cursorPoint = evt => {
+            pt.x = evt.clientX;
+            pt.y = evt.clientY;
+            const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+            result.y = this.svgToGraph(result.y);
+            return result;
+        };
+
 
         svg.addEventListener('mousewheel', e => {
+            event.preventDefault();
             console.log('e', e.deltaY);
-
-            const pt = this.svg.createSVGPoint();
-            const cursorPoint = evt => {
-                pt.x = evt.clientX;
-                pt.y = evt.clientY;
-                const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
-                return result;
-            };
             const point = cursorPoint(e);
             console.log('point', point);
 
@@ -83,47 +81,86 @@ export class Graph {
             this.render();
 
         });
+        this.addTranslate();
+
+
+    }
+
+    addTranslate() {
+        const pt = this.svg.createSVGPoint();
+        const cursorPoint = evt => {
+            pt.x = evt.clientX;
+            pt.y = evt.clientY;
+            const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+            result.y = this.svgToGraph(result.y);
+            return result;
+        };
+
+        this.svg.addEventListener('mousedown', event => {
+            event.preventDefault();
+            
+            const sp = cursorPoint(event);
+
+            const mousemove = evt => {
+                const cp = cursorPoint(evt);
+                const x = cp.x - sp.x;
+                const y = cp.y - sp.y;
+                this.translate({x, y});
+            }
+
+            document.addEventListener('mousemove', mousemove);
+            document.addEventListener('mouseup', mouseup);
+
+            function mouseup() {
+                document.removeEventListener('mousemove', mousemove);
+                document.removeEventListener('mouseup', mouseup);
+            }
+        });
+    }
+
+    svgToGraph(y) {
+        return -y + this.ystart + this.yend;
     }
 
     zoom(factor, c) {
-        console.log('factor', factor, 'c', c);
-        console.log('xstart', this.xstart);
-        console.log('xend', this.xend);
-        
-
         this.zoomLevel *= factor;
         this.xstart = c.x + factor * (this.xstart - c.x);
         this.ystart = c.y + factor * (this.ystart - c.y);
         this.xend = c.x + factor * (this.xend - c.x);
         this.yend = c.y + factor * (this.yend - c.y);
-        console.log('xstart after', this.xstart);
-        console.log('xend after', this.xend);
+    }
+
+    translate(pt) {
+        console.log('translate', pt);
+        this.xstart += pt.x;
+        this.ystart += pt.y;
+        this.xend += pt.x;
+        this.yend += pt.y;
     }
 
     render() {
+        console.log('xstart', this.xstart);
+        console.log('xend', this.xend);
+        console.log('ystart', this.ystart);
+        console.log('yend', this.yend);
         this.svg.setAttribute('viewBox', `${this.xstart} ${this.ystart} ${this.xend - this.xstart} ${this.yend - this.ystart}`);
+        this.wrapper.setAttribute('transform', `translate(0, ${this.svgToGraph(0)}) scale(1, -1)`);
         console.log('svg %O', this.svg.viewBox);
-
-        const area = this.area;
-        area.setAttribute('x', this.xstart);
-        area.setAttribute('y', this.ystart);
-        area.setAttribute('width', this.xend - this.xstart);
-        area.setAttribute('height', this.yend - this.ystart);
-        area.setAttribute('fill', 'hsla(0, 0%, 0%, 0.5)');
+        console.log('svg %O', this.svg.getBBox());
 
         const xLine = this.xLine;
-        xLine.setAttribute('x1', this.xstart);
+        xLine.setAttribute('x1', this.xstart - 1000);
         xLine.setAttribute('y1', 0);
-        xLine.setAttribute('x2', this.xend);
+        xLine.setAttribute('x2', this.xend + 1000);
         xLine.setAttribute('y2', 0);
         xLine.setAttribute('stroke-width', '0.4%');
         xLine.setAttribute('stroke', 'black');
 
         const yLine = this.yLine;
         yLine.setAttribute('x1', 0);
-        yLine.setAttribute('y1', this.ystart);
+        yLine.setAttribute('y1', this.ystart - 1000);
         yLine.setAttribute('x2', 0);
-        yLine.setAttribute('y2', this.yend);
+        yLine.setAttribute('y2', this.yend + 1000);
         yLine.setAttribute('stroke-width', '0.4%');
         yLine.setAttribute('stroke', 'black');
     }
