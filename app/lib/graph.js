@@ -16,6 +16,9 @@ export class Graph {
 
         element.appendChild(svg);
 
+        console.log('svg %O', this.svg);
+
+
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
         svg.appendChild(this.wrapper);
@@ -30,6 +33,8 @@ export class Graph {
 
         this.yLine = document.createElementNS(ns, 'line');
         g.appendChild(this.yLine);
+
+        this.resize();
 
         this.render();
 
@@ -56,16 +61,6 @@ export class Graph {
             g.appendChild(mark);
         }
 
-        const pt = this.svg.createSVGPoint();
-        const cursorPoint = evt => {
-            pt.x = evt.clientX;
-            pt.y = evt.clientY;
-            const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
-            result.y = this.svgToGraph(result.y);
-            return result;
-        };
-
-
         svg.addEventListener('mousewheel', e => {
             event.preventDefault();
             console.log('e', e.deltaY);
@@ -83,6 +78,31 @@ export class Graph {
         });
         this.addTranslate();
 
+
+    }
+
+    resize() {
+        console.log('this', this);
+        const svgWidth = this.svg.clientWidth;
+        const svgHeight = this.svg.clientHeight;
+        console.log('svgWidth', svgWidth);
+        const svgRatioYX = svgHeight / svgWidth;
+        console.log('svgRatioYX', svgRatioYX);
+
+        const graphWidth = this.xend - this.xstart;
+        const graphHeight = this.yend - this.ystart;
+        const graphRatioYX = graphHeight / graphWidth;
+
+        if (svgRatioYX < graphRatioYX) {
+            const delta = ((graphHeight / svgRatioYX) - graphWidth) / 2;
+            this.xstart -= delta;
+            this.xend += delta;
+        } else {
+            const delta = ((graphWidth * svgRatioYX) - graphHeight) / 2;
+            this.ystart -= delta;
+            this.yend += delta;
+        }
+        console.log('this', this);
 
     }
 
@@ -115,10 +135,7 @@ export class Graph {
 
 
             const mousemove = evt => {
-                const cp = this.getCursorPoint(evt);
-                delta.x = (cp.x - sp.x);
-                delta.y = (cp.y - sp.y);
-                this.translate(orig, delta);
+                // Nothing to be done for the time being.
             }
 
             const mouseup = (evt) => {
