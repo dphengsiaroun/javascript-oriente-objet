@@ -39,32 +39,12 @@ export class Graph {
         this.render();
 
 
-        const width = (this.xstart - this.xend) / 100;
-        for (let x = Math.ceil(this.xstart); x <= Math.floor(this.xend); x += this.incr) {
-            const mark = document.createElementNS(ns, 'line');
-            mark.setAttribute('class', 'mark');
-            mark.setAttribute('x1', x);
-            mark.setAttribute('x2', x);
-            mark.setAttribute('y1', -width);
-            mark.setAttribute('y2', width);
-            mark.setAttribute('stroke-width', '0.15%');
-            g.appendChild(mark);
-        }
-        for (let y = Math.ceil(this.ystart); y <= Math.floor(this.yend); y += this.incr) {
-            const mark = document.createElementNS(ns, 'line');
-            mark.setAttribute('class', 'mark');
-            mark.setAttribute('x1', -width);
-            mark.setAttribute('x2', width);
-            mark.setAttribute('y1', y);
-            mark.setAttribute('y2', y);
-            mark.setAttribute('stroke-width', '0.15%');
-            g.appendChild(mark);
-        }
+        
 
         svg.addEventListener('mousewheel', e => {
             event.preventDefault();
             console.log('e', e.deltaY);
-            const point = cursorPoint(e);
+            const point = this.getCursorPoint(e);
             console.log('point', point);
 
             const zoomIn = e.deltaY > 0;
@@ -199,6 +179,43 @@ export class Graph {
         yLine.setAttribute('y2', this.yend + 1000);
         yLine.setAttribute('stroke-width', '0.4%');
         yLine.setAttribute('stroke', 'black');
+
+        if (this.marks) {
+            this.marks.remove();
+        } 
+        this.drawMarks();
+
+        
+    }
+
+    drawMarks() {
+        console.log('drawMarks');
+        const ns = 'http://www.w3.org/2000/svg';
+        this.marks = document.createElementNS(ns, 'g');
+        this.marks.setAttribute('class', 'marks');
+        this.wrapper.appendChild(this.marks);
+
+        const width = (this.xstart - this.xend) / 100;
+        for (let x = Math.ceil(this.xstart); x <= Math.floor(this.xend); x += this.incr) {
+            const mark = document.createElementNS(ns, 'line');
+            mark.setAttribute('class', 'mark');
+            mark.setAttribute('x1', x);
+            mark.setAttribute('x2', x);
+            mark.setAttribute('y1', -width);
+            mark.setAttribute('y2', width);
+            mark.setAttribute('stroke-width', '0.15%');
+            this.marks.appendChild(mark);
+        }
+        for (let y = Math.ceil(this.ystart); y <= Math.floor(this.yend); y += this.incr) {
+            const mark = document.createElementNS(ns, 'line');
+            mark.setAttribute('class', 'mark');
+            mark.setAttribute('x1', -width);
+            mark.setAttribute('x2', width);
+            mark.setAttribute('y1', y);
+            mark.setAttribute('y2', y);
+            mark.setAttribute('stroke-width', '0.15%');
+            this.marks.appendChild(mark);
+        }
     }
 
     addGrid(xstart, xend, ystart, yend, incr) {
