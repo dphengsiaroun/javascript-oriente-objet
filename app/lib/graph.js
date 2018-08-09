@@ -7,7 +7,8 @@ export class Graph {
             xend: 5,
             ystart: -3,
             yend: 20,
-            incr: 1
+            incr: 1,
+            isInteractive: false,
         }, options);
         Object.assign(this, opts);
         this.opts = opts;
@@ -32,8 +33,11 @@ export class Graph {
 
         this.resize();
         this.render();
-        this.addTranslate();
-        this.addZoom();
+        if (this.isInteractive) {
+            this.addTranslate();
+            this.addZoom();
+        }
+
     }
 
     addZoom() {
@@ -237,7 +241,13 @@ export class Graph {
     }
 
     addNumber() {
-        const {xstart, xend, ystart, yend, incr} = this;
+        const {
+            xstart,
+            xend,
+            ystart,
+            yend,
+            incr
+        } = this;
         const wrapper = this.svg.querySelector('.wrapper');
         const numberAxis = document.createElementNS(NS, 'g');
         numberAxis.setAttribute('class', 'graph-number');

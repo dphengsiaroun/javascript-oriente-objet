@@ -18,7 +18,9 @@ const incr = 1;
 const step = 0.1;
 const element = document.querySelector('.graph');
 
-const graph = new Graph(element);
+const graph = new Graph(element, {
+    isInteractive: true
+});
 
 document.querySelector('#grid').addEventListener('click', () => {
     const checkValue = document.querySelector('#grid').checked;
@@ -26,7 +28,7 @@ document.querySelector('#grid').addEventListener('click', () => {
         graph.addGrid(xstart, xend, ystart, yend, incr);
     } else {
         graph.removeGrid();
-    } 
+    }
 });
 
 document.querySelector('#number').addEventListener('click', () => {
@@ -35,7 +37,7 @@ document.querySelector('#number').addEventListener('click', () => {
         graph.addNumber(xstart, xend, ystart, yend, incr);
     } else {
         graph.removeNumber();
-    } 
+    }
 });
 
 const a = [0, -5, 0, 0.5];
@@ -55,4 +57,3 @@ for (let i = 0; i < 4; i++) {
         g = drawPath(graph.svg, cubic, xstart, xend + incr, step, 'green');
     });
 }
-
