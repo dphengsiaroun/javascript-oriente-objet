@@ -33,7 +33,7 @@ const incr = 1;
 const step = 0.3;
 const element = document.querySelector('.graph');
 
-const graph = new Graph(element, xstart, xend, ystart, yend, incr);
+const graph = new Graph(element, {ystart, yend});
 
 drawPath(graph.svg, sin, xstart + incr, xend - incr, step, 'blue');
 drawPath(graph.svg, cos, xstart + incr, xend - incr, step, 'red');

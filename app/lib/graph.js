@@ -1,6 +1,18 @@
 export class Graph {
-    constructor(element, xstart, xend, ystart, yend, incr) {
-        
+    constructor(element, options) {
+        const {
+            xstart,
+            xend,
+            ystart,
+            yend,
+            incr
+        } = Object.assign({
+            xstart: -10,
+            xend: 10,
+            ystart: -10,
+            yend: 10,
+            incr: 1
+        }, options);
         this.center = {
             x: (xstart + xend) / 2,
             y: (ystart + yend) / 2,
@@ -12,14 +24,14 @@ export class Graph {
 
         const svg = document.createElementNS(ns, 'svg');
         this.svg = svg;
-        
+
         element.appendChild(svg);
 
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
         this.wrapper.setAttribute('transform', `scale(1, -1)`);
         svg.appendChild(this.wrapper);
-        
+
 
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'graph');
@@ -30,7 +42,7 @@ export class Graph {
 
         this.yLine = document.createElementNS(ns, 'line');
         g.appendChild(this.yLine);
-        
+
         this.render();
 
 
@@ -55,19 +67,23 @@ export class Graph {
             mark.setAttribute('stroke-width', '0.15%');
             g.appendChild(mark);
         }
-        
+
 
         svg.addEventListener('mousewheel', e => {
             console.log('e', e.deltaY);
             const zoomIn = e.deltaY > 0;
             if (zoomIn) {
-                this.zoomLevel *= 2;
+                this.zoom(2);
             } else {
-                this.zoomLevel /= 2;
+                this.zoom(0.5);
             }
             this.render();
-            
+
         });
+    }
+
+    zoom(factor) {
+        this.zoomLevel *= factor;
     }
 
     render() {

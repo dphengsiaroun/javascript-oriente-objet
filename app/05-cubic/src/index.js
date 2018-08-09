@@ -18,7 +18,7 @@ const incr = 1;
 const step = 0.1;
 const element = document.querySelector('.graph');
 
-const graph = new Graph(element, xstart, xend, ystart, yend, incr);
+const graph = new Graph(element);
 
 document.querySelector('#grid').addEventListener('click', () => {
     const checkValue = document.querySelector('#grid').checked;

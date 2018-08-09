@@ -16,7 +16,7 @@ import {
 
 const leftElt = document.querySelector('.circle');
 console.log('leftElt', leftElt);
-const graph1 = new Graph(leftElt, -1.2, 1.2, -1.2, 1.2, 1);
+const graph1 = new Graph(leftElt, {xstart: -1.2, xend: 1.2, ystart: -1.2, yend: 1.2});
 
 printMouseCoord(graph1.svg);
 
@@ -37,7 +37,7 @@ const step = 0.3;
 
 
 const rightElt = document.querySelector('div.graph');
-const graph2 = new Graph(rightElt, xstart, xend, ystart, yend, incr);
+const graph2 = new Graph(rightElt, {xstart, xend, ystart, yend, incr});
 
 drawPath(graph2.svg, sin, xstart + incr, xend - incr, step, 'blue');
 drawPath(graph2.svg, cos, xstart + incr, xend - incr, step, 'red');
