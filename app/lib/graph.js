@@ -1,20 +1,14 @@
 export class Graph {
     constructor(element, options) {
         const opts = Object.assign({
-            xstart: -10,
-            xend: 10,
-            ystart: -10,
-            yend: 10,
+            xstart: -2,
+            xend: 5,
+            ystart: -3,
+            yend: 20,
             incr: 1
         }, options);
         Object.assign(this, opts);
         this.opts = opts;
-        this.center = {
-            x: (this.xstart + this.xend) / 2,
-            y: (this.ystart + this.yend) / 2,
-        };
-        this.zoomLevel = this.xend - this.xstart;
-        this.ratioYX = (this.yend - this.ystart) / (this.xend - this.xstart);
         const ns = 'http://www.w3.org/2000/svg';
 
         const svg = document.createElementNS(ns, 'svg');
@@ -24,13 +18,16 @@ export class Graph {
 
         this.wrapper = document.createElementNS(ns, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
-        this.wrapper.setAttribute('transform', `scale(1, -1)`);
+        this.wrapper.setAttribute('transform', `translate(0, ${this.yend + this.ystart}) scale(1, -1)`);
         svg.appendChild(this.wrapper);
 
 
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'graph');
         this.wrapper.appendChild(g);
+
+        this.area = document.createElementNS(ns, 'rect');
+        g.appendChild(this.area);
 
         this.xLine = document.createElementNS(ns, 'line');
         g.appendChild(this.xLine);
@@ -90,15 +87,29 @@ export class Graph {
 
     zoom(factor, c) {
         console.log('factor', factor, 'c', c);
+        console.log('xstart', this.xstart);
+        console.log('xend', this.xend);
+        
+
         this.zoomLevel *= factor;
         this.xstart = c.x + factor * (this.xstart - c.x);
         this.ystart = c.y + factor * (this.ystart - c.y);
         this.xend = c.x + factor * (this.xend - c.x);
         this.yend = c.y + factor * (this.yend - c.y);
+        console.log('xstart after', this.xstart);
+        console.log('xend after', this.xend);
     }
 
     render() {
         this.svg.setAttribute('viewBox', `${this.xstart} ${this.ystart} ${this.xend - this.xstart} ${this.yend - this.ystart}`);
+        console.log('svg %O', this.svg.viewBox);
+
+        const area = this.area;
+        area.setAttribute('x', this.xstart);
+        area.setAttribute('y', this.ystart);
+        area.setAttribute('width', this.xend - this.xstart);
+        area.setAttribute('height', this.yend - this.ystart);
+        area.setAttribute('fill', 'hsla(0, 0%, 0%, 0.5)');
 
         const xLine = this.xLine;
         xLine.setAttribute('x1', this.xstart);
