@@ -64,11 +64,23 @@ export class Graph {
 
         svg.addEventListener('mousewheel', e => {
             console.log('e', e.deltaY);
+
+            const pt = this.svg.createSVGPoint();
+            const cursorPoint = evt => {
+                pt.x = evt.clientX;
+                pt.y = evt.clientY;
+                const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+                result.y = -result.y;
+                return result;
+            };
+            const point = cursorPoint(e);
+            console.log('point', point);
+
             const zoomIn = e.deltaY > 0;
             if (zoomIn) {
-                this.zoom(2);
+                this.zoom(2, point);
             } else {
-                this.zoom(0.5);
+                this.zoom(0.5, point);
             }
             this.render();
 
