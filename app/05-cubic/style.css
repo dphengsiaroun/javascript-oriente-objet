@@ -70,6 +70,7 @@ svg {
     height: 500px;
     background-color: #eee;
     padding: 0.5em 1em;
+    cursor: pointer;
 }
 
 svg line {

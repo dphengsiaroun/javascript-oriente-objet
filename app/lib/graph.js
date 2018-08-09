@@ -86,35 +86,54 @@ export class Graph {
 
     }
 
-    addTranslate() {
+    getCursorPoint(evt) {
         const pt = this.svg.createSVGPoint();
-        const cursorPoint = evt => {
-            pt.x = evt.clientX;
-            pt.y = evt.clientY;
-            const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
-            result.y = this.svgToGraph(result.y);
-            return result;
-        };
+        pt.x = evt.clientX;
+        pt.y = evt.clientY;
+        const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+        result.y = this.svgToGraph(result.y);
+        console.log('getCursorPoint', result);
+        return result;
+    }
 
+    addTranslate() {
         this.svg.addEventListener('mousedown', event => {
             event.preventDefault();
-            
-            const sp = cursorPoint(event);
+
+            const sp = this.getCursorPoint(event);
+            const orig = {
+                xstart: this.xstart,
+                ystart: this.ystart,
+                xend: this.xend,
+                yend: this.yend,
+            };
+
+            let delta = {
+                x: 0,
+                y: 0
+            };
+
 
             const mousemove = evt => {
-                const cp = cursorPoint(evt);
-                const x = cp.x - sp.x;
-                const y = cp.y - sp.y;
-                this.translate({x, y});
+                const cp = this.getCursorPoint(evt);
+                delta.x = (cp.x - sp.x);
+                delta.y = (cp.y - sp.y);
+                this.translate(orig, delta);
+            }
+
+            const mouseup = (evt) => {
+                document.removeEventListener('mousemove', mousemove);
+                document.removeEventListener('mouseup', mouseup);
+                const cp = this.getCursorPoint(evt);
+                delta.x = (cp.x - sp.x);
+                delta.y = (cp.y - sp.y);
+                this.translate(orig, delta);
             }
 
             document.addEventListener('mousemove', mousemove);
             document.addEventListener('mouseup', mouseup);
 
-            function mouseup() {
-                document.removeEventListener('mousemove', mousemove);
-                document.removeEventListener('mouseup', mouseup);
-            }
+
         });
     }
 
@@ -130,12 +149,12 @@ export class Graph {
         this.yend = c.y + factor * (this.yend - c.y);
     }
 
-    translate(pt) {
-        console.log('translate', pt);
-        this.xstart += pt.x;
-        this.ystart += pt.y;
-        this.xend += pt.x;
-        this.yend += pt.y;
+    translate(orig, delta) {
+        this.xstart = orig.xstart - delta.x;
+        this.ystart = orig.ystart - delta.y;
+        this.xend = orig.xend - delta.x;
+        this.yend = orig.yend - delta.y;
+        this.render();
     }
 
     render() {
