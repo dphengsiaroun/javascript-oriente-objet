@@ -1,18 +1,20 @@
 export class Graph {
     constructor(element, options) {
-        this.opts = Object.assign({
+        const opts = Object.assign({
             xstart: -10,
             xend: 10,
             ystart: -10,
             yend: 10,
             incr: 1
         }, options);
+        Object.assign(this, opts);
+        this.opts = opts;
         this.center = {
-            x: (this.opts.xstart + this.opts.xend) / 2,
-            y: (this.opts.ystart + this.opts.yend) / 2,
+            x: (this.xstart + this.xend) / 2,
+            y: (this.ystart + this.yend) / 2,
         };
-        this.zoomLevel = this.opts.xend - this.opts.xstart;
-        this.ratioYX = (this.opts.yend - this.opts.ystart) / (this.opts.xend - this.opts.xstart);
+        this.zoomLevel = this.xend - this.xstart;
+        this.ratioYX = (this.yend - this.ystart) / (this.xend - this.xstart);
         const ns = 'http://www.w3.org/2000/svg';
 
         const svg = document.createElementNS(ns, 'svg');
@@ -39,8 +41,8 @@ export class Graph {
         this.render();
 
 
-        const width = (this.opts.xstart - this.opts.xend) / 100;
-        for (let x = Math.ceil(this.opts.xstart); x <= Math.floor(this.opts.xend); x += this.opts.incr) {
+        const width = (this.xstart - this.xend) / 100;
+        for (let x = Math.ceil(this.xstart); x <= Math.floor(this.xend); x += this.incr) {
             const mark = document.createElementNS(ns, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', x);
@@ -50,7 +52,7 @@ export class Graph {
             mark.setAttribute('stroke-width', '0.15%');
             g.appendChild(mark);
         }
-        for (let y = Math.ceil(this.opts.ystart); y <= Math.floor(this.opts.yend); y += this.opts.incr) {
+        for (let y = Math.ceil(this.ystart); y <= Math.floor(this.yend); y += this.incr) {
             const mark = document.createElementNS(ns, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', -width);
