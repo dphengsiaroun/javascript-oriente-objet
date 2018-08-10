@@ -19,7 +19,7 @@ export function goodTranslate(element) {
     const wrapper = document.createElementNS(NS, 'g');
 
     function render() {
-        wrapper.setAttribute('transform', `translate(${tx}, ${ty})`);
+        wrapper.setAttribute('transform', `translate(${tx}, ${ty} ) scale(1, -1)`);
     }
     render();
 
