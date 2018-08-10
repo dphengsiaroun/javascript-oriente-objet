@@ -26,11 +26,22 @@ export class Graph extends Frame {
     }
 
     onRender() {
-        this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
+        this.computeProps();
+        
         this.drawAxis();
         this.drawMarks();
         this.drawGrid();
         this.drawNumber();
+    }
+
+    computeProps() {
+        const {
+            topLeft,
+            topRight,
+            bottomLeft
+        } = this.window;
+        this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
+        this.incr = (topRight - topLeft) / 10;
     }
 
     drawAxis() {
