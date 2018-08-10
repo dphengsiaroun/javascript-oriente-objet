@@ -26,7 +26,6 @@ export class Graph extends Frame {
     }
 
     onRender() {
-        console.log('onRender');
         this.drawAxis();
         this.drawMarks();
         this.drawGrid();

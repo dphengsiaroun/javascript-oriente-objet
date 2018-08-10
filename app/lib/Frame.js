@@ -13,6 +13,7 @@ export class Frame {
         Object.assign(this, opts);
         this.opts = opts;
         this.window = {};
+        this.subscribers = [];
 
         this.translateCurrent = {
             x: 0,
@@ -51,6 +52,7 @@ export class Frame {
         this.computeMatrix();
         this.updateWindow();
         this.onRender();
+        this.subscribers.forEach(s => s.onRender());
     }
 
     resize() {
@@ -74,7 +76,6 @@ export class Frame {
     }
 
     computeMatrix() {
-        console.log('this.svg %O', this.svg);
         const pw = this.svg.clientWidth;
         const ph = this.svg.clientHeight;
 
@@ -120,7 +121,7 @@ export class Frame {
         this.area.setAttribute('y', this.ystart);
         this.area.setAttribute('width', this.xend - this.xstart);
         this.area.setAttribute('height', this.yend - this.ystart);
-        this.area.setAttribute('fill', 'hsla(240, 100%, 50%, 0.5)');
+        this.area.setAttribute('fill', 'hsla(240, 100%, 50%, 0.1)');
         this.wrapper.appendChild(this.area);
     }
 
@@ -184,8 +185,7 @@ export class Frame {
                     y: this.translateOrig.y + delta.y
                 };
                 this.translateGrp.setAttribute('transform', `translate(${this.translateCurrent.x}, ${this.translateCurrent.y})`);
-                this.updateWindow();
-                this.onRender();
+                this.render();
             }
 
             const mouseup = (evt) => {
@@ -211,9 +211,7 @@ export class Frame {
             this.ystart = c.y + factor * (this.ystart - c.y);
             this.xend = c.x + factor * (this.xend - c.x);
             this.yend = c.y + factor * (this.yend - c.y);
-            this.computeMatrix();
-            this.updateWindow();
-            this.onRender();
+            this.render();
         });
     }
 }
