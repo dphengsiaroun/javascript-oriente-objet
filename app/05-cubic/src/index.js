@@ -19,6 +19,7 @@ const step = 0.1;
 const element = document.querySelector('.graph');
 
 const graph = new Graph(element, {
+    xstart, xend, ystart, yend,
     isInteractive: true
 });
 

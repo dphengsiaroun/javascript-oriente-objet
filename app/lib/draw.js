@@ -56,7 +56,7 @@ export function drawPath(svg, fn, start, end, incr, color) {
     }
     const path = document.createElementNS(ns, 'path');
     path.setAttribute('d', d);
-    path.setAttribute('stroke-width', '0.4%');
+    path.setAttribute('stroke-width', '0.1%');
     path.setAttribute('stroke', color);
     g.appendChild(path);
     return g;

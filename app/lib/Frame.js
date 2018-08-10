@@ -8,11 +8,16 @@ export class Frame {
             xend: 600,
             ystart: 0,
             yend: 600,
-            incr: 1,
             isInteractive: true,
         }, options);
         Object.assign(this, opts);
         this.opts = opts;
+
+        this.translateCurrent = {
+            x: 0,
+            y: 0
+        };
+        this.zoomLevel = 1;
 
         this.svg = document.createElementNS(NS, 'svg');
         this.svg.style.cursor = 'pointer';
@@ -20,10 +25,6 @@ export class Frame {
 
         this.translateGrp = document.createElementNS(NS, 'g');
         this.translateGrp.setAttribute('class', 'translate');
-        this.translateCurrent = {
-            x: 0,
-            y: 0
-        };
         this.translateGrp.setAttribute('transform', `translate(${this.translateCurrent.x}, ${this.translateCurrent.y})`);
         this.svg.appendChild(this.translateGrp);
 
@@ -35,7 +36,7 @@ export class Frame {
         this.drawArea();
 
         this.resize();
-        this.render();
+        this.updateMatrix();
 
         if (this.isInteractive) {
             this.addTranslate();
@@ -63,7 +64,7 @@ export class Frame {
         }
     }
 
-    render() {
+    updateMatrix() {
         console.log('this.svg %O', this.svg);
         const pw = this.svg.clientWidth;
         const ph = this.svg.clientHeight;
@@ -81,7 +82,10 @@ export class Frame {
         const e = -(a * xs + c * ye);
         const f = -(b * xs + d * ye);
         this.wrapper.setAttribute('transform', `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`);
+        this.onUpdateMatrix();
     }
+
+    render() {}
 
     drawArea() {
         this.area = document.createElementNS(NS, 'rect');
@@ -179,7 +183,7 @@ export class Frame {
             this.ystart = c.y + factor * (this.ystart - c.y);
             this.xend = c.x + factor * (this.xend - c.x);
             this.yend = c.y + factor * (this.yend - c.y);
-            this.render();
+            this.updateMatrix();
         });
     }
 }
