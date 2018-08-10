@@ -37,8 +37,10 @@ export class Frame {
         this.resize();
         this.render();
 
-        this.addTranslate();
-        this.addZoom();
+        if (this.isInteractive) {
+            this.addTranslate();
+            this.addZoom();
+        }
     }
 
     resize() {
