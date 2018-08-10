@@ -110,6 +110,7 @@ export class Frame {
         const e = xs;
         const f = ye;
 
+        // Translate
         const q = {
             x: p.x - xt,
             y: p.y - yt
