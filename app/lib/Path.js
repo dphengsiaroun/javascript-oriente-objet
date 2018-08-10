@@ -8,13 +8,14 @@ export class Path {
             this.auto = true;
         }
         this.opts.fnx = this.opts.fnx || (t => t);
-        this.strokeWidth = 0.05;
+        this.opts.strokeWidth = this.opts.strokeWidth || 0.02;
         this.render();
         this.frame.subscribers.push(this);
     }
 
     render() {
         this.elt && this.elt.remove();
+        this.strokeWidth = this.opts.strokeWidth * this.frame.zoomLevel;
         let {fnx, fny, start, end, incr, color} = this.opts;
         if (this.auto) {
             const {topLeft, topRight} = this.frame.window;
