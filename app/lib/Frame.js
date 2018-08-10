@@ -39,6 +39,8 @@ export class Frame {
 
         this.resize();
 
+
+
         this.computeMatrix();
         this.updateWindow();
 
@@ -46,6 +48,12 @@ export class Frame {
             this.addTranslate();
             this.addZoom();
         }
+
+        window.addEventListener('resize', () => {
+            console.log('onresize');
+            this.resize();
+            this.render();
+        });
     }
 
     render() {
@@ -73,6 +81,7 @@ export class Frame {
             this.ystart -= delta;
             this.yend += delta;
         }
+
     }
 
     computeMatrix() {
