@@ -23,19 +23,15 @@ const graph = new Graph(element, {
 });
 
 document.querySelector('#grid').checked = graph.showGrid;
-
 document.querySelector('#grid').addEventListener('click', () => {
     graph.showGrid = document.querySelector('#grid').checked;
     graph.render();
 });
 
+document.querySelector('#number').checked = graph.showNumbers;
 document.querySelector('#number').addEventListener('click', () => {
-    const checkValue = document.querySelector('#number').checked;
-    if (checkValue) {
-        graph.addNumber(xstart, xend, ystart, yend, incr);
-    } else {
-        graph.removeNumber();
-    }
+    graph.showNumbers = document.querySelector('#number').checked;
+    graph.render();
 });
 
 document.querySelector('#marks').checked = graph.showMarks;

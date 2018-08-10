@@ -9,7 +9,8 @@ export class Graph extends Frame {
         super(element, options);
         this.incr = this.incr || 1;
         this.showMarks = this.showMarks || true;
-        this.showGrid = this.showGrid || true;
+        this.showGrid = this.showGrid || false;
+        this.showNumbers = this.showNumbers || true;
         this.strokeWidth = '0.02%';
 
         this.graph = document.createElementNS(NS, 'g');
@@ -29,6 +30,7 @@ export class Graph extends Frame {
         this.drawAxis();
         this.drawMarks();
         this.drawGrid();
+        this.drawNumber();
     }
 
     drawAxis() {
@@ -144,21 +146,22 @@ export class Graph extends Frame {
         }
     }
 
-    addNumber() {
+    drawNumber() {
+        this.numberAxis && this.numberAxis.remove();
+        if (!this.showNumbers) {
+            return;
+        }
         const {
-            xstart,
-            xend,
-            ystart,
-            yend,
-            incr
-        } = this;
-        const wrapper = this.svg.querySelector('.wrapper');
+            topLeft,
+            topRight,
+            bottomLeft
+        } = this.window;
         const numberAxis = document.createElementNS(NS, 'g');
         numberAxis.setAttribute('class', 'graph-number');
         numberAxis.setAttribute('transform', 'scale(1, -1)');
-        wrapper.appendChild(numberAxis);
+        this.graph.appendChild(numberAxis);
 
-        for (let y = Math.ceil(-yend); y <= Math.floor(-ystart); y += incr) {
+        for (let y = Math.ceil(-topLeft.y); y <= Math.floor(-bottomLeft.y); y += this.incr) {
             if (y === 0) {
                 continue;
             }
@@ -171,7 +174,7 @@ export class Graph extends Frame {
             text.innerHTML = -y;
             numberAxis.appendChild(text);
         }
-        for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
+        for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
             if (x === 0) {
                 continue;
             }
