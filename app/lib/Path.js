@@ -7,12 +7,13 @@ export class Path {
         if (this.opts.start === undefined) {
             this.auto = true;
         }
+        this.opts.fnx = this.opts.fnx || (t => t);
+        this.strokeWidth = 0.05;
         this.render();
         this.frame.subscribers.push(this);
     }
 
     render() {
-        console.log('path render');
         this.elt && this.elt.remove();
         let {fnx, fny, start, end, incr, color} = this.opts;
         if (this.auto) {
@@ -27,7 +28,7 @@ export class Path {
         }
         this.elt = document.createElementNS(NS, 'path');
         this.elt.setAttribute('d', d);
-        this.elt.setAttribute('stroke-width', '0.05%');
+        this.elt.setAttribute('stroke-width', `${this.strokeWidth}%`);
         this.elt.setAttribute('stroke', color);
         this.frame.wrapper.appendChild(this.elt);
     }
