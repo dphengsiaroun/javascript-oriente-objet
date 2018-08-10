@@ -23,9 +23,11 @@ export class Frame {
         this.svg.appendChild(this.wrapper);
 
         this.drawArea();
-        
+
         this.resize();
         this.render();
+
+        this.addTranslate();
     }
 
     resize() {
@@ -77,5 +79,79 @@ export class Frame {
         this.area.setAttribute('height', this.yend - this.ystart);
         this.area.setAttribute('fill', 'hsla(240, 100%, 50%, 0.5)');
         this.wrapper.appendChild(this.area);
+    }
+
+    transform(p) {
+
+        const pw = this.svg.clientWidth;
+        const ph = this.svg.clientHeight;
+
+        const xs = this.xstart;
+        const ys = this.ystart;
+        const xe = this.xend;
+        const ye = this.yend;
+
+        const a = (xe - xs) / pw;
+        const b = 0;
+        const c = 0;
+        const d = (ys - ye) / ph;
+        const e = xs;
+        const f = ye;
+
+
+        return {
+            x: (a * p.x + c * p.y) + e,
+            y: (b * p.x + d * p.y) + f,
+        };
+    }
+
+    getCursorPoint(evt) {
+        const pt = this.svg.createSVGPoint();
+        pt.x = evt.clientX;
+        pt.y = evt.clientY;
+        const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+        return this.transform(result);
+    }
+
+    addTranslate() {
+        this.svg.addEventListener('mousedown', event => {
+            event.preventDefault();
+
+            const sp = this.getCursorPoint(event);
+            const orig = {
+                xstart: this.xstart,
+                ystart: this.ystart,
+                xend: this.xend,
+                yend: this.yend,
+            };
+
+            let delta = {
+                x: 0,
+                y: 0
+            };
+
+
+            const mousemove = evt => {
+                const cp = this.getCursorPoint(evt);
+                delta.x = (cp.x - sp.x);
+                delta.y = (cp.y - sp.y);
+                this.translate(orig, delta);
+            }
+
+            const mouseup = (evt) => {
+                document.removeEventListener('mousemove', mousemove);
+                document.removeEventListener('mouseup', mouseup);
+            }
+            document.addEventListener('mousemove', mousemove);
+            document.addEventListener('mouseup', mouseup);
+        });
+    }
+
+    translate(orig, delta) {
+        this.xstart = orig.xstart - delta.x;
+        this.ystart = orig.ystart - delta.y;
+        this.xend = orig.xend - delta.x;
+        this.yend = orig.yend - delta.y;
+        this.render();
     }
 }
