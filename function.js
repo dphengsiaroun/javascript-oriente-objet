@@ -34,10 +34,16 @@ const round125 = (x) => {
     return b;
 };
 
+const range = (s, e, incr) => {
+    return new Array(Math.floor((e - s) / incr) + 1).fill(0).map((n, i) => s + incr * i);
+}
+
+
 
 module.exports = {
     getReversedSortedArray,
     isEven,
     round,
-    round125
+    round125,
+    range
 };

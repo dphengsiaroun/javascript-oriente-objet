@@ -4,7 +4,8 @@ const {
     getReversedSortedArray,
     isEven,
     round,
-    round125
+    round125,
+    range
 } = require('../function');
 
 describe.only('Function', () => {
@@ -32,5 +33,10 @@ describe.only('Function', () => {
         assert.equal(round125(92), 100);
         assert.equal(round125(45), 50);
         assert.equal(round125(523), 500);
+    });
+
+    it('range', () => {
+        assert.deepStrictEqual(range(1, 8, 2), [1, 3, 5, 7]);
+        assert.deepStrictEqual(range(1, 9, 2), [1, 3, 5, 7, 9]);
     });
 });
