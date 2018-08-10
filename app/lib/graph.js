@@ -9,6 +9,7 @@ export class Graph extends Frame {
         super(element, options);
         this.incr = this.incr || 1;
         this.showMarks = this.showMarks || true;
+        this.showGrid = this.showGrid || true;
         this.strokeWidth = '0.02%';
 
         this.graph = document.createElementNS(NS, 'g');
@@ -25,7 +26,17 @@ export class Graph extends Frame {
 
     onRender() {
         console.log('onRender');
-        const {topLeft, topRight, bottomLeft} = this.window;
+        this.drawAxis();
+        this.drawMarks();
+        this.drawGrid();
+    }
+
+    drawAxis() {
+        const {
+            topLeft,
+            topRight,
+            bottomLeft
+        } = this.window;
 
         this.xLine.setAttribute('x1', topLeft.x);
         this.xLine.setAttribute('x2', topRight.x);
@@ -38,9 +49,6 @@ export class Graph extends Frame {
         this.yLine.setAttribute('y1', topLeft.y);
         this.yLine.setAttribute('y2', bottomLeft.y);
         this.yLine.setAttribute('stroke-width', this.strokeWidth);
-
-        
-        this.drawMarks();
     }
 
     removeMarks() {
@@ -52,11 +60,18 @@ export class Graph extends Frame {
 
     drawMarks() {
         this.removeMarks();
+        if (!this.showMarks) {
+            return;
+        }
         this.marks = document.createElementNS(NS, 'g');
         this.marks.setAttribute('class', 'marks');
         this.graph.appendChild(this.marks);
 
-        const {topLeft, topRight, bottomLeft} = this.window;
+        const {
+            topLeft,
+            topRight,
+            bottomLeft
+        } = this.window;
 
         const width = this.incr * 0.2;
         for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
@@ -81,47 +96,50 @@ export class Graph extends Frame {
         }
     }
 
-    addGrid() {
+    drawGrid() {
+        this.removeGrid();
+        if (!this.showGrid) {
+            return;
+        }
         const {
-            xstart,
-            xend,
-            ystart,
-            yend,
-            incr
-        } = this;
-        const wrapper = this.svg.querySelector('.wrapper');
+            topLeft,
+            topRight,
+            bottomLeft
+        } = this.window;
         const grid = document.createElementNS(NS, 'g');
         grid.setAttribute('class', 'grid');
-        wrapper.appendChild(grid);
+        this.graph.appendChild(grid);
 
-        for (let y = Math.ceil(ystart); y <= Math.floor(yend); y += incr) {
+        for (let y = Math.ceil(bottomLeft.y); y <= Math.floor(topLeft.y); y += this.incr) {
             const hLine = document.createElementNS(NS, 'line');
             hLine.setAttribute('class', 'grid-line');
-            hLine.setAttribute('x1', xstart);
-            hLine.setAttribute('x2', xend);
+            hLine.setAttribute('x1', topLeft.x);
+            hLine.setAttribute('x2', topRight.x);
             hLine.setAttribute('y1', y);
             hLine.setAttribute('y2', y);
-            hLine.setAttribute('stroke-width', '0.1%');
-            hLine.setAttribute('stroke-dasharray', '0.1');
+            hLine.setAttribute('stroke-width', '0.005%');
+            hLine.setAttribute('stroke-dasharray', '0.2');
             grid.appendChild(hLine);
         }
-        for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += incr) {
-            const vLine = document.createElementNS(NS, 'line');
-            vLine.setAttribute('class', 'grid-line');
-            vLine.setAttribute('x1', x);
-            vLine.setAttribute('x2', x);
-            vLine.setAttribute('y1', ystart);
-            vLine.setAttribute('y2', yend);
-            vLine.setAttribute('stroke-width', '0.1%');
-            vLine.setAttribute('stroke-dasharray', '0.1');
-            grid.appendChild(vLine);
-        }
+        // for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += this.incr) {
+        //     const vLine = document.createElementNS(NS, 'line');
+        //     vLine.setAttribute('class', 'grid-line');
+        //     vLine.setAttribute('x1', x);
+        //     vLine.setAttribute('x2', x);
+        //     vLine.setAttribute('y1', ystart);
+        //     vLine.setAttribute('y2', yend);
+        //     vLine.setAttribute('stroke-width', '0.1%');
+        //     vLine.setAttribute('stroke-dasharray', '0.01');
+        //     grid.appendChild(vLine);
+        // }
         this.grid = grid;
     }
 
     removeGrid() {
-        this.grid.remove();
-        delete this.grid;
+        if (this.grid) {
+            this.grid.remove();
+            delete this.grid;
+        }
     }
 
     addNumber() {
