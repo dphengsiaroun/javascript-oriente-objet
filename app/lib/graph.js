@@ -11,7 +11,7 @@ export class Graph extends Frame {
         this.showMarks = this.showMarks || true;
         this.showGrid = this.showGrid || false;
         this.showNumbers = this.showNumbers || true;
-        this.strokeWidth = '0.02%';
+        this.opts.strokeWidth = this.opts.strokeWidth || 0.02;
 
         this.graph = document.createElementNS(NS, 'g');
         this.graph.setAttribute('class', 'graph');
@@ -43,13 +43,13 @@ export class Graph extends Frame {
         this.xLine.setAttribute('x2', topRight.x);
         this.xLine.setAttribute('y1', 0);
         this.xLine.setAttribute('y2', 0);
-        this.xLine.setAttribute('stroke-width', this.strokeWidth);
+        this.xLine.setAttribute('stroke-width', `${this.opts.strokeWidth}%`);
 
         this.yLine.setAttribute('x1', 0);
         this.yLine.setAttribute('x2', 0);
         this.yLine.setAttribute('y1', topLeft.y);
         this.yLine.setAttribute('y2', bottomLeft.y);
-        this.yLine.setAttribute('stroke-width', this.strokeWidth);
+        this.yLine.setAttribute('stroke-width', `${this.opts.strokeWidth}%`);
     }
 
     removeMarks() {
@@ -83,7 +83,7 @@ export class Graph extends Frame {
             mark.setAttribute('x2', x);
             mark.setAttribute('y1', -width);
             mark.setAttribute('y2', width);
-            mark.setAttribute('stroke-width', this.strokeWidth);
+            mark.setAttribute('stroke-width', `${this.opts.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
         }
         for (let y = Math.ceil(bottomLeft.y); y <= Math.floor(topLeft.y); y += this.incr) {
@@ -93,7 +93,7 @@ export class Graph extends Frame {
             mark.setAttribute('x2', width);
             mark.setAttribute('y1', y);
             mark.setAttribute('y2', y);
-            mark.setAttribute('stroke-width', this.strokeWidth);
+            mark.setAttribute('stroke-width', `${this.opts.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
         }
     }
@@ -119,7 +119,7 @@ export class Graph extends Frame {
             hLine.setAttribute('x2', topRight.x);
             hLine.setAttribute('y1', y);
             hLine.setAttribute('y2', y);
-            hLine.setAttribute('stroke-width', '0.005%');
+            hLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
             hLine.setAttribute('stroke-dasharray', '0.2');
             grid.appendChild(hLine);
         }
@@ -130,7 +130,7 @@ export class Graph extends Frame {
             vLine.setAttribute('x2', x);
             vLine.setAttribute('y1', bottomLeft.y);
             vLine.setAttribute('y2', topLeft.y);
-            vLine.setAttribute('stroke-width', '0.005%');
+            vLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
             vLine.setAttribute('stroke-dasharray', '0.2');
             grid.appendChild(vLine);
         }
