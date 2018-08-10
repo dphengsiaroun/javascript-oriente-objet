@@ -38,6 +38,7 @@ export class Frame {
         this.render();
 
         this.addTranslate();
+        this.addZoom();
     }
 
     resize() {
@@ -149,11 +150,27 @@ export class Frame {
             const mouseup = (evt) => {
                 document.removeEventListener('mousemove', mousemove);
                 document.removeEventListener('mouseup', mouseup);
-                
+
             }
             document.addEventListener('mousemove', mousemove);
             document.addEventListener('mouseup', mouseup);
         });
     }
 
+    addZoom() {
+        this.svg.addEventListener('mousewheel', e => {
+            event.preventDefault();
+            const c = this.transform(this.getCursorPoint(e));
+            let factor = 0.5;
+            if (e.deltaY > 0) {
+                factor = 2;
+            } 
+            this.zoomLevel *= factor;
+            this.xstart = c.x + factor * (this.xstart - c.x);
+            this.ystart = c.y + factor * (this.ystart - c.y);
+            this.xend = c.x + factor * (this.xend - c.x);
+            this.yend = c.y + factor * (this.yend - c.y);
+            this.render();
+        });
+    }
 }
