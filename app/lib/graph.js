@@ -150,6 +150,9 @@ export class Graph extends Frame {
         if (!this.showNumbers) {
             return;
         }
+        if (!this.showMarks) {
+            return;
+        }
         const {
             topLeft,
             topRight,
