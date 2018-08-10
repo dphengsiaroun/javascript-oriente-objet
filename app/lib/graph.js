@@ -8,62 +8,75 @@ export class Graph extends Frame {
     constructor(element, options) {
         super(element, options);
         this.incr = this.incr || 1;
+        this.showMarks = this.showMarks || true;
+        this.strokeWidth = '0.02%';
 
-        const graph = document.createElementNS(NS, 'g');
-        graph.setAttribute('class', 'graph');
-        this.wrapper.appendChild(graph);
+        this.graph = document.createElementNS(NS, 'g');
+        this.graph.setAttribute('class', 'graph');
+        this.wrapper.appendChild(this.graph);
 
         this.xLine = document.createElementNS(NS, 'line');
-        graph.appendChild(this.xLine);
+        this.graph.appendChild(this.xLine);
 
         this.yLine = document.createElementNS(NS, 'line');
-        graph.appendChild(this.yLine);
+        this.graph.appendChild(this.yLine);
         this.onRender();
     }
 
     onRender() {
         console.log('onRender');
-        const topLeft = this.transform({x: 0, y: 0});
-        const bottomLeft = this.transform({x: 0, y: this.svg.clientHeight});
-        const topRight = this.transform({x: this.svg.clientWidth, y: 0});
+        const {topLeft, topRight, bottomLeft} = this.window;
 
         this.xLine.setAttribute('x1', topLeft.x);
         this.xLine.setAttribute('x2', topRight.x);
         this.xLine.setAttribute('y1', 0);
         this.xLine.setAttribute('y2', 0);
-        this.xLine.setAttribute('stroke-width', '0.15%');
+        this.xLine.setAttribute('stroke-width', this.strokeWidth);
 
         this.yLine.setAttribute('x1', 0);
         this.yLine.setAttribute('x2', 0);
         this.yLine.setAttribute('y1', topLeft.y);
         this.yLine.setAttribute('y2', bottomLeft.y);
-        this.yLine.setAttribute('stroke-width', '0.15%');
+        this.yLine.setAttribute('stroke-width', this.strokeWidth);
+
+        
+        this.drawMarks();
+    }
+
+    removeMarks() {
+        if (this.marks) {
+            this.marks.remove();
+            delete this.marks;
+        }
     }
 
     drawMarks() {
+        this.removeMarks();
         this.marks = document.createElementNS(NS, 'g');
         this.marks.setAttribute('class', 'marks');
-        this.wrapper.appendChild(this.marks);
+        this.graph.appendChild(this.marks);
 
-        const width = (this.xstart - this.xend) / 100;
-        for (let x = Math.ceil(this.xstart); x <= Math.floor(this.xend); x += this.incr) {
+        const {topLeft, topRight, bottomLeft} = this.window;
+
+        const width = this.incr * 0.2;
+        for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
             const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', x);
             mark.setAttribute('x2', x);
             mark.setAttribute('y1', -width);
             mark.setAttribute('y2', width);
-            mark.setAttribute('stroke-width', '0.15%');
+            mark.setAttribute('stroke-width', this.strokeWidth);
             this.marks.appendChild(mark);
         }
-        for (let y = Math.ceil(this.ystart); y <= Math.floor(this.yend); y += this.incr) {
+        for (let y = Math.ceil(bottomLeft.y); y <= Math.floor(topLeft.y); y += this.incr) {
             const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', -width);
             mark.setAttribute('x2', width);
             mark.setAttribute('y1', y);
             mark.setAttribute('y2', y);
-            mark.setAttribute('stroke-width', '0.15%');
+            mark.setAttribute('stroke-width', this.strokeWidth);
             this.marks.appendChild(mark);
         }
     }

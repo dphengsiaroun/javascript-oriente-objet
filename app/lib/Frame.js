@@ -12,6 +12,7 @@ export class Frame {
         }, options);
         Object.assign(this, opts);
         this.opts = opts;
+        this.window = {};
 
         this.translateCurrent = {
             x: 0,
@@ -38,6 +39,7 @@ export class Frame {
         this.resize();
 
         this.computeMatrix();
+        this.updateWindow();
 
         if (this.isInteractive) {
             this.addTranslate();
@@ -85,9 +87,23 @@ export class Frame {
         this.wrapper.setAttribute('transform', `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`);
     }
 
-    render() {
-        this.computeMatrix();
-        this.onRender();
+    updateWindow() {
+        this.window.topLeft = this.transform({
+            x: 0,
+            y: 0
+        });
+        this.window.bottomLeft = this.transform({
+            x: 0,
+            y: this.svg.clientHeight
+        });
+        this.window.topRight = this.transform({
+            x: this.svg.clientWidth,
+            y: 0
+        });
+        this.window.bottomRight = this.transform({
+            x: this.svg.clientWidth,
+            y: this.svg.clientHeight
+        });
     }
 
     onRender() {}
@@ -162,6 +178,7 @@ export class Frame {
                     y: this.translateOrig.y + delta.y
                 };
                 this.translateGrp.setAttribute('transform', `translate(${this.translateCurrent.x}, ${this.translateCurrent.y})`);
+                this.updateWindow();
                 this.onRender();
             }
 
@@ -188,7 +205,9 @@ export class Frame {
             this.ystart = c.y + factor * (this.ystart - c.y);
             this.xend = c.x + factor * (this.xend - c.x);
             this.yend = c.y + factor * (this.yend - c.y);
-            this.render();
+            this.computeMatrix();
+            this.updateWindow();
+            this.onRender();
         });
     }
 }
