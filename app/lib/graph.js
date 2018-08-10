@@ -122,17 +122,17 @@ export class Graph extends Frame {
             hLine.setAttribute('stroke-dasharray', '0.2');
             grid.appendChild(hLine);
         }
-        // for (let x = Math.ceil(xstart); x <= Math.floor(xend); x += this.incr) {
-        //     const vLine = document.createElementNS(NS, 'line');
-        //     vLine.setAttribute('class', 'grid-line');
-        //     vLine.setAttribute('x1', x);
-        //     vLine.setAttribute('x2', x);
-        //     vLine.setAttribute('y1', ystart);
-        //     vLine.setAttribute('y2', yend);
-        //     vLine.setAttribute('stroke-width', '0.1%');
-        //     vLine.setAttribute('stroke-dasharray', '0.01');
-        //     grid.appendChild(vLine);
-        // }
+        for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
+            const vLine = document.createElementNS(NS, 'line');
+            vLine.setAttribute('class', 'grid-line');
+            vLine.setAttribute('x1', x);
+            vLine.setAttribute('x2', x);
+            vLine.setAttribute('y1', bottomLeft.y);
+            vLine.setAttribute('y2', topLeft.y);
+            vLine.setAttribute('stroke-width', '0.005%');
+            vLine.setAttribute('stroke-dasharray', '0.2');
+            grid.appendChild(vLine);
+        }
         this.grid = grid;
     }
 
