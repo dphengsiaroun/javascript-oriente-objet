@@ -38,5 +38,6 @@ describe.only('Function', () => {
     it('range', () => {
         assert.deepStrictEqual(range(1, 8, 2), [1, 3, 5, 7]);
         assert.deepStrictEqual(range(1, 9, 2), [1, 3, 5, 7, 9]);
+        assert.deepStrictEqual(range(-1, -9, -2), [-1, -3, -5, -7, -9]);
     });
 });

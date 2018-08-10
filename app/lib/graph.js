@@ -18,6 +18,10 @@ const round125 = (x) => {
     return b;
 };
 
+const range = (s, e, incr) => {
+    return new Array(Math.floor((e - s) / incr) + 1).fill(0).map((n, i) => s + incr * i);
+}
+
 const NS = 'http://www.w3.org/2000/svg';
 
 export class Graph extends Frame {
@@ -105,7 +109,9 @@ export class Graph extends Frame {
         } = this.window;
 
         const width = this.incr * 0.2;
-        for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
+        const xPositiveRange = range(this.incr, topRight.x, this.incr);
+        const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
+        xNegativeRange.concat(xPositiveRange).forEach(x => {
             const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', x);
@@ -114,8 +120,10 @@ export class Graph extends Frame {
             mark.setAttribute('y2', width);
             mark.setAttribute('stroke-width', `${this.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
-        }
-        for (let y = Math.ceil(bottomLeft.y); y <= Math.floor(topLeft.y); y += this.incr) {
+        });
+        const yPositiveRange = range(this.incr, topRight.y, this.incr);
+        const yNegativeRange = range(-this.incr, bottomLeft.y, -this.incr);
+        yNegativeRange.concat(yPositiveRange).forEach(y => {
             const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', -width);
@@ -124,7 +132,7 @@ export class Graph extends Frame {
             mark.setAttribute('y2', y);
             mark.setAttribute('stroke-width', `${this.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
-        }
+        });
     }
 
     drawGrid() {
