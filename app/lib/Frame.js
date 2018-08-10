@@ -18,9 +18,19 @@ export class Frame {
         this.svg.style.cursor = 'pointer';
         element.appendChild(this.svg);
 
+        this.translateGrp = document.createElementNS(NS, 'g');
+        this.translateGrp.setAttribute('class', 'translate');
+        this.translateCurrent = {
+            x: 0,
+            y: 0
+        };
+        this.translateGrp.setAttribute('transform', `translate(${this.translateCurrent.x}, ${this.translateCurrent.y})`);
+        this.svg.appendChild(this.translateGrp);
+
+
         this.wrapper = document.createElementNS(NS, 'g');
         this.wrapper.setAttribute('class', 'wrapper');
-        this.svg.appendChild(this.wrapper);
+        this.translateGrp.appendChild(this.wrapper);
 
         this.drawArea();
 
@@ -67,7 +77,6 @@ export class Frame {
         const d = ph / (ys - ye);
         const e = -(a * xs + c * ye);
         const f = -(b * xs + d * ye);
-        // this.wrapper.setAttribute('transform', `matrix(${(this.xend - this.xstart) / pw}, 0, 0, ${(this.ystart - this.yend) / ph}, ${this.xstart}, ${this.yend})`);
         this.wrapper.setAttribute('transform', `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`);
     }
 
@@ -110,7 +119,7 @@ export class Frame {
         pt.x = evt.clientX;
         pt.y = evt.clientY;
         const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
-        return this.transform(result);
+        return result;
     }
 
     addTranslate() {
@@ -118,12 +127,7 @@ export class Frame {
             event.preventDefault();
 
             const sp = this.getCursorPoint(event);
-            const orig = {
-                xstart: this.xstart,
-                ystart: this.ystart,
-                xend: this.xend,
-                yend: this.yend,
-            };
+            this.translateOrig = Object.assign({}, this.translateCurrent);
 
             let delta = {
                 x: 0,
@@ -135,23 +139,21 @@ export class Frame {
                 const cp = this.getCursorPoint(evt);
                 delta.x = (cp.x - sp.x);
                 delta.y = (cp.y - sp.y);
-                this.translate(orig, delta);
+                this.translateCurrent = {
+                    x: this.translateOrig.x + delta.x,
+                    y: this.translateOrig.y + delta.y
+                };
+                this.translateGrp.setAttribute('transform', `translate(${this.translateCurrent.x}, ${this.translateCurrent.y})`);
             }
 
             const mouseup = (evt) => {
                 document.removeEventListener('mousemove', mousemove);
                 document.removeEventListener('mouseup', mouseup);
+                
             }
             document.addEventListener('mousemove', mousemove);
             document.addEventListener('mouseup', mouseup);
         });
     }
 
-    translate(orig, delta) {
-        this.xstart = orig.xstart - delta.x;
-        this.ystart = orig.ystart - delta.y;
-        this.xend = orig.xend - delta.x;
-        this.yend = orig.yend - delta.y;
-        this.render();
-    }
 }
