@@ -9,11 +9,11 @@ export class Path {
         }
         this.opts.fnx = this.opts.fnx || (t => t);
         this.opts.strokeWidth = this.opts.strokeWidth || 0.02;
-        this.render();
+        this.onRender();
         this.frame.subscribers.push(this);
     }
 
-    render() {
+    onRender() {
         this.elt && this.elt.remove();
         this.strokeWidth = this.opts.strokeWidth * this.frame.zoomLevel;
         let {fnx, fny, start, end, incr, color} = this.opts;
@@ -32,10 +32,6 @@ export class Path {
         this.elt.setAttribute('stroke-width', `${this.strokeWidth}%`);
         this.elt.setAttribute('stroke', color);
         this.frame.wrapper.appendChild(this.elt);
-    }
-
-    onRender() {
-        this.render();
     }
 }
 
