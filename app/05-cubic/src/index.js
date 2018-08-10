@@ -42,7 +42,7 @@ document.querySelector('#marks').addEventListener('click', () => {
 
 const a = [0, -5, 0, 0.5];
 const cubic = Polynomial.toFunction(a);
-let path = new Path(graph, {fnx: t => t, fny: cubic, start: xstart, end: xend, incr: step, color: 'green'});
+let path = new Path(graph, {fnx: t => t, fny: cubic, color: 'green'});
 const equationElt = document.querySelector('.equation');
 equationElt.innerHTML = Polynomial.toString(a, 'html');
 
@@ -53,7 +53,7 @@ for (let i = 0; i < 4; i++) {
         a[i] = +e.target.value;
         equationElt.innerHTML = Polynomial.toString(a, 'html');
         const cubic = Polynomial.toFunction(a);
-        path.elt.remove();
-        path = new Path(graph, {fnx: t => t, fny: cubic, start: xstart, end: xend, incr: step, color: 'green'});
+        path.opts.fny = cubic;
+        path.render();
     });
 }
