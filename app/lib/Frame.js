@@ -92,7 +92,6 @@ export class Frame {
     }
 
     transform(p) {
-
         const pw = this.svg.clientWidth;
         const ph = this.svg.clientHeight;
 
@@ -101,6 +100,9 @@ export class Frame {
         const xe = this.xend;
         const ye = this.yend;
 
+        const xt = this.translateCurrent.x;
+        const yt = this.translateCurrent.y;
+
         const a = (xe - xs) / pw;
         const b = 0;
         const c = 0;
@@ -108,10 +110,14 @@ export class Frame {
         const e = xs;
         const f = ye;
 
+        const q = {
+            x: p.x - xt,
+            y: p.y - yt
+        }
 
         return {
-            x: (a * p.x + c * p.y) + e,
-            y: (b * p.x + d * p.y) + f,
+            x: (a * q.x + c * q.y) + e,
+            y: (b * q.x + d * q.y) + f,
         };
     }
 
