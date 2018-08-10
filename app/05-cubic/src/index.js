@@ -22,11 +22,14 @@ const graph = new Graph(element, {
     isInteractive: true
 });
 
+document.querySelector('#grid').checked = graph.showGrid;
+
 document.querySelector('#grid').addEventListener('click', () => {
     const checkValue = document.querySelector('#grid').checked;
     if (checkValue) {
         graph.addGrid(xstart, xend, ystart, yend, incr);
     } else {
+        graph.showGrid = false;
         graph.removeGrid();
     }
 });

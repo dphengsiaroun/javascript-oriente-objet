@@ -97,7 +97,7 @@ export class Graph extends Frame {
     }
 
     drawGrid() {
-        this.removeGrid();
+        this.grid && this.grid.remove();
         if (!this.showGrid) {
             return;
         }
@@ -136,6 +136,7 @@ export class Graph extends Frame {
     }
 
     removeGrid() {
+        this.showGrid = false;
         if (this.grid) {
             this.grid.remove();
             delete this.grid;
