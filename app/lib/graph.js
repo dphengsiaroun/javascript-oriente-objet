@@ -7,9 +7,7 @@ const NS = 'http://www.w3.org/2000/svg';
 export class Graph extends Frame {
     constructor(element, options) {
         super(element, options);
-        Object.assign(this.opts, {
-            incr: 1
-        });
+        this.incr = this.incr || 1;
 
         const graph = document.createElementNS(NS, 'g');
         graph.setAttribute('class', 'graph');
@@ -20,14 +18,26 @@ export class Graph extends Frame {
 
         this.yLine = document.createElementNS(NS, 'line');
         graph.appendChild(this.yLine);
+        this.onRender();
     }
 
-    onUpdateMatrix() {
-        this.xLine.setAttribute('x1', this.xstart);
-        this.xLine.setAttribute('x2', this.xend);
+    onRender() {
+        console.log('onRender');
+        const topLeft = this.transform({x: 0, y: 0});
+        const bottomLeft = this.transform({x: 0, y: this.svg.clientHeight});
+        const topRight = this.transform({x: this.svg.clientWidth, y: 0});
+
+        this.xLine.setAttribute('x1', topLeft.x);
+        this.xLine.setAttribute('x2', topRight.x);
         this.xLine.setAttribute('y1', 0);
         this.xLine.setAttribute('y2', 0);
         this.xLine.setAttribute('stroke-width', '0.15%');
+
+        this.yLine.setAttribute('x1', 0);
+        this.yLine.setAttribute('x2', 0);
+        this.yLine.setAttribute('y1', topLeft.y);
+        this.yLine.setAttribute('y2', bottomLeft.y);
+        this.yLine.setAttribute('stroke-width', '0.15%');
     }
 
     drawMarks() {

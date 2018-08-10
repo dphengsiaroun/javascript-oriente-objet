@@ -137,8 +137,7 @@ export class Frame {
         const pt = this.svg.createSVGPoint();
         pt.x = evt.clientX;
         pt.y = evt.clientY;
-        const result = pt.matrixTransform(this.svg.getScreenCTM().inverse());
-        return result;
+        return pt.matrixTransform(this.svg.getScreenCTM().inverse());
     }
 
     addTranslate() {
@@ -163,6 +162,7 @@ export class Frame {
                     y: this.translateOrig.y + delta.y
                 };
                 this.translateGrp.setAttribute('transform', `translate(${this.translateCurrent.x}, ${this.translateCurrent.y})`);
+                this.onRender();
             }
 
             const mouseup = (evt) => {
@@ -188,7 +188,7 @@ export class Frame {
             this.ystart = c.y + factor * (this.ystart - c.y);
             this.xend = c.x + factor * (this.xend - c.x);
             this.yend = c.y + factor * (this.yend - c.y);
-            this.computeMatrix();
+            this.render();
         });
     }
 }

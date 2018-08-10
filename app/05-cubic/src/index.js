@@ -11,7 +11,6 @@ import {
 
 const xstart = -10;
 const xend = 10;
-
 const ystart = -10;
 const yend = 10;
 const incr = 1;
