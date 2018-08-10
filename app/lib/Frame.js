@@ -36,7 +36,8 @@ export class Frame {
         this.drawArea();
 
         this.resize();
-        this.updateMatrix();
+
+        this.computeMatrix();
 
         if (this.isInteractive) {
             this.addTranslate();
@@ -64,7 +65,7 @@ export class Frame {
         }
     }
 
-    updateMatrix() {
+    computeMatrix() {
         console.log('this.svg %O', this.svg);
         const pw = this.svg.clientWidth;
         const ph = this.svg.clientHeight;
@@ -82,10 +83,14 @@ export class Frame {
         const e = -(a * xs + c * ye);
         const f = -(b * xs + d * ye);
         this.wrapper.setAttribute('transform', `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`);
-        this.onUpdateMatrix();
     }
 
-    render() {}
+    render() {
+        this.computeMatrix();
+        this.onRender();
+    }
+
+    onRender() {}
 
     drawArea() {
         this.area = document.createElementNS(NS, 'rect');
@@ -177,13 +182,13 @@ export class Frame {
             let factor = 0.5;
             if (e.deltaY > 0) {
                 factor = 2;
-            } 
+            }
             this.zoomLevel *= factor;
             this.xstart = c.x + factor * (this.xstart - c.x);
             this.ystart = c.y + factor * (this.ystart - c.y);
             this.xend = c.x + factor * (this.xend - c.x);
             this.yend = c.y + factor * (this.yend - c.y);
-            this.updateMatrix();
+            this.computeMatrix();
         });
     }
 }
