@@ -26,6 +26,7 @@ export class Graph extends Frame {
     }
 
     onRender() {
+        this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
         this.drawAxis();
         this.drawMarks();
         this.drawGrid();
@@ -43,13 +44,13 @@ export class Graph extends Frame {
         this.xLine.setAttribute('x2', topRight.x);
         this.xLine.setAttribute('y1', 0);
         this.xLine.setAttribute('y2', 0);
-        this.xLine.setAttribute('stroke-width', `${this.opts.strokeWidth}%`);
+        this.xLine.setAttribute('stroke-width', `${this.strokeWidth}%`);
 
         this.yLine.setAttribute('x1', 0);
         this.yLine.setAttribute('x2', 0);
         this.yLine.setAttribute('y1', topLeft.y);
         this.yLine.setAttribute('y2', bottomLeft.y);
-        this.yLine.setAttribute('stroke-width', `${this.opts.strokeWidth}%`);
+        this.yLine.setAttribute('stroke-width', `${this.strokeWidth}%`);
     }
 
     removeMarks() {
@@ -83,7 +84,7 @@ export class Graph extends Frame {
             mark.setAttribute('x2', x);
             mark.setAttribute('y1', -width);
             mark.setAttribute('y2', width);
-            mark.setAttribute('stroke-width', `${this.opts.strokeWidth * 0.5}%`);
+            mark.setAttribute('stroke-width', `${this.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
         }
         for (let y = Math.ceil(bottomLeft.y); y <= Math.floor(topLeft.y); y += this.incr) {
@@ -93,7 +94,7 @@ export class Graph extends Frame {
             mark.setAttribute('x2', width);
             mark.setAttribute('y1', y);
             mark.setAttribute('y2', y);
-            mark.setAttribute('stroke-width', `${this.opts.strokeWidth * 0.5}%`);
+            mark.setAttribute('stroke-width', `${this.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
         }
     }
