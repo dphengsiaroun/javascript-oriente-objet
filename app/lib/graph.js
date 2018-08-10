@@ -149,18 +149,9 @@ export class Graph extends Frame {
         grid.setAttribute('class', 'grid');
         this.graph.appendChild(grid);
 
-        for (let y = Math.ceil(bottomLeft.y); y <= Math.floor(topLeft.y); y += this.incr) {
-            const hLine = document.createElementNS(NS, 'line');
-            hLine.setAttribute('class', 'grid-line');
-            hLine.setAttribute('x1', topLeft.x);
-            hLine.setAttribute('x2', topRight.x);
-            hLine.setAttribute('y1', y);
-            hLine.setAttribute('y2', y);
-            hLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
-            hLine.setAttribute('stroke-dasharray', '0.2');
-            grid.appendChild(hLine);
-        }
-        for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
+        const xPositiveRange = range(this.incr, topRight.x, this.incr);
+        const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
+        xNegativeRange.concat(xPositiveRange).forEach(x => {
             const vLine = document.createElementNS(NS, 'line');
             vLine.setAttribute('class', 'grid-line');
             vLine.setAttribute('x1', x);
@@ -170,7 +161,21 @@ export class Graph extends Frame {
             vLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
             vLine.setAttribute('stroke-dasharray', '0.2');
             grid.appendChild(vLine);
-        }
+        });
+
+        const yPositiveRange = range(this.incr, topRight.y, this.incr);
+        const yNegativeRange = range(-this.incr, bottomLeft.y, -this.incr);
+        yNegativeRange.concat(yPositiveRange).forEach(y => {
+            const hLine = document.createElementNS(NS, 'line');
+            hLine.setAttribute('class', 'grid-line');
+            hLine.setAttribute('x1', topLeft.x);
+            hLine.setAttribute('x2', topRight.x);
+            hLine.setAttribute('y1', y);
+            hLine.setAttribute('y2', y);
+            hLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
+            hLine.setAttribute('stroke-dasharray', '0.2');
+            grid.appendChild(hLine);
+        });
         this.grid = grid;
     }
 
