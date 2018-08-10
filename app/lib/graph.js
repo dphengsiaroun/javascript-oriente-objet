@@ -52,6 +52,7 @@ export class Graph extends Frame {
     }
 
     removeMarks() {
+        this.showMarks = false;
         if (this.marks) {
             this.marks.remove();
             delete this.marks;
@@ -59,7 +60,7 @@ export class Graph extends Frame {
     }
 
     drawMarks() {
-        this.removeMarks();
+        this.marks && this.marks.remove();
         if (!this.showMarks) {
             return;
         }
