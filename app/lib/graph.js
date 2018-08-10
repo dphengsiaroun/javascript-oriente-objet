@@ -2,6 +2,22 @@ import {
     Frame
 } from './Frame';
 
+const round125 = (x) => {
+    const z = 10 ** Math.floor(Math.log10(x));
+    const a = x / z;
+    const b = [1, 2, 5, 10].reduce((acc, n) => {
+        if (Math.abs(a - n) < acc.min) {
+            acc.result = n;
+            acc.min = Math.abs(a - n);
+        }
+        return acc;
+    }, {
+        min: 10,
+        result: 0
+    }).result * z;
+    return b;
+};
+
 const NS = 'http://www.w3.org/2000/svg';
 
 export class Graph extends Frame {
@@ -41,7 +57,8 @@ export class Graph extends Frame {
             bottomLeft
         } = this.window;
         this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
-        this.incr = (topRight - topLeft) / 10;
+        this.incr = round125((topRight.x - topLeft.x) / 10);
+        console.log('this.incr', this.incr);
     }
 
     drawAxis() {
