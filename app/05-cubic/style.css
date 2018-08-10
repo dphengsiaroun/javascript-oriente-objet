@@ -44,14 +44,14 @@ section {
     padding: 1em 0 ;
 }
 
-.add-grid {
+.field {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1em;
 }
 
-.add-grid .label {
+.field .label {
     margin-right: 1em;
 }
 

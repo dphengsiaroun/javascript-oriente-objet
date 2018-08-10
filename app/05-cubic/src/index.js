@@ -25,13 +25,8 @@ const graph = new Graph(element, {
 document.querySelector('#grid').checked = graph.showGrid;
 
 document.querySelector('#grid').addEventListener('click', () => {
-    const checkValue = document.querySelector('#grid').checked;
-    if (checkValue) {
-        graph.addGrid(xstart, xend, ystart, yend, incr);
-    } else {
-        graph.showGrid = false;
-        graph.removeGrid();
-    }
+    graph.showGrid = document.querySelector('#grid').checked;
+    graph.render();
 });
 
 document.querySelector('#number').addEventListener('click', () => {
