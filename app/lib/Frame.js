@@ -47,6 +47,12 @@ export class Frame {
         }
     }
 
+    render() {
+        this.computeMatrix();
+        this.updateWindow();
+        this.onRender();
+    }
+
     resize() {
         const svgWidth = this.svg.clientWidth;
         const svgHeight = this.svg.clientHeight;

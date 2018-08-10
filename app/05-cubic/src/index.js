@@ -43,6 +43,12 @@ document.querySelector('#number').addEventListener('click', () => {
     }
 });
 
+document.querySelector('#marks').checked = graph.showMarks;
+document.querySelector('#marks').addEventListener('click', () => {
+    graph.showMarks = document.querySelector('#marks').checked;
+    graph.render();
+});
+
 const a = [0, -5, 0, 0.5];
 const cubic = Polynomial.toFunction(a);
 let g = drawPath(graph.svg, cubic, xstart, xend, step, 'green');
