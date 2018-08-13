@@ -54,6 +54,6 @@ for (let i = 0; i < 4; i++) {
         equationElt.innerHTML = Polynomial.toString(a, 'html');
         const cubic = Polynomial.toFunction(a);
         path.opts.fny = cubic;
-        path.render();
+        path.onRender();
     });
 }
