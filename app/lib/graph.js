@@ -191,6 +191,8 @@ export class Graph extends Frame {
         numberAxis.setAttribute('transform', 'scale(1, -1)');
         this.graph.appendChild(numberAxis);
 
+        const fontSize = 0.5 * this.zoomLevel;
+
         const xPositiveRange = range(this.incr, topRight.x, this.incr);
         const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
         xNegativeRange.concat(xPositiveRange).forEach(x => {
@@ -198,7 +200,7 @@ export class Graph extends Frame {
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', x - 0.14);
             text.setAttribute('y', 0.8);
-            text.setAttribute('font-size', 0.35);
+            text.setAttribute('font-size', fontSize);
             text.innerHTML = x;
             numberAxis.appendChild(text);
         });
@@ -210,7 +212,7 @@ export class Graph extends Frame {
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', -0.4);
             text.setAttribute('y', y + 0.10);
-            text.setAttribute('font-size', 0.35);
+            text.setAttribute('font-size', fontSize);
             text.setAttribute('text-anchor', 'end');
             text.innerHTML = -y;
             numberAxis.appendChild(text);
