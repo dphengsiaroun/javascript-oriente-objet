@@ -46,8 +46,9 @@ export class Graph extends Frame {
             bottomLeft
         } = this.window;
         this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
-        this.incr = round125((topRight.x - topLeft.x) / 10);
-        console.log('this.incr', this.incr);
+        const x1 = this.transform({x: 0, y: 0}).x;
+        const x2 = this.transform({x: 50, y: 0}).x;
+        this.incr = round125(x2 - x1);
     }
 
     drawAxis() {
@@ -190,10 +191,21 @@ export class Graph extends Frame {
         numberAxis.setAttribute('transform', 'scale(1, -1)');
         this.graph.appendChild(numberAxis);
 
-        for (let y = Math.ceil(-topLeft.y); y <= Math.floor(-bottomLeft.y); y += this.incr) {
-            if (y === 0) {
-                continue;
-            }
+        const xPositiveRange = range(this.incr, topRight.x, this.incr);
+        const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
+        xNegativeRange.concat(xPositiveRange).forEach(x => {
+            const text = document.createElementNS(NS, 'text');
+            text.setAttribute('class', 'graph-number-text');
+            text.setAttribute('x', x - 0.14);
+            text.setAttribute('y', 0.8);
+            text.setAttribute('font-size', 0.35);
+            text.innerHTML = x;
+            numberAxis.appendChild(text);
+        });
+
+        const yPositiveRange = range(this.incr, topRight.y, this.incr);
+        const yNegativeRange = range(-this.incr, bottomLeft.y, -this.incr);
+        yNegativeRange.concat(yPositiveRange).forEach(y => {
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', -0.4);
@@ -202,19 +214,9 @@ export class Graph extends Frame {
             text.setAttribute('text-anchor', 'end');
             text.innerHTML = -y;
             numberAxis.appendChild(text);
-        }
-        for (let x = Math.ceil(topLeft.x); x <= Math.floor(topRight.x); x += this.incr) {
-            if (x === 0) {
-                continue;
-            }
-            const text = document.createElementNS(NS, 'text');
-            text.setAttribute('class', 'graph-number-text');
-            text.setAttribute('x', x - 0.14);
-            text.setAttribute('y', 0.8);
-            text.setAttribute('font-size', 0.35);
-            text.innerHTML = x;
-            numberAxis.appendChild(text);
-        }
+        });
+
+        
         this.numberAxis = numberAxis;
     }
 
