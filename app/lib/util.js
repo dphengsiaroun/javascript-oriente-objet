@@ -16,5 +16,5 @@ export const round125 = x => {
 
 export const range = (s, e, incr) => {
     const start = Math.ceil(s / incr) * incr;
-    return new Array(Math.floor((e - start) / incr) + 1).fill(0).map((n, i) => start + incr * i);
+    return new Array(Math.floor((e - start) / incr) + 1).fill(0).map((n, i) => +(start + incr * i).toPrecision(10));
 }

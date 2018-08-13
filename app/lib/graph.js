@@ -95,7 +95,7 @@ export class Graph extends Frame {
             bottomLeft
         } = this.window;
 
-        const width = this.incr * 0.15;
+        const width = this.zoomLevel * 0.2;
         const xRange = range(topLeft.x, topRight.x, this.incr).filter(x => x !== 0);
         xRange.forEach(x => {
             const mark = document.createElementNS(NS, 'line');
@@ -196,7 +196,7 @@ export class Graph extends Frame {
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', x);
-            text.setAttribute('y', 0.8);
+            text.setAttribute('y', 0.8 * this.zoomLevel);
             text.setAttribute('font-size', fontSize);
             text.setAttribute('text-anchor', 'middle');
             text.innerHTML = x;
@@ -206,10 +206,11 @@ export class Graph extends Frame {
         const yRange = range(bottomLeft.y, topLeft.y, this.incr).filter(y => y !== 0);
         console.log('yRange', yRange);
         yRange.forEach(y => {
+            console.log('y', y);
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
-            text.setAttribute('x', -0.4);
-            text.setAttribute('y', -y + 0.10);
+            text.setAttribute('x', -0.4 * this.zoomLevel);
+            text.setAttribute('y', -y + 0.10 * this.zoomLevel);
             text.setAttribute('font-size', fontSize);
             text.setAttribute('text-anchor', 'end');
             text.innerHTML = y;

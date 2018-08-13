@@ -1,5 +1,9 @@
 const NS = 'http://www.w3.org/2000/svg';
 
+const ZOOM_MAX = 2**10;
+const ZOOM_MIN = 2**(-5);
+
+
 export class Frame {
     constructor(element, options) {
         this.element = element;
@@ -215,7 +219,11 @@ export class Frame {
             if (e.deltaY > 0) {
                 factor = 2;
             }
-            this.zoomLevel *= factor;
+            const zoomLevel = this.zoomLevel * factor;
+            if (zoomLevel < ZOOM_MIN || zoomLevel > ZOOM_MAX) {
+                return;
+            }
+            this.zoomLevel = zoomLevel;
             this.xstart = c.x + factor * (this.xstart - c.x);
             this.ystart = c.y + factor * (this.ystart - c.y);
             this.xend = c.x + factor * (this.xend - c.x);
