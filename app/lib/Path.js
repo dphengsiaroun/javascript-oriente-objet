@@ -8,7 +8,7 @@ export class Path {
             this.auto = true;
         }
         this.opts.fnx = this.opts.fnx || (t => t);
-        this.opts.strokeWidth = this.opts.strokeWidth || 0.02;
+        this.opts.strokeWidth = frame.strokeWidth;
         this.onRender();
         this.frame.subscribers.push(this);
     }

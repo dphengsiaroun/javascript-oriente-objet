@@ -16,7 +16,7 @@ export class Graph extends Frame {
         this.showMarks = this.showMarks || true;
         this.showGrid = this.showGrid || false;
         this.showNumbers = this.showNumbers || true;
-        this.opts.strokeWidth = this.opts.strokeWidth || 0.02;
+        this.opts.strokeWidth = this.opts.strokeWidth || (5 / this.svg.clientWidth) ;
 
         this.graph = document.createElementNS(NS, 'g');
         this.graph.setAttribute('class', 'graph');
@@ -189,7 +189,7 @@ export class Graph extends Frame {
         numberAxis.setAttribute('transform', 'scale(1, -1)');
         this.graph.appendChild(numberAxis);
 
-        const fontSize = 0.5 * this.zoomLevel;
+        const fontSize = 60 * this.strokeWidth;
 
         const xRange = range(topLeft.x, topRight.x, this.incr).filter(x => x !== 0);
         xRange.forEach(x => {
