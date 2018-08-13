@@ -134,9 +134,8 @@ export class Graph extends Frame {
         grid.setAttribute('class', 'grid');
         this.graph.appendChild(grid);
 
-        const xPositiveRange = range(this.incr, topRight.x, this.incr);
-        const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
-        xNegativeRange.concat(xPositiveRange).forEach(x => {
+        const xRange = range(topLeft.x, topRight.x, this.incr).filter(x => x !== 0);
+        xRange.forEach(x => {
             const vLine = document.createElementNS(NS, 'line');
             vLine.setAttribute('class', 'grid-line');
             vLine.setAttribute('x1', x);
@@ -144,7 +143,7 @@ export class Graph extends Frame {
             vLine.setAttribute('y1', bottomLeft.y);
             vLine.setAttribute('y2', topLeft.y);
             vLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
-            vLine.setAttribute('stroke-dasharray', '0.2');
+            vLine.setAttribute('stroke-dasharray', 20 * this.strokeWidth);
             grid.appendChild(vLine);
         });
 
@@ -157,7 +156,7 @@ export class Graph extends Frame {
             hLine.setAttribute('y1', y);
             hLine.setAttribute('y2', y);
             hLine.setAttribute('stroke-width', `${this.strokeWidth * 0.25}%`);
-            hLine.setAttribute('stroke-dasharray', '0.2');
+            hLine.setAttribute('stroke-dasharray', 20 * this.strokeWidth);
             grid.appendChild(hLine);
         });
         this.grid = grid;
