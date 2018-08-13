@@ -4,9 +4,8 @@ import {
     Graph
 } from '../../lib/Graph';
 import {
-    draw,
-    drawPath
-} from '../../lib/draw';
+    Path
+} from '../../lib/Path';
 
 const {
     take,
@@ -20,10 +19,6 @@ const {
 //     g.setAttribute('transform', `scale(1, ${-1 + n / 100})`)
 // });
 
-// const fn = x => (1 / 100) * x**2;
-const sin = x => Math.sin(x);
-const cos = x => Math.cos(x);
-
 const xstart = -10;
 const xend = 10;
 
@@ -31,9 +26,9 @@ const ystart = -3;
 const yend = 3;
 const incr = 1;
 const step = 0.3;
-const element = document.querySelector('.graph');
+const element = document.querySelector('div.graph');
 
-const graph = new Graph(element, {ystart, yend});
+const graph = new Graph(element, {xstart, ystart, xend, yend, incr});
 
-drawPath(graph.svg, sin, xstart + incr, xend - incr, step, 'blue');
-drawPath(graph.svg, cos, xstart + incr, xend - incr, step, 'red');
+new Path(graph, {fny: Math.sin, color: 'blue'});
+new Path(graph, {fny: Math.cos, color: 'red'});
