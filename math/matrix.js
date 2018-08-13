@@ -162,6 +162,21 @@ class Matrix {
         return true;
     }
 
+    static equals(a, b) {
+        for (let i = 0; i < a.length; i++) {
+            for (let j = 0; j < a[i].length; j++) {
+                if (a[i][j] !== b[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    static isSymetric(a) {
+        return Matrix.equals(Matrix.transpose(a), a);
+    }
+
     
 
 }

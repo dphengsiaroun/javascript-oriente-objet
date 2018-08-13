@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../math/matrix');
 
-describe('Matrix', () => {
+describe.only('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
@@ -254,6 +254,49 @@ describe('Matrix', () => {
             Matrix.inverse(a);
         }, 'Matrix not inversible');
     });
+
+    it('should be equals', () => {
+        const a = [
+            [1, 0, 2],
+            [0, 1, 1],
+            [0, 0, 0]
+        ];
+        assert.equal(Matrix.equals(a, a), true);
+    });
+
+    it('should not be equals', () => {
+        const a = [
+            [1, 0, 2],
+            [0, 1, 1],
+            [0, 0, 0]
+        ];
+        const b = [
+            [1, 0, 2],
+            [0, 1, 1],
+            [2, 0, 0]
+        ];
+        assert.equal(Matrix.equals(a, b), false);
+    });
+
+
+    it('should not be symetric', () => {
+        const a = [
+            [1, 0, 2],
+            [0, 1, 1],
+            [0, 0, 0]
+        ];
+        assert.equal(Matrix.isSymetric(a), false);
+    });
+
+    it('should be symetric', () => {
+        const a = [
+            [0, 2, 4],
+            [2, 1, 1],
+            [4, 1, 0]
+        ];
+        assert.equal(Matrix.isSymetric(a), true);
+    });
+
     
 
 });
