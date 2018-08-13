@@ -198,9 +198,10 @@ export class Graph extends Frame {
         xNegativeRange.concat(xPositiveRange).forEach(x => {
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
-            text.setAttribute('x', x - 0.14);
+            text.setAttribute('x', x);
             text.setAttribute('y', 0.8);
             text.setAttribute('font-size', fontSize);
+            text.setAttribute('text-anchor', 'middle');
             text.innerHTML = x;
             numberAxis.appendChild(text);
         });
