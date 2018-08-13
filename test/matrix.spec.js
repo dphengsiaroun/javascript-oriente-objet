@@ -278,7 +278,6 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.equals(a, b), false);
     });
 
-
     it('should not be symetric', () => {
         const a = [
             [1, 0, 2],
