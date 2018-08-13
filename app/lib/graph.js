@@ -94,7 +94,7 @@ export class Graph extends Frame {
             bottomLeft
         } = this.window;
 
-        const width = this.incr * 0.2;
+        const width = this.incr * 0.15;
         const xPositiveRange = range(this.incr, topRight.x, this.incr);
         const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
         xNegativeRange.concat(xPositiveRange).forEach(x => {
