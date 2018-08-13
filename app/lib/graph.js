@@ -48,7 +48,6 @@ export class Graph extends Frame {
         this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
         const x1 = this.transform({x: 0, y: 0}).x;
         const x2 = this.transform({x: 50, y: 0}).x;
-        console.log('x2 - x1', x2 - x1);
         this.incr = round125(x2 - x1);
     }
 
@@ -203,9 +202,7 @@ export class Graph extends Frame {
         });
 
         const yRange = range(bottomLeft.y, topLeft.y, this.incr).filter(y => y !== 0);
-        console.log('yRange', yRange);
         yRange.forEach(y => {
-            console.log('y', y);
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', -0.4 * this.zoomLevel);

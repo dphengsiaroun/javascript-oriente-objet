@@ -39,3 +39,4 @@ new Path(graph, {fny: constant, color: 'blue'});
 new Path(graph, {fny: droite, color: 'orange'});
 new Path(graph, {fny: parabol, color: 'red'});
 new Path(graph, {fny: cubic, color: 'green'});
+new Path(graph, {start: 0.1, end: 1000, incr: 0.1, fnx: t => Math.log(t), fny: t => Math.sin(t), color: 'purple'});

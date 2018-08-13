@@ -24,7 +24,7 @@ export class Path {
             incr = (end - start) / 100;
         }
         let d = `M${fnx(start)} ${fny(start)} `;
-        for (let t = start; t <= end; t += incr) {
+        for (let t = start + 2 * incr; t < end; t += incr) {
             d += bezierCurveXY(t, fnx, fny, incr);
         }
         this.elt = document.createElementNS(NS, 'path');
@@ -32,6 +32,12 @@ export class Path {
         this.elt.setAttribute('stroke-width', `${this.strokeWidth}%`);
         this.elt.setAttribute('stroke', color);
         this.frame.wrapper.appendChild(this.elt);
+    }
+}
+
+function throwIfNaN(x, label) {
+    if (isNaN(x)) {
+        throw new Error(`${label} is NaN`);
     }
 }
 
@@ -49,6 +55,9 @@ function bezierCurveXY(t, fnx, fny, incr) {
     const cy1 = fny(t - incr) + (dy1 / dt) * coef * incr;
     const cx2 = fnx(t) - (dx2 / dt) * coef * incr;
     const cy2 = fny(t) - (dy2 / dt) * coef * incr;
-
+    throwIfNaN(cx1, 'cx1');
+    throwIfNaN(cy1, 'cy1');
+    throwIfNaN(cx2, 'cx2');
+    throwIfNaN(cy2, 'cy2');
     return `C${cx1},${cy1} ${cx2},${cy2} ${fnx(t)},${fny(t)} `;
 }
