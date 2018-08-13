@@ -48,6 +48,7 @@ export class Graph extends Frame {
         this.strokeWidth = this.opts.strokeWidth * this.zoomLevel;
         const x1 = this.transform({x: 0, y: 0}).x;
         const x2 = this.transform({x: 50, y: 0}).x;
+        console.log('x2 - x1', x2 - x1);
         this.incr = round125(x2 - x1);
     }
 
@@ -95,9 +96,8 @@ export class Graph extends Frame {
         } = this.window;
 
         const width = this.incr * 0.15;
-        const xPositiveRange = range(this.incr, topRight.x, this.incr);
-        const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
-        xNegativeRange.concat(xPositiveRange).forEach(x => {
+        const xRange = range(topLeft.x, topRight.x, this.incr).filter(x => x !== 0);
+        xRange.forEach(x => {
             const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', x);
@@ -107,9 +107,8 @@ export class Graph extends Frame {
             mark.setAttribute('stroke-width', `${this.strokeWidth * 0.5}%`);
             this.marks.appendChild(mark);
         });
-        const yPositiveRange = range(this.incr, topRight.y, this.incr);
-        const yNegativeRange = range(-this.incr, bottomLeft.y, -this.incr);
-        yNegativeRange.concat(yPositiveRange).forEach(y => {
+        const yRange = range(bottomLeft.y, topLeft.y, this.incr).filter(y => y !== 0);
+        yRange.forEach(y => {
             const mark = document.createElementNS(NS, 'line');
             mark.setAttribute('class', 'mark');
             mark.setAttribute('x1', -width);
@@ -149,9 +148,8 @@ export class Graph extends Frame {
             grid.appendChild(vLine);
         });
 
-        const yPositiveRange = range(this.incr, topRight.y, this.incr);
-        const yNegativeRange = range(-this.incr, bottomLeft.y, -this.incr);
-        yNegativeRange.concat(yPositiveRange).forEach(y => {
+        const yRange = range(bottomLeft.y, topLeft.y, this.incr).filter(y => y !== 0);
+        yRange.forEach(y => {
             const hLine = document.createElementNS(NS, 'line');
             hLine.setAttribute('class', 'grid-line');
             hLine.setAttribute('x1', topLeft.x);
@@ -193,9 +191,8 @@ export class Graph extends Frame {
 
         const fontSize = 0.5 * this.zoomLevel;
 
-        const xPositiveRange = range(this.incr, topRight.x, this.incr);
-        const xNegativeRange = range(-this.incr, topLeft.x, -this.incr);
-        xNegativeRange.concat(xPositiveRange).forEach(x => {
+        const xRange = range(topLeft.x, topRight.x, this.incr).filter(x => x !== 0);
+        xRange.forEach(x => {
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', x);
@@ -206,16 +203,16 @@ export class Graph extends Frame {
             numberAxis.appendChild(text);
         });
 
-        const yPositiveRange = range(this.incr, topRight.y, this.incr);
-        const yNegativeRange = range(-this.incr, bottomLeft.y, -this.incr);
-        yNegativeRange.concat(yPositiveRange).forEach(y => {
+        const yRange = range(bottomLeft.y, topLeft.y, this.incr).filter(y => y !== 0);
+        console.log('yRange', yRange);
+        yRange.forEach(y => {
             const text = document.createElementNS(NS, 'text');
             text.setAttribute('class', 'graph-number-text');
             text.setAttribute('x', -0.4);
-            text.setAttribute('y', y + 0.10);
+            text.setAttribute('y', -y + 0.10);
             text.setAttribute('font-size', fontSize);
             text.setAttribute('text-anchor', 'end');
-            text.innerHTML = -y;
+            text.innerHTML = y;
             numberAxis.appendChild(text);
         });
 
