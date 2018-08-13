@@ -4,9 +4,8 @@ import {
     Graph
 } from '../../lib/Graph';
 import {
-    draw,
-    drawPath
-} from '../../lib/draw';
+    Path
+} from '../../lib/Path';
 
 const {
     take,
@@ -36,7 +35,7 @@ const element = document.querySelector('.graph');
 
 const graph = new Graph(element, {xstart, xend, ystart, yend, incr});
 
-drawPath(graph.svg, constant, xstart + incr, xend - incr, step, 'blue');
-drawPath(graph.svg, droite, xstart + incr, xend - incr, step, 'orange');
-drawPath(graph.svg, parabol, xstart + incr, xend - incr, step, 'red');
-drawPath(graph.svg, cubic, xstart + incr, xend - incr, step, 'green');
+new Path(graph, {fny: constant, color: 'blue'});
+new Path(graph, {fny: droite, color: 'orange'});
+new Path(graph, {fny: parabol, color: 'red'});
+new Path(graph, {fny: cubic, color: 'green'});
