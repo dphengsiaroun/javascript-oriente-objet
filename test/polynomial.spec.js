@@ -5,7 +5,7 @@ const {
 
 const rand = (min, max) => Math.round(Math.random() * (max - min) + min);
 
-describe('Polynomial', () => {
+describe.only('Polynomial', () => {
     it('should product', () => {
         const a = [1, 1];
         const b = [-2, 1];
@@ -169,5 +169,13 @@ describe('Polynomial', () => {
 
     it('should generate a polynomial from roots', () => {
         assert.deepStrictEqual(Polynomial.fromRoots(2, 3, 4), [-24, 26, -9, 1]);
+    });
+
+    it('should differentiate a polynomial', () => {
+        assert.deepStrictEqual(Polynomial.differentiate([2, 3, 4]), [3, 8]);
+    });
+
+    it('should integrate a polynomial', () => {
+        assert.deepStrictEqual(Polynomial.integrate([3, 8]), [0, 3, 4]);
     });
 });

@@ -1,5 +1,3 @@
-import * as rxjs from 'rxjs/bundles/rxjs.umd';
-
 import {
     Graph
 } from '../../lib/Graph';
@@ -9,11 +7,6 @@ import {
 import {
     Tangent
 } from '../../lib/Tangent';
-
-const {
-    take,
-    map
-} = rxjs.operators;
 
 const xstart = -10;
 const xend = 10;

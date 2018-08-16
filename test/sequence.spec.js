@@ -5,7 +5,7 @@ const {
 
 const rand = (min, max) => Math.round(Math.random() * (max - min) + min);
 
-describe.only('Sequence', () => {
+describe('Sequence', () => {
 
     it('arithmetic progression', () => {
         const u = n => 2 + 3 * n;

@@ -85,7 +85,17 @@ class Polynomial {
 	}
 
 	static fromRoots(...roots) {
-		return roots.reduce((acc, n) => Polynomial.product(acc, [-n, 1]),[1]);
+		return roots.reduce((acc, n) => Polynomial.product(acc, [-n, 1]), [1]);
+	}
+
+	static differentiate(a) {
+		return a.map((c, i) => c * i).slice(1);
+	}
+
+	static integrate(a) {
+		const result = a.map((c, i) => c / (i + 1));
+		result.unshift(0);
+		return result;
 	}
 
 }
