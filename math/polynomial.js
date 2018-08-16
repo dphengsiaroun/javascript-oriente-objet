@@ -101,6 +101,7 @@ class Polynomial {
 }
 
 require('./polynomial/binaryOps')(Polynomial);
+require('./polynomial/roots')(Polynomial);
 
 module.exports = {
 	Polynomial

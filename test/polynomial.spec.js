@@ -161,7 +161,7 @@ describe.only('Polynomial', () => {
         const b = Polynomial.product(c, bp);
 
         const pgcd = Polynomial.pgcd(a, b);
-        
+
         assert.deepStrictEqual(pgcd, c);
         assert.deepStrictEqual(Polynomial.ppcm(a, b), Polynomial.product(a, bp));
 
@@ -178,4 +178,29 @@ describe.only('Polynomial', () => {
     it('should integrate a polynomial', () => {
         assert.deepStrictEqual(Polynomial.integrate([3, 8]), [0, 3, 4]);
     });
+
+    it('should resolve the root of a polynomial with degree 0', () => {
+        assert.deepStrictEqual(Polynomial.getRoots([1]), []);
+    });
+
+    it('should resolve the root of a polynomial with degree 1', () => {
+        assert.deepStrictEqual(Polynomial.getRoots([1, 2]), [-1 / 2]);
+    });
+
+    it('should resolve the root of a polynomial with degree 2', () => {
+        assert.deepStrictEqual(Polynomial.getRoots([2, -3, 1]), [1, 2]);
+        assert.deepStrictEqual(Polynomial.getRoots([0, 0, 1]), [0]);
+        assert.deepStrictEqual(Polynomial.getRoots([2, 3, 4]), []);
+    });
+
+    it('should resolve the root of a polynomial with degree 3', () => {
+        assert.deepStrictEqual(Polynomial.getRoots([0, 1, -3, 2]), [0, 0.5, 1]);
+        assert.deepStrictEqual(Polynomial.getRoots([-2, 1, 0, 1]), [1]);
+        assert.deepStrictEqual(Polynomial.getRoots([-2, -3, 0, 1]), [-1, 2]);
+        assert.deepStrictEqual(Polynomial.getRoots([0, -1, 0, 1]), [-1, 0, 1]);
+        assert.deepStrictEqual(Polynomial.getRoots([1, 2, 3, 4]), [-0.605829586188268]);
+        assert.deepStrictEqual(Polynomial.getRoots([-1, -1, 4, 4]), [-1, -0.5, 0.5]);
+    });
+
+
 });
