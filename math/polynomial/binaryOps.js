@@ -114,6 +114,20 @@ module.exports = function (Polynomial) {
             remainder: division.remainder
         };
         return result;
+    };
+
+    Polynomial.pow = (p, n) => {
+        let result = [1];
+        for (let i = 0; i < n; i++) {
+            result = Polynomial.product(p, result);
+        }
+        return result;
     }
+
+    Polynomial.compose = (p, q) => {
+        return p.reduce((acc, n, i) => {
+            return Polynomial.plus(acc, Polynomial.multiply(n, Polynomial.pow(q, i)));
+        }, []);
+    };
 
 };

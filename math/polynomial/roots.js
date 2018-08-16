@@ -9,7 +9,7 @@ const {
 module.exports = function (Polynomial) {
 
     Polynomial.getRoots = (p) => {
-        p = Polynomial.canonize(p);
+        p = Polynomial.normalize(p);
         const result = [];
         if (Polynomial.degreeOf(p) === 0) {
             // No roots.
@@ -38,18 +38,33 @@ module.exports = function (Polynomial) {
                 const roots = getTschirnhausRoot(p);
                 roots.forEach(r => result.push(r));
             }
+        } else if (Polynomial.degreeOf(p) === 4) {
+            const [e, d, c, b, a] = p;
+            if (a === 1 && b === 0) {
+                // TODO
+                throw new Error('to be implemented');
+            } else {
+                // Tschirnhaus method
+                const roots = getTschirnhausRoot(p);
+                roots.forEach(r => result.push(r));
+            }
         } else {
-            throw Error('Not implemented');
+            throw new Error('Not implemented');
         }
         result.sort((a, b) => Math.sign(a - b));
         return Polynomial.round(result);
     }
 
     function getTschirnhausRoot(pol) {
-        const [d, c, b, a] = pol;
-        const p = (3 * a * c - b ** 2) / (3 * (a ** 2));
-        const q = (2 * b ** 3 - 9 * a * b * c + 27 * a * a * d) / (27 * (a ** 3));
-        return Polynomial.getRoots([q, p, 0, 1]).map(r => r - b / (3 * a));
+        pol = Polynomial.normalize(pol);
+        const n = Polynomial.degreeOf(pol);
+        const a = pol[n];
+        const b = pol[n - 1];
+
+        const offset = b / (n * a);
+        const q = [-offset, 1];
+        const tschirnhaus = Polynomial.compose(pol, q);
+        return Polynomial.getRoots(tschirnhaus).map(r => r - offset);
     }
 
     function getCardanRoot(p) {
@@ -67,5 +82,4 @@ module.exports = function (Polynomial) {
         const x = u.plus(v);
         return round(x.x);
     }
-
 };

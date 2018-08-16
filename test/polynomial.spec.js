@@ -202,5 +202,28 @@ describe.only('Polynomial', () => {
         assert.deepStrictEqual(Polynomial.getRoots([-1, -1, 4, 4]), [-1, -0.5, 0.5]);
     });
 
+    it('should power a polynomial', () => {
+        assert.deepStrictEqual(Polynomial.pow([1, 2, 3], 4), [1, 8, 36, 104, 214, 312, 324, 216, 81]);
+    });
+
+    it('should compose 2 polynomials', () => {
+        assert.deepStrictEqual(Polynomial.compose([1, 1, 1], [2, 1]), [7, 5, 1]);
+    });
+
+    it('should Tschirnhaus of degree 2', () => {
+        assert.deepStrictEqual(Polynomial.compose([1, 1, 1], [-0.5, 1]), [0.75, 0, 1]);
+    });
+
+    it('should Tschirnhaus of degree 3', () => {
+        assert.deepStrictEqual(Polynomial.compose([1, 1, 3, 1], [-1, 1]), [2, -2, 0, 1]);
+    });
+
+    it('should Tschirnhaus of degree 4', () => {
+        assert.deepStrictEqual(Polynomial.compose([1, 1, 3, 4, 1], [-1, 1]), [0, 3, -3, 0, 1]);
+    });
+
+    it('should resolve the root of a polynomial with degree 4', () => {
+        assert.deepStrictEqual(Polynomial.getRoots([ 24, -50, 35, -10, 1 ]), [1, 2, 3, 4]);
+    });
 
 });
