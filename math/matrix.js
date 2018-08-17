@@ -3,6 +3,8 @@ const {
     Permutation
 } = require('./permutation');
 
+require('../array');
+
 
 class Matrix {
 

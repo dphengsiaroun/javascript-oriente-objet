@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../math/matrix');
 
-describe('Matrix', () => {
+describe.only('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
