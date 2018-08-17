@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="switchButton.css">
+    <title>Quartic</title>
+</head>
+
+<body>
+    <h1>Quartic</h1>
+    <section>
+        <div class="graph"></div>
+        <div class="settings">
+            <h3>Settings Quartic</h3>
+            <div class="function">
+                f(x) =
+                <span class="equation"></span>
+            </div>
+            <label class="field">
+                <span class="label">Show Grid</span>
+                <span class="switch">
+                    <input type="checkbox" id="grid">
+                    <span class="slider round"></span>
+                </span>
+            </label>
+            <label class="field">
+                <span class="label">Show Numbers</span>
+                <span class="switch">
+                    <input type="checkbox" id="number">
+                    <span class="slider round"></span>
+                </span>
+            </label>
+            <label class="field">
+                <span class="label">Show Marks</span>
+                <span class="switch">
+                    <input type="checkbox" id="marks">
+                    <span class="slider round"></span>
+                </span>
+            </label>
+            <hr>
+            <label for="a4">a
+                <sub>4</sub>
+            </label>
+            <input id="a4" type="range" min="-20" max="20" step="1">
+            <label for="a3">a
+                <sub>3</sub>
+            </label>
+            <input id="a3" type="range" min="-20" max="20" step="1">
+            <label for="a2">a
+                <sub>2</sub>
+            </label>
+            <input id="a2" type="range" min="-20" max="20" step="1">
+            <label for="a1">a
+                <sub>1</sub>
+            </label>
+            <input id="a1" type="range" min="-20" max="20" step="1">
+            <label for="a0">a
+                <sub>0</sub>
+            </label>
+            <input id="a0" type="range" min="-20" max="20" step="1">
+        </div>
+    </section>
+    <script src="dist/main.js"></script>
+</body>
+
+</html>

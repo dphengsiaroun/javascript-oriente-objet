@@ -1,0 +1,85 @@
+* {
+    font-family: Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    margin: 0 0 1em;
+}
+
+input {
+    margin-bottom: 1em;
+}
+
+section {
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+}
+
+.graph {
+    width: 70%;
+}
+
+.settings {
+    display: block;
+    width: 30%;
+    padding: 0 2em;
+}
+
+.function {
+    background-color: #eee;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.equation {
+    padding: 1em 0 ;
+}
+
+.field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.field .label {
+    margin-right: 1em;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+input {
+    width: 100%;
+}
+
+svg {
+    width: 95%;
+    height: 500px;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+svg line {
+    stroke: black;
+}
+
+.mark {
+    stroke: black;
+}
+
+svg path {
+    fill: none;
+}

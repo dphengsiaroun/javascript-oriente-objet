@@ -15,7 +15,8 @@
     "start05": "cd app && cd 05-cubic && webpack -w --mode=development",
     "start06": "cd app && cd 06-mathjax && webpack -w --mode=development",
     "start07": "cd app && cd 07-svg-translate && webpack -w --mode=development",
-    "start08": "cd app && cd 08-functions && webpack -w --mode=development"
+    "start08": "cd app && cd 08-functions && webpack -w --mode=development",
+    "start09": "cd app && cd 09-quartic && webpack -w --mode=development"
   },
   "repository": {
     "type": "git",

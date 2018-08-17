@@ -108,7 +108,6 @@ module.exports = function (Polynomial) {
         const root3 = Polynomial.getRoots(pol3);
         const phi0 = root3[0] / 2;
         const u = a - 2 * phi0;
-        console.log('u', u);
         if (u > 0) {
             const z = u ** 0.5;
             const g = b / (2 * u);

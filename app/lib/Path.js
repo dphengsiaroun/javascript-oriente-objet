@@ -59,5 +59,10 @@ function bezierCurveXY(t, fnx, fny, incr) {
     throwIfNaN(cy1, 'cy1');
     throwIfNaN(cx2, 'cx2');
     throwIfNaN(cy2, 'cy2');
-    return `C${cx1},${cy1} ${cx2},${cy2} ${fnx(t)},${fny(t)} `;
+
+    return `C${r(cx1)},${r(cy1)} ${r(cx2)},${r(cy2)} ${r(fnx(t))},${r(fny(t))} `;
+}
+
+function r(x) {
+    return Math.abs(x) < 1e-10 ? 0 : x;
 }
