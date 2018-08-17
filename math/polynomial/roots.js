@@ -59,13 +59,13 @@ module.exports = function (Polynomial) {
     function getTschirnhausRoot(pol) {
         pol = Polynomial.normalize(pol);
         const n = Polynomial.degreeOf(pol);
+
         const a = pol[n];
         const b = pol[n - 1];
 
         const offset = b / (n * a);
         const q = [-offset, 1];
         const tschirnhaus = Polynomial.compose(pol, q);
-        console.log('tschirnhaus', tschirnhaus);
         return Polynomial.getRoots(tschirnhaus).map(r => r - offset);
     }
 
@@ -86,26 +86,27 @@ module.exports = function (Polynomial) {
     }
 
     function getFerrariRoots(p) {
-        console.log('p', p);
         const [c, b, a] = p;
-        console.log('a b c', a, b, c);
         if (b === 0) {
             // bicarre
-            const root = Polynomial.getRoots([c, a, 1]);
+            const trinomial = [c, a, 1];
+            const root = Polynomial.getRoots(trinomial);
             const result = root.reduce((acc, n) => {
-                acc.includes(n) || acc.push(n);
-                acc.includes(-n) || acc.push(-n);
+                if (n > 0) {
+                    acc.push(n ** 0.5);
+                    acc.push(-(n ** 0.5));
+                }
+                if (n === 0) {
+                    acc.push(0);
+                }
                 return acc;
             }, []);
             result.sort();
             return result;
         }
         const pol3 = [4 * a * c - (b ** 2), -4 * c, -a, 1];
-        console.log('pol3', pol3);
         const root3 = Polynomial.getRoots(pol3);
-        console.log('root3', root3);
-        const phi0 = root3[0];
-        console.log('phi0', phi0);
+        const phi0 = root3[0] / 2;
         const u = a - 2 * phi0;
         console.log('u', u);
         if (u > 0) {
@@ -113,21 +114,33 @@ module.exports = function (Polynomial) {
             const g = b / (2 * u);
             const p1 = [new Complex(phi0, z * g), new Complex(0, z), new Complex(1, 0)];
             const p2 = [new Complex(phi0, -z * g), new Complex(0, -z), new Complex(1, 0)];
-            throw new Error('To be implemented');
+            const result = [];
+            const p1Root = getComplexRoot(p1);
+            p1Root.forEach(r => r.y === 0 && result.push(r.x));
+            const p2Root = getComplexRoot(p2);
+            p2Root.forEach(r => r.y === 0 && result.push(r.x));
+            result.sort();
+            return result;
         }
         if (u < 0) {
             const z = (-u) ** 0.5;
-            console.log('z', z);
             const g = b / (2 * u);
             const p1 = [phi0 + z * g, z, 1];
             const p1Root = Polynomial.getRoots(p1);
-            console.log('p1Root', p1Root);
             const p2 = [phi0 - z * g, -z, 1];
             const p2Root = Polynomial.getRoots(p2);
-            console.log('p2Root', p2Root);
             const result = p1Root.concat(p2Root);
             result.sort();
             return result;
         }
+    }
+
+    function getComplexRoot(p) {
+        const [c, b, a] = p;
+        const delta = b.multiply(b).minus(new Complex(4, 0).multiply(a).multiply(c));
+        const d = delta.pow(0.5);
+        const r1 = b.opposite().minus(d).divide(new Complex(2, 0).multiply(a));
+        const r2 = b.opposite().plus(d).divide(new Complex(2, 0).multiply(a));
+        return [r1, r2];
     }
 };

@@ -223,10 +223,11 @@ describe.only('Polynomial', () => {
     });
 
     it('should resolve the root of a polynomial with degree 4', () => {
-        // assert.deepStrictEqual(Polynomial.getRoots([24, -50, 35, -10, 1]), [1, 2, 3, 4]);
-        // assert.deepStrictEqual(Polynomial.getRoots([ 24, -50, 35, 0, 1 ]), [1, 2, 3, 4]);
+        assert.deepStrictEqual(Polynomial.getRoots([24, -50, 35, -10, 1]), [1, 2, 3, 4]);
         assert.deepStrictEqual(Polynomial.getRoots([ -1, 0, 0, 0, 1 ]), [-1, 1]);
-        assert.deepStrictEqual(Polynomial.getRoots([ -2, 1, 0, 0, 1 ]), [-1, 1]);
+        assert.deepStrictEqual(Polynomial.getRoots([ -2, 1, 0, 0, 1 ]), [-1.3532099641993245, 1]);
+
+        // assert.deepStrictEqual(Polynomial.getRoots([ 1, 1, 0, 0, 1 ]), [-1.3532099641993245, 1]);
     });
 
 });

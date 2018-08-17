@@ -14,6 +14,11 @@ class Complex {
         return new Complex(this.x * c.x - this.y * c.y, this.x * c.y + this.y * c.x);
     }
 
+    divide(c) {
+        const d = (c.x**2) + (c.y**2);
+        return new Complex((this.x * c.x + this.y * c.y) / d, (this.y * c.x - this.x * c.y) / d);
+    }
+
     static newFromPolar(r, a) {
         return new Complex(r * Math.cos(a), r * Math.sin(a));
     }
@@ -33,6 +38,10 @@ class Complex {
 
     plus(c) {
         return new Complex(this.x + c.x, this.y + c.y);
+    }
+
+    opposite() {
+        return new Complex(0, 0).minus(this);
     }
 
     pow(p) {

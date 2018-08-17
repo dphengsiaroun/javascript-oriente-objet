@@ -16,4 +16,10 @@ describe('Complex', () => {
         const b = Complex.newFromPolar(2, deg2Rad(20));
         assert.equal(a.multiply(b).equals(Complex.newFromPolar(10, deg2Rad(30))), true);
     });
+
+    it('should divide', () => {
+        const a = new Complex(1, 1);
+        const b = new Complex(32, 26);
+        assert.equal(a.multiply(b).divide(b).equals(a), true);
+    });
 });
