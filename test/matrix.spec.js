@@ -296,6 +296,24 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isSymetric(a), true);
     });
 
-    
+    it('should LU decompose', () => {
+        const a = [
+            [4, 3],
+            [6, 3],
+        ];
+        const l = [
+            [1, 0],
+            [1.5, 1],
+        ];
+        const u = [
+            [4, 3],
+            [0, -1.5],
+        ];
+        assert.deepStrictEqual(Matrix.performLUDecomposition(a), {
+            l, u
+        });
+    });
+
+
 
 });

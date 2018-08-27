@@ -183,6 +183,8 @@ class Matrix {
 
 }
 
+require('./matrix/decomposition')(Matrix);
+
 module.exports = {
     Matrix
 };

@@ -20,7 +20,10 @@ const step = 0.1;
 const element = document.querySelector('.graph');
 
 const graph = new Graph(element, {
-    xstart, xend, ystart, yend,
+    xstart,
+    xend,
+    ystart,
+    yend,
     isInteractive: true
 });
 
@@ -59,20 +62,27 @@ const symetric = [
     [-1, 0]
 ];
 
-const matrix = Matrix.product(symetric, Matrix.product(rotate, scale));
+const squew30 = [
+    [1, Math.tan(30 * Math.PI / 180)],
+    [Math.tan(30 * Math.PI / 180), 1]
+];
+
+// const matrix = Matrix.product(symetric, Matrix.product(rotate, scale));
+const matrix = squew30;
 console.log('matrix', matrix);
 
 const cloud = [
-    [1, 1],
+    [-1, 1],
     [3, 1],
     [4, 2],
-    [1, 2]
+    [-1, 2]
 ];
 
 const cloud2 = cloud.map(p => {
     const m = Matrix.transpose([p]);
-    console.log('m', m);
-    return Matrix.product(matrix, m);
+    const prod = Matrix.product(matrix, m);
+    const [result] = Matrix.transpose(prod);
+    return result;
 });
 
 function drawPoint(graph, p, color) {
@@ -89,6 +99,7 @@ function drawShape(graph, cloud, color) {
 
     const path = document.createElementNS(NS, 'path');
     const d = `M ${cloud.map(p => `${p[0]} ${p[1]}`).join(' L ')} Z`;
+    console.log('d', d);
     path.setAttribute('d', d);
     path.setAttribute('stroke', color);
     path.setAttribute('stroke-width', graph.strokeWidth);
