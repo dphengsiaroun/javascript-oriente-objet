@@ -5,7 +5,7 @@ const {
 
 const rand = (min, max) => Math.round(Math.random() * (max - min) + min);
 
-describe.only('Polynomial', () => {
+describe('Polynomial', () => {
     it('should product', () => {
         const a = [1, 1];
         const b = [-2, 1];

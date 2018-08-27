@@ -3,6 +3,10 @@ const {
     Permutation
 } = require('./permutation');
 
+const {
+    round
+} = require('./decimal');
+
 require('../array');
 
 
@@ -116,7 +120,7 @@ class Matrix {
     }
 
     static beautiful(a) {
-        return a.map(r => r.map(c => Object.is(c, -0) ? 0 : Math.abs(c) < 1e-10 ? 0 : c));
+        return a.map(r => r.map(c => round(c)));
     }
 
     static identity(n) {
@@ -141,21 +145,58 @@ class Matrix {
     }
 
     static isDiagonal(a) {
+        return Matrix.isTriangularInf(a) && Matrix.isTriangularSup(a);
+    }
+
+    static isTriangular(a) {
         for (let i = 0; i < a.length; i++) {
-            for (let j = 0; j < a[i].length; j++) {
-                if (i !== j) {
-                    if (a[i][j] !== 0) {
-                        return false;
-                    }
+            for (let j = 0; j < i; j++) {
+                if (a[i][j] !== 0) {
+                    return false;
                 }
             }
         }
         return true;
     }
 
-    static isTriangular(a) {
-        for (let i = 0; i < a.length; i++) {
+    static isTriangularSup(a) {
+        for (let i = 1; i < a.length; i++) {
             for (let j = 0; j < i; j++) {
+                if (a[i][j] !== 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    static isUniTriangularSup(a) {
+        if (!Matrix.isTriangularSup(a)) {
+            return false;
+        }
+        for (let i = 0; i < a.length; i++) {
+            if (a[i][i] !== 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static isUniTriangularInf(a) {
+        if (!Matrix.isTriangularInf(a)) {
+            return false;
+        }
+        for (let i = 0; i < a.length; i++) {
+            if (a[i][i] !== 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static isTriangularInf(a) {
+        for (let i = 0; i < a.length - 1; i++) {
+            for (let j = i + 1; j < a.length; j++) {
                 if (a[i][j] !== 0) {
                     return false;
                 }
@@ -179,7 +220,7 @@ class Matrix {
         return Matrix.equals(Matrix.transpose(a), a);
     }
 
-    
+
 
 }
 

@@ -227,21 +227,44 @@ describe.only('Matrix', () => {
         assert.ok(Matrix.isDiagonal(a), false);
     });
 
-    it('should be a is Triangular matrix', () => {
+    it('should be a Triangular matrix', () => {
         const a = [
             [1, 3, 5, 8],
             [0, 2, 3, 9],
             [0, 0, 3, 7],
             [0, 0, 0, 4]
         ];
-        assert.ok(Matrix.isTriangular(a), true);
+        assert.equal(Matrix.isTriangular(a), true);
+    });
+
+    it('should not be a Triangular matrix', () => {
         const b = [
             [1, 6, 5, 8],
             [0, 2, 3, 9],
-            [5, 0, 3, 7],
+            [5, 1, 3, 7],
             [0, 3, 0, 4]
         ];
-        assert.ok(Matrix.isTriangular(a), false);
+        assert.equal(Matrix.isTriangular(b), false);
+    });
+
+    it('should be a is Triangular Sup matrix', () => {
+        const a = [
+            [1, 3, 5, 8],
+            [0, 2, 3, 9],
+            [0, 0, 3, 7],
+            [0, 0, 0, 4]
+        ];
+        assert.equal(Matrix.isTriangularSup(a), true);
+    });
+
+    it('should be a is Triangular Inf matrix', () => {
+        const a = [
+            [1, 0, 0, 0],
+            [3, 2, 0, 0],
+            [5, 3, 3, 0],
+            [8, 9, 7, 4]
+        ];
+        assert.equal(Matrix.isTriangularInf(a), true);
     });
 
     it('should not be inversible', () => {
@@ -298,20 +321,18 @@ describe.only('Matrix', () => {
 
     it('should LU decompose', () => {
         const a = [
-            [4, 3],
-            [6, 3],
+            [4, 3, 2, 1],
+            [6, 3, 1, 2],
+            [1, 3, 1, 3],
+            [1, 5, 1, 3],
         ];
-        const l = [
-            [1, 0],
-            [1.5, 1],
-        ];
-        const u = [
-            [4, 3],
-            [0, -1.5],
-        ];
-        assert.deepStrictEqual(Matrix.performLUDecomposition(a), {
-            l, u
-        });
+
+        const {l, u} = Matrix.performLUDecomposition(a);
+        assert.equal(Matrix.isUniTriangularInf(l), true);
+        assert.equal(Matrix.isTriangularSup(u), true);
+        assert.deepStrictEqual(Matrix.product(l, u), a);
+        console.log('l', l);
+        console.log('u', u);
     });
 
 

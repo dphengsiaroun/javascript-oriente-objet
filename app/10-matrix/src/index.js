@@ -64,7 +64,7 @@ const symetric = [
 
 const squew30 = [
     [1, Math.tan(30 * Math.PI / 180)],
-    [Math.tan(30 * Math.PI / 180), 1]
+    [0, 1]
 ];
 
 // const matrix = Matrix.product(symetric, Matrix.product(rotate, scale));
