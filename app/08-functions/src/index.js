@@ -7,6 +7,9 @@ import {
 import {
     Tangent
 } from '../../lib/Tangent';
+import {
+    Polynomial
+} from '../../../math/Polynomial';
 
 const xstart = -10;
 const xend = 10;
@@ -26,7 +29,7 @@ const graph = new Graph(element, {
 });
 
 const p1 = new Path(graph, {
-    fny: x => (0.2 * x**3) + (-0.02 * x**2)  + (-2 * x) + 2.5,
+    fny: Polynomial.toFunction([-1, 0, 0, 0, 0, 1]),
     color: 'blue'
 });
 new Tangent(graph, {
