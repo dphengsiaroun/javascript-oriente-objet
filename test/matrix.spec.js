@@ -447,6 +447,17 @@ describe('Matrix', () => {
         assert.deepStrictEqual(Matrix.product(q, d, r), a);
     });
 
+    // it('should compute the characteristic polynomial', () => {
+    //     const a = [
+    //         [4, 3, 2, 1],
+    //         [0, 3, 1, 2],
+    //         [0, 0, 1, 3],
+    //         [0, 0, 0, 3],
+    //     ];
+    //     const p = Matrix.getCharacteristicPolynomial(a);
+    //     assert.deepStrictEqual(p, [0, 0, 0, 0, 0]);
+    // });
+
 
 
 });
