@@ -89,4 +89,20 @@ module.exports = function (Matrix) {
             r
         };
     };
+
+    Matrix.performQDRGramSchmidtDecomposition = function (a) {
+        const n = a.length;
+        const {q, r} = Matrix.performQRGramSchmidtDecomposition(a);
+        const dq = Matrix.identity(n);
+        for (let i = 0; i < n; i++) {
+            dq[i][i] = Math.sign(q[i][i]);
+        }
+        const q2 = Matrix.product(q, dq);
+        const du = Matrix.performDUDecomposition(r);
+        return {
+            q: q2,
+            d: Matrix.product(dq, du.d),
+            r: du.u
+        };
+    };
 };

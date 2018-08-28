@@ -393,7 +393,7 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isOrthogonal(q), true);
         assert.equal(Matrix.isTriangularSup(r), true);
         assert.deepStrictEqual(Matrix.product(q, r), a);
-``    });
+    });
 
     it('should perform a DU decomposition from a triangular matrix', () => {
         const a = [
@@ -409,6 +409,42 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isDiagonal(d), true);
         assert.equal(Matrix.isUniTriangularSup(u), true);
         assert.deepStrictEqual(Matrix.product(d, u), a);
+    });
+
+    it('should QDR decompose with Gram-Schmidt method', () => {
+        // const a = [
+        //     [12, -51, 4],
+        //     [6, 167, -68],
+        //     [-4, 24, -41]
+        // ];
+
+        // const a = [
+        //     [4, 3, 2, 1],
+        //     [6, 3, 1, 2],
+        //     [1, 3, 1, 3],
+        //     [1, 5, 1, 3],
+        // ];
+        // const a = [
+        //     [Math.random(), Math.random()],
+        //     [Math.random(), Math.random()],
+        // ];
+        const a = [
+            [1, 2],
+            [3, 4],
+        ];
+
+        const {
+            q,
+            d,
+            r,
+        } = Matrix.performQDRGramSchmidtDecomposition(a);
+        console.log('q', q);
+        console.log('d', d);
+        console.log('r', r);
+        assert.equal(Matrix.isOrthogonal(q), true);
+        assert.equal(Matrix.isDiagonal(d), true);
+        assert.equal(Matrix.isUniTriangularSup(r), true);
+        assert.deepStrictEqual(Matrix.product(q, d, r), a);
     });
 
 
