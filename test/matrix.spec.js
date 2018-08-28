@@ -58,7 +58,7 @@ describe.only('Matrix', () => {
     });
 
     it('should generate diagonal', () => {
-        const a = Matrix.diagonal(3);
+        const a = Matrix.identity(3);
         // console.log(a);
         assert.deepStrictEqual(a, [
             [1, 0, 0],
@@ -331,8 +331,21 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isUniTriangularInf(l), true);
         assert.equal(Matrix.isTriangularSup(u), true);
         assert.deepStrictEqual(Matrix.product(l, u), a);
-        console.log('l', l);
-        console.log('u', u);
+    });
+
+    it('should LDU decompose', () => {
+        const a = [
+            [4, 3, 2, 1],
+            [6, 3, 1, 2],
+            [1, 3, 1, 3],
+            [1, 5, 1, 3],
+        ];
+
+        const {l, d, u} = Matrix.performLDUDecomposition(a);
+        assert.equal(Matrix.isUniTriangularInf(l), true);
+        assert.equal(Matrix.isDiagonal(d), true);
+        assert.equal(Matrix.isUniTriangularSup(u), true);
+        assert.deepStrictEqual(Matrix.product(l, d, u), a);
     });
 
 

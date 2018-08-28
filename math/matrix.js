@@ -42,17 +42,21 @@ class Matrix {
         return result;
     }
 
-    static product(a, b) {
+    static product(a, b, ...args) {
         const sizeA = Matrix.getSize(a);
         const sizeB = Matrix.getSize(b);
 
         assert.deepStrictEqual(sizeA[1], sizeB[0], 'Cannot multiply 2 matrix: a.col != b.row.');
 
 
-        const result = new Array(sizeA[0]).fill(0)
+        const p = new Array(sizeA[0]).fill(0)
             .map((r, i) => new Array(sizeB[1]).fill(0)
                 .map((c, j) => new Array(sizeA[1]).fill(1).map((n, k) => a[i][k] * b[k][j]).sum()));
-        return Matrix.beautiful(result);
+        const prod = Matrix.beautiful(p);
+        if (args.length === 0) {
+            return prod;
+        }
+        return Matrix.product(prod, ...args);
     }
 
     static getSize(arr) {
@@ -73,7 +77,7 @@ class Matrix {
         return new Array(n).fill(new Array(n).fill(0));
     }
 
-    static diagonal(n) {
+    static identity(n) {
         return Matrix.zero(n).map((r, i) => r.map((c, j) => i === j ? 1 : 0));
     }
 
