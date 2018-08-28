@@ -5,7 +5,7 @@ const {
 
 const rand = (min, max) => Math.round(Math.random() * (max - min) + min);
 
-describe('Polynomial', () => {
+describe.only('Polynomial', () => {
     it('should product', () => {
         const a = [1, 1];
         const b = [-2, 1];
@@ -230,4 +230,10 @@ describe('Polynomial', () => {
         // assert.deepStrictEqual(Polynomial.getRoots([ 1, 1, 0, 0, 1 ]), [-1.3532099641993245, 1]);
     });
 
+    it('should resolve the root of a polynomial with degree 5', () => {
+        const roots = [1, 2, 3, 4, 5];
+        const p = Polynomial.fromRoots(...roots);
+        assert.deepStrictEqual(Polynomial.getRoots(p, roots));
+    });
+    
 });

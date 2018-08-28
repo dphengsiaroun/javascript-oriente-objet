@@ -7,7 +7,7 @@ const {
     Analysis
 } = require('../math/analysis');
 
-describe.only('Analysis', () => {
+describe('Analysis', () => {
     it('find root with Newton-Raphson', () => {
         const fn = Polynomial.toFunction([-2, 0, 0, 0, 0, 1]);
         const root = Analysis.findRootWithNewtonRaphson(fn);
