@@ -231,9 +231,9 @@ describe.only('Polynomial', () => {
     });
 
     it('should resolve the root of a polynomial with degree 5', () => {
-        const roots = [1, 2, 3, 4, 5];
+        const roots = [1.125, 2.2, 3, 4, 5, 6, 7];
         const p = Polynomial.fromRoots(...roots);
-        assert.deepStrictEqual(Polynomial.getRoots(p, roots));
+        assert.deepStrictEqual(Polynomial.getRoots(p), roots);
     });
-    
+
 });

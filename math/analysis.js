@@ -1,9 +1,13 @@
+const {
+    round
+} = require('./decimal');
+
 class Analysis {
 
     static findRootWithNewtonRaphson(fn) {
         const xSeq = [Math.random()];
-        const ITERATION_MAX = 500;
-        const EPSILON = 1e-18;
+        const ITERATION_MAX = 5000;
+        const EPSILON = 1e-10;
         for (let i = 1; i < ITERATION_MAX; i++) {
             const x = xSeq[i - 1];
             const y = fn(x);
@@ -13,12 +17,13 @@ class Analysis {
             } else {
                 xSeq[i] = x - (fn(x) / d);
             }
-            // console.log('xSeq[i]', xSeq[i]);
             if (Math.abs(xSeq[i] - xSeq[i - 1]) < EPSILON) {
-                return xSeq[i];
+                const result = round(xSeq[i]);
+                return result;
             }
         }
-        return undefined;
+        throw new Error('ITERATION_MAX reached.');
+        // return undefined;
         
     }
 

@@ -9,8 +9,8 @@ const {
 
 describe('Analysis', () => {
     it('find root with Newton-Raphson', () => {
-        const fn = Polynomial.toFunction([-2, 0, 0, 0, 0, 1]);
+        const fn = Polynomial.toFunction([-120, 274, -225, 85, -15, 1]);
         const root = Analysis.findRootWithNewtonRaphson(fn);
-        assert.deepStrictEqual(root, 1.148698354997035);
+        assert.deepStrictEqual(root, 1);
     });
 });

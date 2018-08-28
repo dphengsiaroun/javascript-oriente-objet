@@ -3,6 +3,10 @@ const {
 } = require('../decimal');
 
 const {
+    Analysis
+} = require('../analysis');
+
+const {
     Complex
 } = require('../complex');
 
@@ -10,7 +14,7 @@ module.exports = function (Polynomial) {
 
     Polynomial.getRoots = (p) => {
         p = Polynomial.normalize(p);
-        const result = [];
+        let result = [];
         if (Polynomial.degreeOf(p) === 0) {
             // No roots.
         } else if (Polynomial.degreeOf(p) === 1) {
@@ -50,7 +54,18 @@ module.exports = function (Polynomial) {
                 roots.forEach(r => result.push(r));
             }
         } else {
-            throw new Error('Not implemented');
+            const root = Analysis.findRootWithNewtonRaphson(Polynomial.toFunction(p));
+            if (root === undefined) {
+                return [];
+            }
+            const {
+                quotient,
+                remainder
+            } = Polynomial.divide(p, [-root, 1]);
+            if (Polynomial.degreeOf(remainder) !== -1) {
+                throw new Error('Division problem');
+            }
+            result = [root].concat(Polynomial.getRoots(quotient));
         }
         result.sort((a, b) => Math.sign(a - b));
         return Polynomial.round(result);
