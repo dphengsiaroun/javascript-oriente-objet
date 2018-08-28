@@ -25,24 +25,32 @@ module.exports = function (Matrix) {
         };
     };
 
+    Matrix.performDUDecomposition = function (a) {
+        const d = Matrix.identity(a.length);
+        for (let i = 0; i < a.length; i++) {
+            d[i][i] = a[i][i];
+        }
+        const dInverse = Matrix.identity(a.length);
+        for (let i = 0; i < a.length; i++) {
+            dInverse[i][i] = 1 / d[i][i];
+        }
+        const u = Matrix.product(dInverse, a);
+        return {
+            d,
+            u
+        };
+    };
+
     Matrix.performLDUDecomposition = function (a) {
         const {
             l,
             u
         } = Matrix.performLUDecomposition(a);
-        const d = Matrix.identity(a.length);
-        for (let i = 0; i < a.length; i++) {
-            d[i][i] = u[i][i];
-        }
-        const dInverse = Matrix.identity(a.length);
-        for (let i = 0; i < a.length; i++) {
-            dInverse[i][i] = 1 / u[i][i];
-        }
-        const u2 = Matrix.product(dInverse, u);
+        const du = Matrix.performDUDecomposition(u);
         return {
             l,
-            d,
-            u: u2
+            d: du.d,
+            u: du.u
         };
     };
 

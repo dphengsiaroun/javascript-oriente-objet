@@ -45,7 +45,7 @@ document.querySelector('#marks').addEventListener('click', () => {
     graph.render();
 });
 
-const angle = 30 * Math.PI / 180;
+const angle = 0 * Math.PI / 180;
 
 const rotate = [
     [Math.cos(angle), -Math.sin(angle)],
@@ -68,7 +68,11 @@ const squew30 = [
 ];
 
 // const matrix = Matrix.product(symetric, Matrix.product(rotate, scale));
-const matrix = squew30;
+// const matrix = squew30;
+const matrix = [
+    [Math.cos(angle), Math.sin(angle)],
+    [Math.sin(angle), -Math.cos(angle)],
+];
 console.log('matrix', matrix);
 
 const cloud = [

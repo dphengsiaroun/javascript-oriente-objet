@@ -381,6 +381,10 @@ describe.only('Matrix', () => {
             [1, 3, 1, 3],
             [1, 5, 1, 3],
         ];
+        // const a = [
+        //     [Math.random(), Math.random()],
+        //     [Math.random(), Math.random()],
+        // ];
 
         const {
             q,
@@ -389,6 +393,22 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isOrthogonal(q), true);
         assert.equal(Matrix.isTriangularSup(r), true);
         assert.deepStrictEqual(Matrix.product(q, r), a);
+``    });
+
+    it('should perform a DU decomposition from a triangular matrix', () => {
+        const a = [
+            [4, 3, 2, 1],
+            [0, 3, 1, 2],
+            [0, 0, 1, 3],
+            [0, 0, 0, 3],
+        ];
+        const {
+            d,
+            u,
+        } = Matrix.performDUDecomposition(a);
+        assert.equal(Matrix.isDiagonal(d), true);
+        assert.equal(Matrix.isUniTriangularSup(u), true);
+        assert.deepStrictEqual(Matrix.product(d, u), a);
     });
 
 
