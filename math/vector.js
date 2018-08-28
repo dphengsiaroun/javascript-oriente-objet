@@ -1,5 +1,9 @@
+const {
+    round
+} = require('./decimal');
+
 function beautiful(n) {
-    return n < 1e-15 ? 0 : n;
+    return round(n);
 }
 
 class Vector {
@@ -10,6 +14,10 @@ class Vector {
 
     static plus(a, b) {
         return a.map((c, i) => a[i] + b[i]);
+    }
+
+    static minus(a, b) {
+        return a.map((c, i) => a[i] - b[i]);
     }
 
     static multiply(n, a) {

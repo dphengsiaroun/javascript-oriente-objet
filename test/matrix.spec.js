@@ -360,6 +360,37 @@ describe.only('Matrix', () => {
         assert.deepStrictEqual(Matrix.product(l, d, u), a);
     });
 
+    it('should be orthogonal', () => {
+        const a = [
+            [Math.cos(1), -Math.sin(1)],
+            [Math.sin(1), Math.cos(1)]
+        ];
+        assert.equal(Matrix.isOrthogonal(a), true);
+    });
+
+    it('should QR decompose with Gram-Schmidt method', () => {
+        // const a = [
+        //     [12, -51, 4],
+        //     [6, 167, -68],
+        //     [-4, 24, -41]
+        // ];
+
+        const a = [
+            [4, 3, 2, 1],
+            [6, 3, 1, 2],
+            [1, 3, 1, 3],
+            [1, 5, 1, 3],
+        ];
+
+        const {
+            q,
+            r,
+        } = Matrix.performQRGramSchmidtDecomposition(a);
+        assert.equal(Matrix.isOrthogonal(q), true);
+        assert.equal(Matrix.isTriangularSup(r), true);
+        assert.deepStrictEqual(Matrix.product(q, r), a);
+    });
+
 
 
 });

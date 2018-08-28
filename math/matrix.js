@@ -78,7 +78,7 @@ class Matrix {
     }
 
     static zero(n) {
-        return new Array(n).fill(new Array(n).fill(0));
+        return new Array(n).fill(0).map(x => new Array(n).fill(0));
     }
 
     static identity(n) {
@@ -226,6 +226,11 @@ class Matrix {
 
     static isSymetric(a) {
         return Matrix.equals(Matrix.transpose(a), a);
+    }
+
+    static isOrthogonal(a) {
+        const b = Matrix.product(Matrix.transpose(a), a);
+        return Matrix.equals(b, Matrix.identity(a.length));
     }
 
 
