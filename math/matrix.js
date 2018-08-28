@@ -12,16 +12,20 @@ require('../array');
 
 class Matrix {
 
-    static plus(a, b) {
+    static plus(a, b, ...args) {
         const sizeA = Matrix.getSize(a);
         const sizeB = Matrix.getSize(b);
 
         assert.deepStrictEqual(sizeA, sizeB, 'Cannot add 2 matrix with different sizes.');
 
-        const result = new Array(sizeA[0]).fill(0)
+        const sum = new Array(sizeA[0]).fill(0)
             .map((r, i) => new Array(sizeA[1]).fill(0).map((c, j) => a[i][j] + b[i][j]));
 
-        return Matrix.beautiful(result);
+        const s = Matrix.beautiful(sum);
+        if (args.length === 0) {
+            return s;
+        }
+        return Matrix.plus(s, ...args);
     }
 
     static plus2(a, b) {

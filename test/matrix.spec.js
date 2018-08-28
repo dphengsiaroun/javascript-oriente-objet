@@ -14,9 +14,14 @@ describe.only('Matrix', () => {
             [3, 8, 5, 1],
             [2, 0, 1, 0],
             [0, 0, 8, 1],
-        ]
-        assert.deepStrictEqual(Matrix.plus(a, b), [
-            [5, 11, 10, 9],
+        ];
+        const c = [
+            [1, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+        assert.deepStrictEqual(Matrix.plus(a, b, c), [
+            [6, 11, 10, 9],
             [4, 8, 7, 7],
             [1, 3, 17, 7],
         ]);
@@ -327,7 +332,10 @@ describe.only('Matrix', () => {
             [1, 5, 1, 3],
         ];
 
-        const {l, u} = Matrix.performLUDecomposition(a);
+        const {
+            l,
+            u
+        } = Matrix.performLUDecomposition(a);
         assert.equal(Matrix.isUniTriangularInf(l), true);
         assert.equal(Matrix.isTriangularSup(u), true);
         assert.deepStrictEqual(Matrix.product(l, u), a);
@@ -341,7 +349,11 @@ describe.only('Matrix', () => {
             [1, 5, 1, 3],
         ];
 
-        const {l, d, u} = Matrix.performLDUDecomposition(a);
+        const {
+            l,
+            d,
+            u
+        } = Matrix.performLDUDecomposition(a);
         assert.equal(Matrix.isUniTriangularInf(l), true);
         assert.equal(Matrix.isDiagonal(d), true);
         assert.equal(Matrix.isUniTriangularSup(u), true);
