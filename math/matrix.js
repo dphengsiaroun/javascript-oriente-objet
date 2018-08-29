@@ -251,7 +251,21 @@ class Matrix {
     }
 
     static getEigenvalues(a) {
-        return Polynomial.getRoots(Matrix.getCharacteristicPolynomial(a));
+        const roots = Polynomial.getRoots(Matrix.getCharacteristicPolynomial(a));
+        return roots.reduce((acc, n) => {
+            const item = acc.find(c => c.ev === n);
+            if (item) {
+                item.order++;
+            } else {
+                acc.push({ev: n, order: 1});
+            }
+            return acc;
+        }, []);
+    }
+
+    static getEigenvectors(a) {
+        const eigenvalues = Matrix.getEigenvalues(a);
+        console.log('eigenvalues', eigenvalues);
     }
 
 }

@@ -201,6 +201,7 @@ describe.only('Polynomial', () => {
         assert.deepStrictEqual(Polynomial.getRoots([0, -1, 0, 1]), [-1, 0, 1]);
         assert.deepStrictEqual(Polynomial.getRoots([1, 2, 3, 4]), [-0.605829586188268]);
         assert.deepStrictEqual(Polynomial.getRoots([-1, -1, 4, 4]), [-1, -0.5, 0.5]);
+        assert.deepStrictEqual(Polynomial.getRoots(Polynomial.fromRoots(1, 1, 2)), [1, 1, 2]);
     });
 
     it('should power a polynomial', () => {

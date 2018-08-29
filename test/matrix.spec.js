@@ -457,12 +457,20 @@ describe('Matrix', () => {
     it('should compute the eigenvalues', () => {
         const a = [
             [1, 2, 0],
-            [0, 3, 0],
+            [0, 1, 0],
             [2, -4, 2],
         ];
-        
+
         const lambdas = Matrix.getEigenvalues(a);
-        assert.deepStrictEqual(lambdas, [1, 2, 3]);
+        assert.deepStrictEqual(lambdas, [{
+                ev: 1,
+                order: 2
+            },
+            {
+                ev: 2,
+                order: 1
+            }
+        ]);
     });
 
     // it('should compute the eigenvectors', () => {
@@ -471,7 +479,7 @@ describe('Matrix', () => {
     //         [0, 3, 0],
     //         [2, -4, 2],
     //     ];
-        
+
     //     const eigenvectors = Matrix.getEigenvectors(a);
     //     assert.deepStrictEqual(eigenvectors, [1, 2, 3]);
     // });

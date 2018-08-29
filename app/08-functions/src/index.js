@@ -29,7 +29,7 @@ const graph = new Graph(element, {
 });
 
 const p1 = new Path(graph, {
-    fny: Polynomial.toFunction([1, 0, 0, 1]),
+    fny: Polynomial.toFunction([ 0.11111111111111166, 0.6666666666666669, 1 ]),
     color: 'blue'
 });
 new Tangent(graph, {

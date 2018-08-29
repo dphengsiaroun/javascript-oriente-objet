@@ -22,7 +22,7 @@ module.exports = function (Polynomial) {
             result.push(-b / a);
         } else if (Polynomial.degreeOf(p) === 2) {
             const [c, b, a] = Polynomial.canonize(p);
-            const delta = (b ** 2) - 4 * a * c;
+            const delta = round((b ** 2) - 4 * a * c);
             if (delta > 0) {
                 result.push((-b - delta ** 0.5) / (2 * a));
                 result.push((-b + delta ** 0.5) / (2 * a));
