@@ -2,6 +2,9 @@ const assert = require('assert');
 const {
     Permutation
 } = require('./permutation');
+const {
+    Polynomial
+} = require('./polynomial');
 
 const {
     round
@@ -233,7 +236,23 @@ class Matrix {
         return Matrix.equals(b, Matrix.identity(a.length));
     }
 
+    static getCharacteristicPolynomial(a) {
+        const permutations = Permutation.getAll(new Array(a.length).fill(0).map((k, i) => i));
+        return permutations.reduce((acc, perm) =>
+            Polynomial.plus(
+                acc,
+                Polynomial.product(
+                    [Permutation.getSignature(perm)],
+                    perm.reduce((acc, j, i) => i === j ?
+                        Polynomial.product(acc, [a[i][j], -1]) :
+                        Polynomial.product(acc, [a[i][j]]), [1])
+                )
+            ), []);
+    }
 
+    static getEigenvalues(a) {
+        return Polynomial.getRoots(Matrix.getCharacteristicPolynomial(a));
+    }
 
 }
 

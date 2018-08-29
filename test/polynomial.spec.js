@@ -189,14 +189,15 @@ describe.only('Polynomial', () => {
 
     it('should resolve the root of a polynomial with degree 2', () => {
         assert.deepStrictEqual(Polynomial.getRoots([2, -3, 1]), [1, 2]);
-        assert.deepStrictEqual(Polynomial.getRoots([0, 0, 1]), [0]);
+        assert.deepStrictEqual(Polynomial.getRoots([0, 0, 1]), [0, 0]);
         assert.deepStrictEqual(Polynomial.getRoots([2, 3, 4]), []);
+        assert.deepStrictEqual(Polynomial.getRoots([1, 2, 1]), [-1, -1]);
     });
 
     it('should resolve the root of a polynomial with degree 3', () => {
         assert.deepStrictEqual(Polynomial.getRoots([0, 1, -3, 2]), [0, 0.5, 1]);
         assert.deepStrictEqual(Polynomial.getRoots([-2, 1, 0, 1]), [1]);
-        assert.deepStrictEqual(Polynomial.getRoots([-2, -3, 0, 1]), [-1, 2]);
+        assert.deepStrictEqual(Polynomial.getRoots([-2, -3, 0, 1]), [-1, -1, 2]);
         assert.deepStrictEqual(Polynomial.getRoots([0, -1, 0, 1]), [-1, 0, 1]);
         assert.deepStrictEqual(Polynomial.getRoots([1, 2, 3, 4]), [-0.605829586188268]);
         assert.deepStrictEqual(Polynomial.getRoots([-1, -1, 4, 4]), [-1, -0.5, 0.5]);
@@ -226,8 +227,7 @@ describe.only('Polynomial', () => {
         assert.deepStrictEqual(Polynomial.getRoots([24, -50, 35, -10, 1]), [1, 2, 3, 4]);
         assert.deepStrictEqual(Polynomial.getRoots([ -1, 0, 0, 0, 1 ]), [-1, 1]);
         assert.deepStrictEqual(Polynomial.getRoots([ -2, 1, 0, 0, 1 ]), [-1.3532099641993245, 1]);
-
-        // assert.deepStrictEqual(Polynomial.getRoots([ 1, 1, 0, 0, 1 ]), [-1.3532099641993245, 1]);
+        assert.deepStrictEqual(Polynomial.getRoots(Polynomial.pow([-1, 1], 4)), [1, 1, 1, 1]);
     });
 
     it('should resolve the root of a polynomial with degree 5', () => {

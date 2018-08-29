@@ -438,26 +438,42 @@ describe('Matrix', () => {
             d,
             r,
         } = Matrix.performQDRGramSchmidtDecomposition(a);
-        console.log('q', q);
-        console.log('d', d);
-        console.log('r', r);
         assert.equal(Matrix.isOrthogonal(q), true);
         assert.equal(Matrix.isDiagonal(d), true);
         assert.equal(Matrix.isUniTriangularSup(r), true);
         assert.deepStrictEqual(Matrix.product(q, d, r), a);
     });
 
-    // it('should compute the characteristic polynomial', () => {
+    it('should compute the characteristic polynomial', () => {
+        const a = [
+            [1, 2, 0],
+            [0, 3, 0],
+            [2, -4, 2],
+        ];
+        const p = Matrix.getCharacteristicPolynomial(a);
+        assert.deepStrictEqual(p, [6, -11, 6, -1]);
+    });
+
+    it('should compute the eigenvalues', () => {
+        const a = [
+            [1, 2, 0],
+            [0, 3, 0],
+            [2, -4, 2],
+        ];
+        
+        const lambdas = Matrix.getEigenvalues(a);
+        assert.deepStrictEqual(lambdas, [1, 2, 3]);
+    });
+
+    // it('should compute the eigenvectors', () => {
     //     const a = [
-    //         [4, 3, 2, 1],
-    //         [0, 3, 1, 2],
-    //         [0, 0, 1, 3],
-    //         [0, 0, 0, 3],
+    //         [1, 2, 0],
+    //         [0, 3, 0],
+    //         [2, -4, 2],
     //     ];
-    //     const p = Matrix.getCharacteristicPolynomial(a);
-    //     assert.deepStrictEqual(p, [0, 0, 0, 0, 0]);
+        
+    //     const eigenvectors = Matrix.getEigenvectors(a);
+    //     assert.deepStrictEqual(eigenvectors, [1, 2, 3]);
     // });
-
-
 
 });

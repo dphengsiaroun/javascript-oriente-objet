@@ -28,6 +28,7 @@ module.exports = function (Polynomial) {
                 result.push((-b + delta ** 0.5) / (2 * a));
             } else if (delta === 0) {
                 result.push(-b / (2 * a));
+                result.push(-b / (2 * a));
             }
         } else if (Polynomial.degreeOf(p) === 3) {
             const [d, c, b, a] = p;
@@ -46,12 +47,10 @@ module.exports = function (Polynomial) {
             const [e, d, c, b, a] = p;
             if (a === 1 && b === 0) {
                 // TODO
-                const roots = getFerrariRoots(p);
-                roots.forEach(r => result.push(r));
+                result = getFerrariRoots(p);
             } else {
                 // Tschirnhaus method
-                const roots = getTschirnhausRoot(p);
-                roots.forEach(r => result.push(r));
+                result = getTschirnhausRoot(p);
             }
         } else {
             const root = Analysis.findRootWithNewtonRaphson(Polynomial.toFunction(p));
@@ -112,6 +111,7 @@ module.exports = function (Polynomial) {
                     acc.push(-(n ** 0.5));
                 }
                 if (n === 0) {
+                    acc.push(0);
                     acc.push(0);
                 }
                 return acc;
