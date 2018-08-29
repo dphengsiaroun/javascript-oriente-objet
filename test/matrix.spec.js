@@ -3,7 +3,7 @@ const {
     Matrix
 } = require('../math/matrix');
 
-describe('Matrix', () => {
+describe.only('Matrix', () => {
     it('should plus', () => {
         const a = [
             [2, 3, 5, 8],
@@ -473,12 +473,27 @@ describe('Matrix', () => {
         ]);
     });
 
+    it('should compute the trace', () => {
+        const a = [
+            [1, 2, 0],
+            [0, 1, 0],
+            [2, -4, 2],
+        ];
+
+        const trace = Matrix.trace(a);
+        assert.equal(trace, 4);
+    });
+
+
+
     // it('should compute the eigenvectors', () => {
     //     const a = [
     //         [1, 2, 0],
-    //         [0, 3, 0],
+    //         [0, 1, 0],
     //         [2, -4, 2],
     //     ];
+
+    //     console.log('v', Matrix.product(a, Matrix.transpose([[0, 0, 1]])));
 
     //     const eigenvectors = Matrix.getEigenvectors(a);
     //     assert.deepStrictEqual(eigenvectors, [1, 2, 3]);

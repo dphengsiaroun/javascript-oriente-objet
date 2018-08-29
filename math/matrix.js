@@ -257,15 +257,40 @@ class Matrix {
             if (item) {
                 item.order++;
             } else {
-                acc.push({ev: n, order: 1});
+                acc.push({
+                    ev: n,
+                    order: 1
+                });
             }
             return acc;
         }, []);
     }
 
     static getEigenvectors(a) {
+        const n = a.length;
         const eigenvalues = Matrix.getEigenvalues(a);
         console.log('eigenvalues', eigenvalues);
+        console.log('a', a);
+        for (let item of eigenvalues) {
+            const l = item.ev;
+            console.log('l', l);
+            const a2 = Matrix.minus(a, Matrix.multiply(l, Matrix.identity(n)));
+            console.log('a2', a2);
+            console.log('det a2', Matrix.det(a2));
+            const order = item.order;
+            console.log('order', order);
+            const a3 = Matrix.findInversibleSubmatrix(a2, order);
+            console.log('a3', a3);
+            console.log('det a3', Matrix.det(a3));
+        }
+    }
+
+    static findInversibleSubmatrix(a) {
+
+    }
+
+    static trace(a) {
+        return a.reduce((acc, r, i) => acc + r[i], 0);
     }
 
 }
