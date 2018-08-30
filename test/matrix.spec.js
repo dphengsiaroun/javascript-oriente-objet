@@ -590,7 +590,7 @@ describe.only('Matrix', () => {
         });
     });
 
-    it.only('should compute the kernel of a matrix', () => {
+    it('should compute the kernel of a matrix', () => {
         const a = [
             [2, 2, 2, 2],
             [0, 1, 1, 1],
@@ -605,21 +605,15 @@ describe.only('Matrix', () => {
         ]);
     });
 
+    it('should compute the eigenvectors', () => {
+        const a = [
+            [1, 2, 0],
+            [0, 1, 0],
+            [2, -4, 2],
+        ];
 
-
-
-
-    // it('should compute the eigenvectors', () => {
-    //     const a = [
-    //         [1, 2, 0],
-    //         [0, 1, 0],
-    //         [2, -4, 2],
-    //     ];
-
-    //     console.log('v', Matrix.product(a, Matrix.transpose([[0, 0, 1]])));
-
-    //     const eigenvectors = Matrix.getEigenvectors(a);
-    //     assert.deepStrictEqual(eigenvectors, [1, 2, 3]);
-    // });
+        const eigenvectors = Matrix.getEigenvectors(a);
+        assert.deepStrictEqual(eigenvectors, [1, 2, 3]);
+    });
 
 });
