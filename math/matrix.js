@@ -473,6 +473,18 @@ class Matrix {
         }
         return result;
     }
+
+    static rank(a) {
+        let result = 0;
+        const n = a.length;
+        const t = Matrix.gaussElimination(a);
+        for (let i = 0; i < n; i++) {
+            if (Vector.euclideanNorm(t[i]) > 0) {
+                result++;
+            }
+        }
+        return result;
+    }
 }
 
 require('./matrix/decomposition')(Matrix);

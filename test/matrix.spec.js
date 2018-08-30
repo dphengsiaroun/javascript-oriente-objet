@@ -620,6 +620,18 @@ describe.only('Matrix', () => {
         ]);
     });
 
+    it('should compute the rank of a matrix', () => {
+        const a = [
+            [1, 0, 2, 3],
+            [2, 0, 4, 6],
+            [0, 2, 2, 0],
+            [1, 2, 4, 3],
+        ];
+
+        const b = Matrix.rank(a);
+        assert.equal(b, 2);
+    });
+
     it('should compute the eigenvectors', () => {
         const a = [
             [1, 2, 0],
