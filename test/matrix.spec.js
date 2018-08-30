@@ -628,7 +628,10 @@ describe.only('Matrix', () => {
         ];
 
         const eigenvectors = Matrix.getEigenvectors(a);
-        assert.deepStrictEqual(eigenvectors, [ [ -0.5, 0, 1 ], [ 0, 0, 1 ] ]);
+        assert.deepStrictEqual(eigenvectors, [
+            [-0.5, 0, 1],
+            [0, 0, 1]
+        ]);
     });
 
 });
