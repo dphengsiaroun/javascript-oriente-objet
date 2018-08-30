@@ -545,7 +545,7 @@ describe.only('Matrix', () => {
 
     it.only('should do a gaussian elimination', () => {
         const a = [
-            [1, 1, 0, 0],
+            [2, 2, 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
