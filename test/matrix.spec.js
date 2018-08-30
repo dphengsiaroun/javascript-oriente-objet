@@ -510,21 +510,49 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isEchelonForm(b), true);
     });
 
-    // it.only('should solve an equation', () => {
-    //     const a = [
-    //         [1, 1, 1, 0],
-    //         [0, 1, 1, 1],
-    //         [0, 0, 0, 0],
-    //         [0, 0, 0, 0],
-    //     ];
+    it('should get pivot', () => {
+        const a = [
+            [-8, 0, 0],
+            [0, 3, 4],
+            [0, 0, 5],
+        ];
+        assert.deepStrictEqual(Matrix.getPivot(a, 0), {value: -8, index: 0});
+        assert.deepStrictEqual(Matrix.getPivot(a, 1), {value: 3, index: 1});
+    });
 
-    //     const solutions = Matrix.kernel(a);
-    //     assert.deepStrictEqual(solutions, [
-    //         [1, 0, -2]
-    //     ]);
-    // });
+    it('should check reduced echelon form', () => {
+        const a = [
+            [3, 0, 0],
+            [0, 4, 5],
+            [0, 0, 6],
+        ];
+        const b = [
+            [1, 0, 0],
+            [0, 1, 5],
+            [0, 0, 0],
+        ];
+        assert.equal(Matrix.isReducedEchelonForm(a), false);
+        assert.equal(Matrix.isReducedEchelonForm(b), true);
+    });
 
-   
+    it('should do a gaussian elimination', () => {
+        const a = [
+            [2, 2, 2, 2],
+            [0, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+
+        const b = Matrix.gaussElimination(a);
+        assert.deepStrictEqual(b, [
+            [1, 0, 0, -1],
+            [0, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]);
+    });
+
+
 
 
 

@@ -292,12 +292,10 @@ class Matrix {
     }
 
     static gaussElimination(a) {
-        const result = [];
         const n = a.length;
         const aSeq = [a];
         // Gaussian elimination
         for (let i = 0; i < n; i++) {
-            console.log('i', i);
             const next = [...aSeq[i]];
             const index = aSeq[i].findIndex((r, j) => {
                 for (let j = 0; j < i; j++) {
@@ -320,15 +318,15 @@ class Matrix {
                     if (j === i) {
                         continue;
                     }
-                    console.log('j', j);
                     next[j] = next[j].map((c, k) => c - (next[j][i] * next[i][k]));
                 }
             }
             aSeq.push(next);
 
         }
-        console.log('aSeq', aSeq);
-        return aSeq[aSeq.length - 1];
+        const result = aSeq[aSeq.length - 1];
+        assert.equal(Matrix.isEchelonForm(result), true);
+        return result;
     }
 
     static isRowZero(a, i) {
@@ -338,14 +336,73 @@ class Matrix {
     static isEchelonForm(a) {
         let zeroTotal = -1;
         for (let i = 0; i < a.length; i++) {
-            for (let j = 0; j < a.length; j++) {
+            let {
+                value,
+                index
+            } = Matrix.getPivot(a, i);
+            if (value === undefined) {
+                index = a[i].length;
+            }
+            if (index > zeroTotal) {
+                zeroTotal = index;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static getPivot(a, i) {
+        let value;
+        let index = -1;
+        for (let j = 0; j < a[i].length; j++) {
+            if (a[i][j]) {
+                value = a[i][j];
+                index = j;
+                break;
+            }
+        }
+        return {
+            value,
+            index
+        };
+    }
+
+    static isReducedEchelonForm(a) {
+        let zeroTotal = -1;
+        let lastVerifiedCols = -1;
+        for (let i = 0; i < a.length; i++) {
+            let {
+                value,
+                index
+            } = Matrix.getPivot(a, i);
+            if (value === undefined) {
+                index = a[i].length;
+            }
+            if (index > zeroTotal) {
+                zeroTotal = index;
+            } else {
+                return false;
+            }
+            if (value !== undefined && value !== 1) {
+                return false;
+            }
+            if (lastVerifiedCols < index + 1) {
+                lastVerifiedCols = index + 1;
+            }
+            for (let j = lastVerifiedCols; j < a[i].length; j++) {
                 if (a[i][j] !== 0) {
-                    if (j > zeroTotal) {
-                        zeroTotal = j;
-                        break;
-                    } else {
-                        return false;
+                    for (let k = i + 1; k < a.length; k++) {
+                        const index = Matrix.getPivot(a, i).index;
+                        if (index === j) {
+                            console.log('found a pivot');
+                            return false;
+                        }
+                        if (index > j) {
+                            break;
+                        }
                     }
+                    lastVerifiedCols = j;
                 }
             }
         }
