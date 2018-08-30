@@ -490,9 +490,9 @@ describe.only('Matrix', () => {
             [0, 0, 0],
             [0, -4, 1],
         ];
-        assert.equal(Matrix.isRowZero(a, 0), false);
-        assert.equal(Matrix.isRowZero(a, 1), true);
-        assert.equal(Matrix.isRowZero(a, 2), false);
+        assert.equal(Matrix.getRowType(a, 0).isNull, false);
+        assert.equal(Matrix.getRowType(a, 1).isNull, true);
+        assert.equal(Matrix.getRowType(a, 2).isNull, false);
     });
 
     it('should check echelon form', () => {
@@ -517,8 +517,14 @@ describe.only('Matrix', () => {
             [0, 3, 4],
             [0, 0, 5],
         ];
-        assert.deepStrictEqual(Matrix.getPivot(a, 0), {value: -8, index: 0});
-        assert.deepStrictEqual(Matrix.getPivot(a, 1), {value: 3, index: 1});
+        assert.deepStrictEqual(Matrix.getPivot(a, 0), {
+            value: -8,
+            index: 0
+        });
+        assert.deepStrictEqual(Matrix.getPivot(a, 1), {
+            value: 3,
+            index: 1
+        });
     });
 
     it('should check reduced echelon form', () => {
@@ -537,7 +543,54 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isReducedEchelonForm(b), true);
     });
 
-    it('should do a gaussian elimination', () => {
+    it.only('should do a gaussian elimination', () => {
+        const a = [
+            [1, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+
+        const b = Matrix.gaussElimination(a);
+        assert.deepStrictEqual(b, [
+            [1, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]);
+    });
+
+    it.only('should check the type of row', () => {
+        const a = [
+            [2, 3, 2, -1],
+            [0, 1, 1, 1],
+            [0, 1, 0, 0],
+            [0, 0, 0, 0],
+        ];
+
+        assert.deepStrictEqual(Matrix.getRowType(a, 0), {
+            isReduced: false,
+            isPure: false,
+            isNull: false
+        });
+        assert.deepStrictEqual(Matrix.getRowType(a, 1), {
+            isReduced: true,
+            isPure: false,
+            isNull: false
+        });
+        assert.deepStrictEqual(Matrix.getRowType(a, 2), {
+            isReduced: true,
+            isPure: true,
+            isNull: false
+        });
+        assert.deepStrictEqual(Matrix.getRowType(a, 3), {
+            isReduced: true,
+            isPure: false,
+            isNull: true
+        });
+    });
+
+    it('should compute the kernel of a matrix', () => {
         const a = [
             [2, 2, 2, 2],
             [0, 1, 1, 1],
@@ -545,12 +598,10 @@ describe.only('Matrix', () => {
             [0, 0, 0, 0],
         ];
 
-        const b = Matrix.gaussElimination(a);
+        const b = Matrix.kernel(a);
         assert.deepStrictEqual(b, [
-            [1, 0, 0, 0],
-            [0, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
+            [0, 1, 1, -2],
+            [0, 1, 2, -3],
         ]);
     });
 

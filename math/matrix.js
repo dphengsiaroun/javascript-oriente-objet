@@ -296,12 +296,7 @@ class Matrix {
         // Gaussian elimination
         for (let i = 0; i < n; i++) {
             const next = [...aSeq[i]];
-            const index = aSeq[i].findIndex((r, j) => {
-                for (let j = 0; j < i; j++) {
-                    if (r[j] !== 0) {
-                        return false;
-                    }
-                }
+            const index = aSeq[i].slice(i).findIndex((r, j) => {
                 return r[i] !== 0;
             });
             if (index !== -1) {
@@ -320,6 +315,12 @@ class Matrix {
                     next[j] = next[j].map((c, k) => c - (next[j][i] * next[i][k]));
                 }
             }
+            for (let i = 0; i < n; i++) {
+                if (Matrix.getRowType(next, i).isNull) {
+                    const [row] = next.splice(i, 1);
+                    next.push(row);
+                }
+            }
             aSeq.push(next);
 
         }
@@ -328,8 +329,41 @@ class Matrix {
         return result;
     }
 
-    static isRowZero(a, i) {
-        return a[i].reduce((acc, n) => acc && n === 0, true);
+    /**
+     * isNull: true if there are only zero in the line, ie [0, 0, 0, 0]
+     * isReduced: true if the pivot is one, ie [0, 1, 2, 0]
+     * isPure: true if there are only zero after the pivot, ie [0, 1, 0, 0]
+     *
+     * @static
+     * @param {*} a the matrix to extract the line
+     * @param {*} i the row index
+     * @returns
+     * @memberof Matrix
+     */
+    static getRowType(a, i) {
+        const result = {
+            isNull: true,
+            isReduced: true,
+            isPure: false
+        };
+        let pivot = 0;
+        for (let j = 0; j < a[i].length; j++) {
+            if (a[i][j]) {
+                result.isNull = false;
+                if (pivot === 0) {
+                    pivot = a[i][j];
+                    if (pivot === 1) {
+                        result.isReduced = true;
+                        result.isPure = true;
+                    } else {
+                        result.isReduced = false;
+                    }
+                } else {
+                    result.isPure = false;
+                }
+            }
+        }
+        return result;
     }
 
     static isEchelonForm(a) {
@@ -407,32 +441,31 @@ class Matrix {
         return true;
     }
 
-    // static kernel(a) {
-    //     const result = [];
-    //     const n = a.length;
-    //     const t = Matrix.gaussElimination(a);
-    //     const zeroList = [];
-    //     for (let i = 0; i < n; i++) {
-    //         if (Matrix.isRowZero(t, i)) {
-    //             continue;
-    //         } 
-    //         const diagIndex = t[i].reduce((acc, n, i) => {
-    //             if (n === 0) {
-    //                 return acc;
-    //             }
-    //             if (n === 1 && acc === -1) {
-    //                 return i;
-    //             } 
-    //             return -1;
-    //         }, -1);
-    //         if (diagIndex !== -1) {
-    //             zeroList.push(diagIndex);
-    //         }
+    static kernel(a) {
+        const result = [];
+        const n = a.length;
+        const t = Matrix.gaussElimination(a);
+        const zeroList = [];
+        for (let i = 0; i < n; i++) {
+            const {
+                isReduced,
+                isPure,
+                isNull
+            } = Matrix.getRowType(t, i);
+            if (isNull) {
+                continue;
+            }
+            if (isPure) {
+                zeroList.push(diagIndex);
+            }
+            if (diagIndex !== -1) {
+                zeroList.push(diagIndex);
+            }
 
-    //     }
+        }
 
-    //     return result;
-    // }
+        return result;
+    }
 
 }
 
