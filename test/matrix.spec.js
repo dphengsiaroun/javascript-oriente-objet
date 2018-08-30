@@ -543,12 +543,12 @@ describe.only('Matrix', () => {
         assert.equal(Matrix.isReducedEchelonForm(b), true);
     });
 
-    it.only('should do a gaussian elimination', () => {
+    it('should do a gaussian elimination', () => {
         const a = [
             [2, 2, 0, 0],
             [0, 0, 1, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [1, 1, 0, 0],
+            [0, 0, 3, 0],
         ];
 
         const b = Matrix.gaussElimination(a);
@@ -560,7 +560,7 @@ describe.only('Matrix', () => {
         ]);
     });
 
-    it.only('should check the type of row', () => {
+    it('should check the type of row', () => {
         const a = [
             [2, 3, 2, -1],
             [0, 1, 1, 1],
@@ -590,7 +590,7 @@ describe.only('Matrix', () => {
         });
     });
 
-    it('should compute the kernel of a matrix', () => {
+    it.only('should compute the kernel of a matrix', () => {
         const a = [
             [2, 2, 2, 2],
             [0, 1, 1, 1],
@@ -600,8 +600,8 @@ describe.only('Matrix', () => {
 
         const b = Matrix.kernel(a);
         assert.deepStrictEqual(b, [
-            [0, 1, 1, -2],
-            [0, 1, 2, -3],
+            [0, -1, 1, 0],
+            [0, -1, 0, 1],
         ]);
     });
 

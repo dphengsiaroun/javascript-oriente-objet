@@ -296,14 +296,16 @@ class Matrix {
         // Gaussian elimination
         for (let i = 0; i < n; i++) {
             const next = [...aSeq[i]];
-            const index = aSeq[i].slice(i).findIndex((r, j) => {
-                return r[i] !== 0;
+            let index = aSeq[i].findIndex((r, j) => {
+                return r[i] !== 0 && j >= i;
             });
             if (index !== -1) {
                 // Swap the line index with i.
-                const tmp = next[index];
-                next[index] = next[i];
-                next[i] = tmp;
+                if (index !== i) {
+                    const tmp = next[index];
+                    next[index] = next[i];
+                    next[i] = tmp;
+                }
                 // Normalize the line.
                 next[i] = next[i].map((c, k) => c / next[i][i]);
                 // Add multiple of this equation to remaining 
@@ -315,16 +317,15 @@ class Matrix {
                     next[j] = next[j].map((c, k) => c - (next[j][i] * next[i][k]));
                 }
             }
-            for (let i = 0; i < n; i++) {
-                if (Matrix.getRowType(next, i).isNull) {
-                    const [row] = next.splice(i, 1);
-                    next.push(row);
-                }
-            }
             aSeq.push(next);
-
         }
         const result = aSeq[aSeq.length - 1];
+        for (let i = 0; i < n; i++) {
+            if (Matrix.getRowType(result, i).isNull) {
+                const [row] = result.splice(i, 1);
+                result.push(row);
+            }
+        }
         assert.equal(Matrix.isReducedEchelonForm(result), true);
         return result;
     }
@@ -455,18 +456,27 @@ class Matrix {
             if (isNull) {
                 continue;
             }
+            const {
+                index,
+                value
+            } = Matrix.getPivot(t, i);
             if (isPure) {
-                zeroList.push(diagIndex);
+                const index = Matrix.getPivot(t, i);
+                zeroList.push(index);
+            } else {
+                for (let j = index + 1; j < n; j++) {
+                    if (t[i][j] === 0) {
+                        continue;
+                    }
+                    const eigenvector = new Array(n).fill(0);
+                    eigenvector[j] = 1;
+                    eigenvector[index] = -t[i][j];
+                    result.push(eigenvector);
+                }
             }
-            if (diagIndex !== -1) {
-                zeroList.push(diagIndex);
-            }
-
         }
-
         return result;
     }
-
 }
 
 require('./matrix/decomposition')(Matrix);
