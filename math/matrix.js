@@ -266,32 +266,118 @@ class Matrix {
         }, []);
     }
 
-    static getEigenvectors(a) {
-        const n = a.length;
-        const eigenvalues = Matrix.getEigenvalues(a);
-        console.log('eigenvalues', eigenvalues);
-        console.log('a', a);
-        for (let item of eigenvalues) {
-            const l = item.ev;
-            console.log('l', l);
-            const a2 = Matrix.minus(a, Matrix.multiply(l, Matrix.identity(n)));
-            console.log('a2', a2);
-            console.log('det a2', Matrix.det(a2));
-            const order = item.order;
-            console.log('order', order);
-            const a3 = Matrix.findInversibleSubmatrix(a2, order);
-            console.log('a3', a3);
-            console.log('det a3', Matrix.det(a3));
-        }
-    }
+    // static getEigenvectors(a) {
+    //     const n = a.length;
+    //     const eigenvalues = Matrix.getEigenvalues(a);
+    //     console.log('eigenvalues', eigenvalues);
+    //     console.log('a', a);
+    //     for (let item of eigenvalues) {
+    //         const l = item.ev;
+    //         console.log('l', l);
+    //         const a2 = Matrix.minus(a, Matrix.multiply(l, Matrix.identity(n)));
+    //         console.log('a2', a2);
+    //         console.log('det a2', Matrix.det(a2));
+    //         const order = item.order;
+    //         console.log('order', order);
+    //         const a3 = Matrix.findInversibleSubmatrix(a2, order);
+    //         console.log('a3', a3);
+    //         console.log('det a3', Matrix.det(a3));
+    //     }
+    // }
 
-    static findInversibleSubmatrix(a) {
 
-    }
 
     static trace(a) {
         return a.reduce((acc, r, i) => acc + r[i], 0);
     }
+
+    static gaussElimination(a) {
+        const result = [];
+        const n = a.length;
+        const aSeq = [a];
+        // Gaussian elimination
+        for (let i = 0; i < n; i++) {
+            console.log('i', i);
+            const next = [...aSeq[i]];
+            const index = aSeq[i].findIndex((r, j) => {
+                for (let j = 0; j < i; j++) {
+                    if (r[j] !== 0) {
+                        return false;
+                    }
+                }
+                return r[i] !== 0;
+            });
+            if (index !== -1) {
+                // Swap the line index with i.
+                const tmp = next[index];
+                next[index] = next[i];
+                next[i] = tmp;
+                // Normalize the line.
+                next[i] = next[i].map((c, k) => c / next[i][i]);
+                // Add multiple of this equation to remaining 
+                // in order to eliminate the xi variable.
+                for (let j = 0; j < n; j++) {
+                    if (j === i) {
+                        continue;
+                    }
+                    console.log('j', j);
+                    next[j] = next[j].map((c, k) => c - (next[j][i] * next[i][k]));
+                }
+            }
+            aSeq.push(next);
+
+        }
+        console.log('aSeq', aSeq);
+        return aSeq[aSeq.length - 1];
+    }
+
+    static isRowZero(a, i) {
+        return a[i].reduce((acc, n) => acc && n === 0, true);
+    }
+
+    static isEchelonForm(a) {
+        let zeroTotal = -1;
+        for (let i = 0; i < a.length; i++) {
+            for (let j = 0; j < a.length; j++) {
+                if (a[i][j] !== 0) {
+                    if (j > zeroTotal) {
+                        zeroTotal = j;
+                        break;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    // static kernel(a) {
+    //     const result = [];
+    //     const n = a.length;
+    //     const t = Matrix.gaussElimination(a);
+    //     const zeroList = [];
+    //     for (let i = 0; i < n; i++) {
+    //         if (Matrix.isRowZero(t, i)) {
+    //             continue;
+    //         } 
+    //         const diagIndex = t[i].reduce((acc, n, i) => {
+    //             if (n === 0) {
+    //                 return acc;
+    //             }
+    //             if (n === 1 && acc === -1) {
+    //                 return i;
+    //             } 
+    //             return -1;
+    //         }, -1);
+    //         if (diagIndex !== -1) {
+    //             zeroList.push(diagIndex);
+    //         }
+
+    //     }
+
+    //     return result;
+    // }
 
 }
 

@@ -204,7 +204,7 @@ describe.only('Matrix', () => {
         assert.deepStrictEqual(Matrix.minus(Matrix.product(a, Matrix.inverse(a)), Matrix.identity(a.length)), Matrix.zero(a.length));
     }).timeout(1000000);
 
-    it('should solved the equation', () => {
+    it('should solve the equation', () => {
         const a = [
             [200, 1],
             [-180, 1]
@@ -483,6 +483,48 @@ describe.only('Matrix', () => {
         const trace = Matrix.trace(a);
         assert.equal(trace, 4);
     });
+
+    it('should check if isZeroRow', () => {
+        const a = [
+            [0, 2, 0],
+            [0, 0, 0],
+            [0, -4, 1],
+        ];
+        assert.equal(Matrix.isRowZero(a, 0), false);
+        assert.equal(Matrix.isRowZero(a, 1), true);
+        assert.equal(Matrix.isRowZero(a, 2), false);
+    });
+
+    it('should check echelon form', () => {
+        const a = [
+            [-8, 0, 0],
+            [2, 3, 4],
+            [0, 0, 5],
+        ];
+        const b = [
+            [3, 0, 0],
+            [0, 4, 5],
+            [0, 0, 6],
+        ];
+        assert.equal(Matrix.isEchelonForm(a), false);
+        assert.equal(Matrix.isEchelonForm(b), true);
+    });
+
+    // it.only('should solve an equation', () => {
+    //     const a = [
+    //         [1, 1, 1, 0],
+    //         [0, 1, 1, 1],
+    //         [0, 0, 0, 0],
+    //         [0, 0, 0, 0],
+    //     ];
+
+    //     const solutions = Matrix.kernel(a);
+    //     assert.deepStrictEqual(solutions, [
+    //         [1, 0, -2]
+    //     ]);
+    // });
+
+   
 
 
 
