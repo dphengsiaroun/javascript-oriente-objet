@@ -620,15 +620,19 @@ describe.only('Matrix', () => {
     it('should compute the eigenvectors', () => {
         const a = [
             [1, 2, 0],
-            [0, 1, 0],
+            [0, 3, 0],
             [2, -4, 2],
         ];
 
         const eigenvectors = Matrix.getEigenvectors(a);
-        assert.deepStrictEqual(eigenvectors, [
-            [-0.5, 0, 1],
-            [0, 0, 1]
-        ]);
+        for (let i = 0; i < eigenvectors.length; i++) {
+            for (let j = 0; j < eigenvectors[i].vectors.length; j++) {
+                const x = Matrix.transpose([eigenvectors[i].vectors[j]]);
+                const l = eigenvectors[i].value;
+                assert.deepStrictEqual(Matrix.product(a, x), Matrix.multiply(l, x));
+            }
+        }
+
     });
 
 });

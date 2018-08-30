@@ -430,32 +430,49 @@ class Matrix {
         const n = a.length;
         const t = Matrix.gaussElimination(a);
         for (let i = 0; i < n; i++) {
-            const {
-                isReduced,
-                isPure,
-                isNull
-            } = Matrix.getRowType(t, i);
-            const {
-                index,
-                value
-            } = Matrix.getPivot(t, i);
-            if ((!isNull) && (!isPure)) {
-                for (let j = index + 1; j < n; j++) {
-                    if (t[i][j] === 0) {
-                        continue;
-                    }
-                    const e = new Array(n).fill(0);
-                    e[j] = 1;
-                    e[index] = -t[i][j];
-                    result.push(e);
-                }
-            }
             // Test null column.
             const col = t.map(r => r[i]);
             if (Vector.euclideanNorm(col) === 0) {
                 const e = new Array(n).fill(0);
                 e[i] = 1;
                 result.push(e);
+            }
+        }
+        while (t.length > 0) {
+            const row = t.shift();
+            const {
+                isReduced,
+                isPure,
+                isNull
+            } = Matrix.getRowType([row], 0);
+            if (isNull) {
+                continue;
+            }
+            const {
+                index,
+                value
+            } = Matrix.getPivot([row], 0);
+            if (!isPure) {
+                for (let j = index + 1; j < n; j++) {
+                    if (row[j] === 0) {
+                        continue;
+                    }
+                    const e = new Array(n).fill(0);
+                    e[j] = 1;
+                    
+                    // loop on all line with col j not null
+                    for (let k = 0; k < t.length; k++) {
+                        if (t[k][j] === 0) {
+                            continue;
+                        }
+                        const r = t.shift();
+                        k--;
+                        const pivotIndex = Matrix.getPivot([r], 0).index;
+                        e[pivotIndex] = -row[j];
+                    }
+                    e[index] = -row[j];
+                    result.push(e);
+                }
             }
         }
         return result;
@@ -469,7 +486,10 @@ class Matrix {
             const l = item.ev;
             const a2 = Matrix.minus(a, Matrix.multiply(l, Matrix.identity(n)));
             const evs = Matrix.kernel(a2);
-            result = result.concat(evs);
+            result.push({
+                value: l,
+                vectors: evs
+            });
         }
         return result;
     }
