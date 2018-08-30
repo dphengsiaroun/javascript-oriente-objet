@@ -468,10 +468,10 @@ class Matrix {
                     if (t[i][j] === 0) {
                         continue;
                     }
-                    const eigenvector = new Array(n).fill(0);
-                    eigenvector[j] = 1;
-                    eigenvector[index] = -t[i][j];
-                    result.push(eigenvector);
+                    const e = new Array(n).fill(0);
+                    e[j] = 1;
+                    e[index] = -t[i][j];
+                    result.push(e);
                 }
             }
         }
