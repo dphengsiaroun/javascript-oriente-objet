@@ -7,6 +7,10 @@ const {
 } = require('./polynomial');
 
 const {
+    Vector
+} = require('./vector');
+
+const {
     round
 } = require('./decimal');
 
@@ -265,27 +269,6 @@ class Matrix {
         }, []);
     }
 
-    // static getEigenvectors(a) {
-    //     const n = a.length;
-    //     const eigenvalues = Matrix.getEigenvalues(a);
-    //     console.log('eigenvalues', eigenvalues);
-    //     console.log('a', a);
-    //     for (let item of eigenvalues) {
-    //         const l = item.ev;
-    //         console.log('l', l);
-    //         const a2 = Matrix.minus(a, Matrix.multiply(l, Matrix.identity(n)));
-    //         console.log('a2', a2);
-    //         console.log('det a2', Matrix.det(a2));
-    //         const order = item.order;
-    //         console.log('order', order);
-    //         const a3 = Matrix.findInversibleSubmatrix(a2, order);
-    //         console.log('a3', a3);
-    //         console.log('det a3', Matrix.det(a3));
-    //     }
-    // }
-
-
-
     static trace(a) {
         return a.reduce((acc, r, i) => acc + r[i], 0);
     }
@@ -307,14 +290,14 @@ class Matrix {
                     next[i] = tmp;
                 }
                 // Normalize the line.
-                next[i] = next[i].map((c, k) => c / next[i][i]);
+                next[i] = next[i].map((c, k) => round(c / next[i][i]));
                 // Add multiple of this equation to remaining 
                 // in order to eliminate the xi variable.
                 for (let j = 0; j < n; j++) {
                     if (j === i) {
                         continue;
                     }
-                    next[j] = next[j].map((c, k) => c - (next[j][i] * next[i][k]));
+                    next[j] = next[j].map((c, k) => round(c - (next[j][i] * next[i][k])));
                 }
             }
             aSeq.push(next);
@@ -446,24 +429,17 @@ class Matrix {
         const result = [];
         const n = a.length;
         const t = Matrix.gaussElimination(a);
-        const zeroList = [];
         for (let i = 0; i < n; i++) {
             const {
                 isReduced,
                 isPure,
                 isNull
             } = Matrix.getRowType(t, i);
-            if (isNull) {
-                continue;
-            }
             const {
                 index,
                 value
             } = Matrix.getPivot(t, i);
-            if (isPure) {
-                const index = Matrix.getPivot(t, i);
-                zeroList.push(index);
-            } else {
+            if ((!isNull) && (!isPure)) {
                 for (let j = index + 1; j < n; j++) {
                     if (t[i][j] === 0) {
                         continue;
@@ -474,6 +450,26 @@ class Matrix {
                     result.push(e);
                 }
             }
+            // Test null column.
+            const col = t.map(r => r[i]);
+            if (Vector.euclideanNorm(col) === 0) {
+                const e = new Array(n).fill(0);
+                e[i] = 1;
+                result.push(e);
+            }
+        }
+        return result;
+    }
+
+    static getEigenvectors(a) {
+        const n = a.length;
+        const eigenvalues = Matrix.getEigenvalues(a);
+        let result = [];
+        for (let item of eigenvalues) {
+            const l = item.ev;
+            const a2 = Matrix.minus(a, Matrix.multiply(l, Matrix.identity(n)));
+            const evs = Matrix.kernel(a2);
+            result = result.concat(evs);
         }
         return result;
     }

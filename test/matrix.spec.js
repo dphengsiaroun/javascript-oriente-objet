@@ -605,6 +605,21 @@ describe.only('Matrix', () => {
         ]);
     });
 
+    it('should compute the kernel of a matrix', () => {
+        const a = [
+            [2, 2, 2, 2],
+            [0, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ];
+
+        const b = Matrix.kernel(a);
+        assert.deepStrictEqual(b, [
+            [0, -1, 1, 0],
+            [0, -1, 0, 1],
+        ]);
+    });
+
     it('should compute the eigenvectors', () => {
         const a = [
             [1, 2, 0],
@@ -613,7 +628,7 @@ describe.only('Matrix', () => {
         ];
 
         const eigenvectors = Matrix.getEigenvectors(a);
-        assert.deepStrictEqual(eigenvectors, [1, 2, 3]);
+        assert.deepStrictEqual(eigenvectors, [ [ -0.5, 0, 1 ], [ 0, 0, 1 ] ]);
     });
 
 });
