@@ -632,6 +632,12 @@ describe.only('Matrix', () => {
                 assert.deepStrictEqual(Matrix.product(a, x), Matrix.multiply(l, x));
             }
         }
+        const p = Matrix.transpose(eigenvectors.reduce((acc, o) => acc.concat(o.vectors), []));
+        console.log('p', p);
+        const pInverse = Matrix.inverse(p);
+        const d = Matrix.product(pInverse, a, p);
+        console.log('d', d);
+
 
     });
 
