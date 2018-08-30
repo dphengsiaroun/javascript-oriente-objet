@@ -68,7 +68,6 @@ class Matrix {
 
     static getSize(arr) {
         Matrix.check(arr);
-        // console.log('size', [arr.length, arr[0].length]);
         return [arr.length, arr[0].length];
     }
 
@@ -325,7 +324,7 @@ class Matrix {
 
         }
         const result = aSeq[aSeq.length - 1];
-        assert.equal(Matrix.isEchelonForm(result), true);
+        assert.equal(Matrix.isReducedEchelonForm(result), true);
         return result;
     }
 
@@ -343,7 +342,7 @@ class Matrix {
             if (value === undefined) {
                 index = a[i].length;
             }
-            if (index > zeroTotal) {
+            if (index > zeroTotal || index === a[i].length) {
                 zeroTotal = index;
             } else {
                 return false;
@@ -379,7 +378,7 @@ class Matrix {
             if (value === undefined) {
                 index = a[i].length;
             }
-            if (index > zeroTotal) {
+            if (index > zeroTotal || index === a[i].length) {
                 zeroTotal = index;
             } else {
                 return false;
@@ -395,7 +394,6 @@ class Matrix {
                     for (let k = i + 1; k < a.length; k++) {
                         const index = Matrix.getPivot(a, i).index;
                         if (index === j) {
-                            console.log('found a pivot');
                             return false;
                         }
                         if (index > j) {

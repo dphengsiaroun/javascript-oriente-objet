@@ -502,9 +502,10 @@ describe.only('Matrix', () => {
             [0, 0, 5],
         ];
         const b = [
-            [3, 0, 0],
-            [0, 4, 5],
-            [0, 0, 6],
+            [1, 0, 0, 0],
+            [0, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
         ];
         assert.equal(Matrix.isEchelonForm(a), false);
         assert.equal(Matrix.isEchelonForm(b), true);
@@ -527,9 +528,10 @@ describe.only('Matrix', () => {
             [0, 0, 6],
         ];
         const b = [
-            [1, 0, 0],
-            [0, 1, 5],
-            [0, 0, 0],
+            [1, 0, 0, 0],
+            [0, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
         ];
         assert.equal(Matrix.isReducedEchelonForm(a), false);
         assert.equal(Matrix.isReducedEchelonForm(b), true);
@@ -545,7 +547,7 @@ describe.only('Matrix', () => {
 
         const b = Matrix.gaussElimination(a);
         assert.deepStrictEqual(b, [
-            [1, 0, 0, -1],
+            [1, 0, 0, 0],
             [0, 1, 1, 1],
             [0, 0, 0, 0],
             [0, 0, 0, 0]
