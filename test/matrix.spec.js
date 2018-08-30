@@ -605,21 +605,6 @@ describe.only('Matrix', () => {
         ]);
     });
 
-    it('should compute the kernel of a matrix', () => {
-        const a = [
-            [2, 2, 2, 2],
-            [0, 1, 1, 1],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ];
-
-        const b = Matrix.kernel(a);
-        assert.deepStrictEqual(b, [
-            [0, -1, 1, 0],
-            [0, -1, 0, 1],
-        ]);
-    });
-
     it('should compute the rank of a matrix', () => {
         const a = [
             [1, 0, 2, 3],
